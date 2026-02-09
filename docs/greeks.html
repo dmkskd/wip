@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gods & Civilizations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Start Screen */
+        .start-screen {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .game-title {
+            font-size: 3em;
+            color: #ffd700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        .game-subtitle {
+            font-size: 1.3em;
+            color: #87ceeb;
+            margin-bottom: 40px;
+        }
+
+        .temple-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .level-select {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .level-btn {
+            padding: 20px 30px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .level-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .cakewalk { background: linear-gradient(135deg, #a8e6cf, #88d8b0); color: #2d5a3d; }
+        .easy { background: linear-gradient(135deg, #88d8ff, #5bc0de); color: #1a5276; }
+        .ok { background: linear-gradient(135deg, #ffd93d, #f0ad4e); color: #7d5a00; }
+        .hard { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: #5a1a1a; }
+
+        /* Game Screen */
+        .game-screen {
+            display: none;
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .level-indicator {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .score-display {
+            font-size: 1.1em;
+            color: #87ceeb;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffed4a);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .question-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .question-type {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(255,215,0,0.3);
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .answer-btn {
+            padding: 18px 25px;
+            font-size: 1.15em;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .answer-btn:hover {
+            background: rgba(255,255,255,0.25);
+            border-color: #ffd700;
+            transform: translateX(8px);
+        }
+
+        .answer-btn.correct {
+            background: rgba(46, 204, 113, 0.5);
+            border-color: #2ecc71;
+        }
+
+        .answer-btn.incorrect {
+            background: rgba(231, 76, 60, 0.5);
+            border-color: #e74c3c;
+        }
+
+        .answer-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        /* Matching Game */
+        .matching-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .matching-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .matching-column h4 {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 8px;
+        }
+
+        .match-item {
+            padding: 14px 22px;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 130px;
+        }
+
+        .match-item:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .match-item.selected {
+            border-color: #ffd700;
+            background: rgba(255,215,0,0.3);
+        }
+
+        .match-item.matched {
+            border-color: #2ecc71;
+            background: rgba(46,204,113,0.3);
+        }
+
+        .match-item.wrong {
+            border-color: #e74c3c;
+            background: rgba(231,76,60,0.3);
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* Unscramble */
+        .scrambled-word {
+            font-size: 2.2em;
+            color: #ffd700;
+            text-align: center;
+            letter-spacing: 10px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .unscramble-input {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.4em;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .unscramble-input:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-top: 18px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #ffd700, #ffed4a);
+            border: none;
+            border-radius: 12px;
+            color: #1a1a2e;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(255,215,0,0.4);
+        }
+
+        /* Write Your Own */
+        .write-input {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1em;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .write-input:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+
+        /* Feedback */
+        .feedback {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: rgba(46,204,113,0.3);
+            border: 2px solid #2ecc71;
+        }
+
+        .feedback.incorrect {
+            background: rgba(231,76,60,0.3);
+            border: 2px solid #e74c3c;
+        }
+
+        .feedback.neutral {
+            background: rgba(52,152,219,0.3);
+            border: 2px solid #3498db;
+        }
+
+        .fun-fact {
+            background: rgba(155,89,182,0.3);
+            border: 2px solid #9b59b6;
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 18px;
+            display: none;
+        }
+
+        .fun-fact-title {
+            color: #d4a5ff;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .next-btn {
+            display: none;
+            width: 100%;
+            padding: 18px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #3498db, #5dade2);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.03);
+        }
+
+        /* City Display */
+        .city-container {
+            background: linear-gradient(180deg, #87ceeb 0%, #98d8c8 50%, #7cb342 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 25px;
+            min-height: 140px;
+        }
+
+        .city-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 18px;
+            font-size: 1.2em;
+        }
+
+        .city-items {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            font-size: 2.8em;
+        }
+
+        .city-item {
+            animation: pop 0.5s ease;
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* Complete Screen */
+        .complete-screen {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .complete-title {
+            font-size: 2.8em;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .complete-score {
+            font-size: 1.5em;
+            color: #87ceeb;
+            margin-bottom: 30px;
+        }
+
+        .final-city {
+            background: linear-gradient(180deg, #87ceeb 0%, #98d8c8 50%, #7cb342 100%);
+            border-radius: 20px;
+            padding: 35px;
+            margin: 30px 0;
+        }
+
+        .final-city-items {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 3.5em;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ffd700, #ffed4a);
+            color: #1a1a2e;
+            border-radius: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 25px 0;
+        }
+
+        .play-again-btn {
+            padding: 18px 50px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .play-again-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Order Puzzle */
+        .order-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+
+        .order-item:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .order-item.dragging {
+            opacity: 0.5;
+            border-color: #ffd700;
+        }
+
+        .order-number {
+            width: 30px;
+            height: 30px;
+            background: #ffd700;
+            color: #1a1a2e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Who Am I */
+        .clues-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .clues-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .clues-list li::before {
+            content: "💡";
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 600px) {
+            .game-title { font-size: 2em; }
+            .question-text { font-size: 1.2em; }
+            .matching-container { flex-direction: column; align-items: center; }
+            .city-items { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <div class="temple-icon">🏛️</div>
+            <h1 class="game-title">Gods & Civilizations</h1>
+            <p class="game-subtitle">Journey to Ancient Greece & Rome!</p>
+            <div class="level-select">
+                <button class="level-btn cakewalk" onclick="startGame('cakewalk')">🍰 CAKEWALK</button>
+                <button class="level-btn easy" onclick="startGame('easy')">😊 EASY</button>
+                <button class="level-btn ok" onclick="startGame('ok')">👍 OK</button>
+                <button class="level-btn hard" onclick="startGame('hard')">🔥 HARD</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            <div class="game-header">
+                <span class="level-indicator" id="levelIndicator">🍰 CAKEWALK</span>
+                <span class="score-display">Score: <span id="scoreDisplay">0</span></span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="question-card" id="questionCard">
+                <!-- Question content goes here -->
+            </div>
+            <div class="feedback" id="feedback"></div>
+            <div class="fun-fact" id="funFact">
+                <div class="fun-fact-title">✨ Fun Fact!</div>
+                <div id="funFactText"></div>
+            </div>
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+            
+            <div class="city-container">
+                <div class="city-title">🏙️ Your Ancient City</div>
+                <div class="city-items" id="cityItems"></div>
+            </div>
+        </div>
+
+        <!-- Complete Screen -->
+        <div class="complete-screen" id="completeScreen">
+            <h1 class="complete-title">🎉 Level Complete! 🎉</h1>
+            <p class="complete-score">You scored <span id="finalScore">0</span> out of <span id="totalQuestions">0</span>!</p>
+            <div class="badge" id="badge">🏆 Master Explorer</div>
+            <div class="final-city">
+                <div class="city-title" style="color: #2c3e50; font-size: 1.3em;">Your Completed City</div>
+                <div class="final-city-items" id="finalCityItems"></div>
+            </div>
+            <button class="play-again-btn" onclick="backToMenu()">🏠 Back to Menu</button>
+        </div>
+    </div>
+
+    <script>
+        // Game Data
+        const gameData = {
+            cakewalk: {
+                name: "🍰 CAKEWALK",
+                color: "#a8e6cf",
+                questions: [
+                    {
+                        type: "truefalse",
+                        question: "Zeus is the king of the gods.",
+                        answer: true,
+                        funFact: "Zeus lived on top of Mount Olympus, the highest mountain in Greece!"
+                    },
+                    {
+                        type: "yesno",
+                        question: "Did Poseidon live in the ocean?",
+                        answer: "yes",
+                        funFact: "Poseidon had a magical trident that could create earthquakes and storms!"
+                    },
+                    {
+                        type: "unscramble",
+                        question: "Unscramble this god's name:",
+                        scrambled: "SEUZ",
+                        answer: "ZEUS",
+                        funFact: "Zeus could throw lightning bolts like javelins!"
+                    },
+                    {
+                        type: "matching",
+                        question: "Match each god to their power:",
+                        pairs: [
+                            { left: "Zeus", right: "⚡ Lightning" },
+                            { left: "Poseidon", right: "🌊 Ocean" }
+                        ],
+                        funFact: "Zeus and Poseidon were brothers!"
+                    },
+                    {
+                        type: "write",
+                        question: "If you were a god, what power would you have?",
+                        funFact: "Ancient Greeks believed there were 12 main gods called the Olympians!"
+                    },
+                    {
+                        type: "truefalse",
+                        question: "Gods are magical.",
+                        answer: true,
+                        funFact: "The gods could change their shape and become animals or even people!"
+                    },
+                    {
+                        type: "yesno",
+                        question: "Is Mount Olympus a mountain?",
+                        answer: "yes",
+                        funFact: "Mount Olympus is a real mountain in Greece that you can still visit today!"
+                    }
+                ],
+                rewards: ["🏛️", "🗿", "🌳"]
+            },
+            easy: {
+                name: "😊 EASY",
+                color: "#88d8ff",
+                questions: [
+                    {
+                        type: "truefalse",
+                        question: "Hermes had wings on his sandals so he could fly.",
+                        answer: true,
+                        funFact: "Hermes was the messenger of the gods and could travel super fast!"
+                    },
+                    {
+                        type: "truefalse",
+                        question: "Apollo was the god of darkness.",
+                        answer: false,
+                        correctInfo: "Apollo was the god of the sun and music!",
+                        funFact: "Apollo drove a golden chariot across the sky every day to bring sunlight!"
+                    },
+                    {
+                        type: "yesno",
+                        question: "Was Athena's special animal an owl?",
+                        answer: "yes",
+                        funFact: "Owls were symbols of wisdom, just like Athena!"
+                    },
+                    {
+                        type: "yesno",
+                        question: "Did ancient Greeks drive cars?",
+                        answer: "no",
+                        funFact: "Ancient Greeks traveled by walking, riding horses, or sailing boats!"
+                    },
+                    {
+                        type: "matching",
+                        question: "Match the god to their symbol:",
+                        pairs: [
+                            { left: "Athena", right: "🦉 Owl" },
+                            { left: "Poseidon", right: "🔱 Trident" },
+                            { left: "Zeus", right: "⚡ Lightning" }
+                        ],
+                        funFact: "Each god had special symbols that people used to recognize them!"
+                    },
+                    {
+                        type: "unscramble",
+                        question: "Unscramble this goddess's name:",
+                        scrambled: "AAENHT",
+                        answer: "ATHENA",
+                        funFact: "The city of Athens was named after the goddess Athena!"
+                    },
+                    {
+                        type: "write",
+                        question: "What gift would you bring to a temple for the gods?",
+                        funFact: "Ancient Greeks brought food, flowers, and precious items to temple as gifts!"
+                    }
+                ],
+                rewards: ["🏛️", "⛲", "🏺", "🌺"]
+            },
+            ok: {
+                name: "👍 OK",
+                color: "#ffd93d",
+                questions: [
+                    {
+                        type: "truefalse",
+                        question: "The Romans called Poseidon 'Neptune.'",
+                        answer: true,
+                        funFact: "The Romans loved Greek culture so much they adopted their gods with new names!"
+                    },
+                    {
+                        type: "truefalse",
+                        question: "Mount Olympus is in Italy.",
+                        answer: false,
+                        correctInfo: "Mount Olympus is in Greece!",
+                        funFact: "Mount Olympus is about 9,570 feet tall - almost 2 miles high!"
+                    },
+                    {
+                        type: "yesno",
+                        question: "Did the ancient Greeks start the Olympic games?",
+                        answer: "yes",
+                        funFact: "The first Olympics were held in 776 BC - that's almost 3,000 years ago!"
+                    },
+                    {
+                        type: "yesno",
+                        question: "Was Cerberus a three-headed dog who guarded the underworld?",
+                        answer: "yes",
+                        funFact: "Cerberus made sure no one could escape from the underworld!"
+                    },
+                    {
+                        type: "matching",
+                        question: "Match the Greek god to their Roman name:",
+                        pairs: [
+                            { left: "Zeus", right: "Jupiter" },
+                            { left: "Ares", right: "Mars" },
+                            { left: "Poseidon", right: "Neptune" }
+                        ],
+                        funFact: "Many planets are named after Roman gods, like Mars and Neptune!"
+                    },
+                    {
+                        type: "unscramble",
+                        question: "Unscramble this hero's name:",
+                        scrambled: "HECRULSE",
+                        answer: "HERCULES",
+                        funFact: "Hercules was famous for completing 12 impossible tasks called labors!"
+                    },
+                    {
+                        type: "write",
+                        question: "Describe what you think Mount Olympus looks like.",
+                        funFact: "Ancient Greeks imagined Mount Olympus had golden palaces where the gods lived!"
+                    }
+                ],
+                rewards: ["🏛️", "🗿", "⛲", "🏺", "🌳"]
+            },
+            hard: {
+                name: "🔥 HARD",
+                color: "#ff6b6b",
+                questions: [
+                    {
+                        type: "truefalse",
+                        question: "The Parthenon was built to honor Athena.",
+                        answer: true,
+                        funFact: "The Parthenon had a 40-foot tall statue of Athena inside made of gold and ivory!"
+                    },
+                    {
+                        type: "truefalse",
+                        question: "Athens was named after the god Apollo.",
+                        answer: false,
+                        correctInfo: "Athens was named after the goddess Athena!",
+                        funFact: "Athena won a contest against Poseidon to become the city's protector!"
+                    },
+                    {
+                        type: "yesno",
+                        question: "Did the Trojan Horse help the Greeks win a war?",
+                        answer: "yes",
+                        funFact: "Greek soldiers hid inside the wooden horse and snuck into the city of Troy!"
+                    },
+                    {
+                        type: "yesno",
+                        question: "Was Achilles impossible to hurt everywhere on his body?",
+                        answer: "no",
+                        funFact: "Achilles had one weak spot - his heel! That's where we get the term 'Achilles heel.'"
+                    },
+                    {
+                        type: "whoami",
+                        question: "Who Am I?",
+                        clues: [
+                            "I am a powerful god",
+                            "I carry a trident",
+                            "I control the seas and oceans",
+                            "Sailors pray to me for safe voyages",
+                            "My Roman name is Neptune"
+                        ],
+                        options: ["Zeus", "Poseidon", "Hades", "Apollo"],
+                        answer: "Poseidon",
+                        funFact: "Poseidon created horses as a gift to humans!"
+                    },
+                    {
+                        type: "order",
+                        question: "Put these events in order from oldest to newest:",
+                        items: [
+                            { text: "First Olympic Games (776 BC)", order: 1 },
+                            { text: "Building of the Parthenon (438 BC)", order: 2 },
+                            { text: "Fall of Rome (476 AD)", order: 3 }
+                        ],
+                        funFact: "The Roman Empire lasted for over 1,000 years!"
+                    },
+                    {
+                        type: "matching",
+                        question: "Match the hero to their famous story:",
+                        pairs: [
+                            { left: "Hercules", right: "12 Labors" },
+                            { left: "Perseus", right: "Defeated Medusa" },
+                            { left: "Odysseus", right: "Trojan Horse" }
+                        ],
+                        funFact: "These heroes went on amazing adventures that people still tell stories about today!"
+                    },
+                    {
+                        type: "write",
+                        question: "Tell the story of the Trojan Horse in your own words.",
+                        funFact: "The Trojan War lasted for 10 years before the Greeks thought of the horse trick!"
+                    }
+                ],
+                rewards: ["✨", "🏛️", "🗿", "⛲", "🏺", "🌳", "👑"]
+            }
+        };
+
+        // Game State
+        let currentLevel = null;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let cityItems = [];
+        let selectedMatch = null;
+        let matchedPairs = 0;
+
+        function startGame(level) {
+            currentLevel = level;
+            currentQuestionIndex = 0;
+            score = 0;
+            cityItems = [];
+            
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+            document.getElementById('completeScreen').style.display = 'none';
+            
+            document.getElementById('levelIndicator').textContent = gameData[level].name;
+            document.getElementById('scoreDisplay').textContent = '0';
+            document.getElementById('cityItems').innerHTML = '';
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const levelData = gameData[currentLevel];
+            const question = levelData.questions[currentQuestionIndex];
+            const totalQuestions = levelData.questions.length;
+            
+            // Update progress
+            const progress = (currentQuestionIndex / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Hide feedback and next button
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('funFact').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            // Reset matching state
+            selectedMatch = null;
+            matchedPairs = 0;
+            
+            const questionCard = document.getElementById('questionCard');
+            
+            switch(question.type) {
+                case 'truefalse':
+                    questionCard.innerHTML = `
+                        <span class="question-type">True or False</span>
+                        <p class="question-text">${question.question}</p>
+                        <div class="answers">
+                            <button class="answer-btn" onclick="checkTrueFalse(true)">✓ TRUE</button>
+                            <button class="answer-btn" onclick="checkTrueFalse(false)">✗ FALSE</button>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'yesno':
+                    questionCard.innerHTML = `
+                        <span class="question-type">Yes or No</span>
+                        <p class="question-text">${question.question}</p>
+                        <div class="answers">
+                            <button class="answer-btn" onclick="checkYesNo('yes')">👍 YES</button>
+                            <button class="answer-btn" onclick="checkYesNo('no')">👎 NO</button>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'unscramble':
+                    questionCard.innerHTML = `
+                        <span class="question-type">Unscramble</span>
+                        <p class="question-text">${question.question}</p>
+                        <div class="scrambled-word">${question.scrambled}</div>
+                        <input type="text" class="unscramble-input" id="unscrambleInput" placeholder="Type your answer..." maxlength="15">
+                        <button class="submit-btn" onclick="checkUnscramble()">Check Answer</button>
+                    `;
+                    document.getElementById('unscrambleInput').addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') checkUnscramble();
+                    });
+                    break;
+                    
+                case 'matching':
+                    let leftItems = question.pairs.map((p, i) => `<div class="match-item" onclick="selectMatch('left', ${i}, this)">${p.left}</div>`).join('');
+                    let rightItems = [...question.pairs].sort(() => Math.random() - 0.5)
+                        .map((p, i) => `<div class="match-item" onclick="selectMatch('right', '${p.right}', this)">${p.right}</div>`).join('');
+                    
+                    questionCard.innerHTML = `
+                        <span class="question-type">Matching</span>
+                        <p class="question-text">${question.question}</p>
+                        <div class="matching-container">
+                            <div class="matching-column">
+                                <h4>Gods/Heroes</h4>
+                                ${leftItems}
+                            </div>
+                            <div class="matching-column">
+                                <h4>Match With</h4>
+                                ${rightItems}
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'write':
+                    questionCard.innerHTML = `
+                        <span class="question-type">Write Your Own Answer</span>
+                        <p class="question-text">${question.question}</p>
+                        <textarea class="write-input" id="writeInput" placeholder="Write your answer here..."></textarea>
+                        <button class="submit-btn" onclick="checkWrite()">Submit Answer</button>
+                    `;
+                    break;
+                    
+                case 'whoami':
+                    let cluesList = question.clues.map(c => `<li>${c}</li>`).join('');
+                    let optionBtns = question.options.map(o => `<button class="answer-btn" onclick="checkWhoAmI('${o}')">${o}</button>`).join('');
+                    
+                    questionCard.innerHTML = `
+                        <span class="question-type">Who Am I?</span>
+                        <p class="question-text">${question.question}</p>
+                        <ul class="clues-list">${cluesList}</ul>
+                        <div class="answers">${optionBtns}</div>
+                    `;
+                    break;
+                    
+                case 'order':
+                    let shuffled = [...question.items].sort(() => Math.random() - 0.5);
+                    let orderItems = shuffled.map((item, i) => `
+                        <div class="order-item" draggable="true" data-order="${item.order}">
+                            <span class="order-number">${i + 1}</span>
+                            <span>${item.text}</span>
+                        </div>
+                    `).join('');
+                    
+                    questionCard.innerHTML = `
+                        <span class="question-type">Put In Order</span>
+                        <p class="question-text">${question.question}</p>
+                        <div class="order-list" id="orderList">${orderItems}</div>
+                        <button class="submit-btn" onclick="checkOrder()">Check Order</button>
+                    `;
+                    setupDragAndDrop();
+                    break;
+            }
+        }
+
+        function checkTrueFalse(answer) {
+            const question = gameData[currentLevel].questions[currentQuestionIndex];
+            const correct = answer === question.answer;
+            showFeedback(correct, question);
+            disableButtons();
+        }
+
+        function checkYesNo(answer) {
+            const question = gameData[currentLevel].questions[currentQuestionIndex];
+            const correct = answer === question.answer;
+            showFeedback(correct, question);
+            disableButtons();
+        }
+
+        function checkUnscramble() {
+            const question = gameData[currentLevel].questions[currentQuestionIndex];
+            const userAnswer = document.getElementById('unscrambleInput').value.toUpperCase().trim();
+            const correct = userAnswer === question.answer;
+            showFeedback(correct, question);
+            document.getElementById('unscrambleInput').disabled = true;
+            document.querySelector('.submit-btn').disabled = true;
+        }
+
+        function selectMatch(side, value, element) {
+            if (element.classList.contains('matched')) return;
+            
+            const question = gameData[currentLevel].questions[currentQuestionIndex];
+            
+            if (selectedMatch === null) {
+                selectedMatch = { side, value, element };
+                element.classList.add('selected');
+            } else if (selectedMatch.side === side) {
+                selectedMatch.element.classList.remove('selected');
+                selectedMatch = { side, value, element };
+                element.classList.add('selected');
+            } else {
+                // Check if match is correct
+                let isCorrect = false;
+                if (selectedMatch.side === 'left') {
+                    const pair = question.pairs[selectedMatch.value];
+                    isCorrect = pair.right === value;
+                } else {
+                    const pair = question.pairs[value];
+                    isCorrect = pair.right === selectedMatch.value;
+                }
+                
+                if (isCorrect) {
+                    selectedMatch.element.classList.remove('selected');
+                    selectedMatch.element.classList.add('matched');
+                    element.classList.add('matched');
+                    matchedPairs++;
+                    
+                    if (matchedPairs === question.pairs.length) {
+                        showFeedback(true, question);
+                    }
+                } else {
+                    selectedMatch.element.classList.add('wrong');
+                    element.classList.add('wrong');
+                    setTimeout(() => {
+                        selectedMatch.element.classList.remove('wrong', 'selected');
+                        element.classList.remove('wrong');
+                        selectedMatch = null;
+                    }, 500);
+                    return;
+                }
+                selectedMatch = null;
+            }
+        }
+
+        function checkWrite() {
+            const question = gameData[currentLevel].questions[currentQuestionIndex];
+            const userAnswer = document.getElementById('writeInput').value.trim();
+            
+            if (userAnswer.length > 0) {
+                showFeedback('neutral', question, "Great answer! There's no wrong answer for this one.");
+                document.getElementById('writeInput').disabled = true;
+                document.querySelector('.submit-btn').disabled = true;
+            }
+        }
+
+        function checkWhoAmI(answer) {
+            const question = gameData[currentLevel].questions[currentQuestionIndex];
+            const correct = answer === question.answer;
+            showFeedback(correct, question);
+            disableButtons();
+        }
+
+        function setupDragAndDrop() {
+            const orderList = document.getElementById('orderList');
+            const items = orderList.querySelectorAll('.order-item');
+            
+            items.forEach(item => {
+                item.addEventListener('dragstart', () => {
+                    item.classList.add('dragging');
+                });
+                
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('dragging');
+                    updateOrderNumbers();
+                });
+            });
+            
+            orderList.addEventListener('dragover', e => {
+                e.preventDefault();
+                const dragging = document.querySelector('.dragging');
+                const siblings = [...orderList.querySelectorAll('.order-item:not(.dragging)')];
+                const nextSibling = siblings.find(sibling => {
+                    const box = sibling.getBoundingClientRect();
+                    return e.clientY < box.top + box.height / 2;
+                });
+                orderList.insertBefore(dragging, nextSibling);
+            });
+        }
+
+        function updateOrderNumbers() {
+            const items = document.querySelectorAll('.order-item');
+            items.forEach((item, index) => {
+                item.querySelector('.order-number').textContent = index + 1;
+            });
+        }
+
+        function checkOrder() {
+            const question = gameData[currentLevel].questions[currentQuestionIndex];
+            const items = document.querySelectorAll('.order-item');
+            let correct = true;
+            
+            items.forEach((item, index) => {
+                const expectedOrder = index + 1;
+                const actualOrder = parseInt(item.dataset.order);
+                if (expectedOrder !== actualOrder) correct = false;
+            });
+            
+            showFeedback(correct, question);
+            document.querySelector('.submit-btn').disabled = true;
+        }
+
+        function disableButtons() {
+            document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
+        }
+
+        function showFeedback(correct, question, customMessage = null) {
+            const feedback = document.getElementById('feedback');
+            const funFact = document.getElementById('funFact');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (correct === 'neutral') {
+                feedback.className = 'feedback neutral';
+                feedback.innerHTML = `✨ ${customMessage}`;
+                score++;
+            } else if (correct) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '🎉 Correct! Great job!';
+                score++;
+                addCityItem();
+            } else {
+                feedback.className = 'feedback incorrect';
+                let message = '❌ Not quite!';
+                if (question.correctInfo) {
+                    message += ` ${question.correctInfo}`;
+                }
+                feedback.innerHTML = message;
+            }
+            
+            feedback.style.display = 'block';
+            document.getElementById('scoreDisplay').textContent = score;
+            
+            // Show fun fact
+            document.getElementById('funFactText').textContent = question.funFact;
+            funFact.style.display = 'block';
+            
+            // Show next button
+            const levelData = gameData[currentLevel];
+            if (currentQuestionIndex < levelData.questions.length - 1) {
+                nextBtn.textContent = 'Next Question →';
+            } else {
+                nextBtn.textContent = '🏆 See Results!';
+            }
+            nextBtn.style.display = 'block';
+        }
+
+        function addCityItem() {
+            const levelData = gameData[currentLevel];
+            const rewardIndex = cityItems.length % levelData.rewards.length;
+            const reward = levelData.rewards[rewardIndex];
+            cityItems.push(reward);
+            
+            const cityContainer = document.getElementById('cityItems');
+            const itemSpan = document.createElement('span');
+            itemSpan.className = 'city-item';
+            itemSpan.textContent = reward;
+            cityContainer.appendChild(itemSpan);
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            const levelData = gameData[currentLevel];
+            
+            if (currentQuestionIndex >= levelData.questions.length) {
+                showComplete();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function showComplete() {
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('completeScreen').style.display = 'block';
+            
+            const levelData = gameData[currentLevel];
+            const total = levelData.questions.length;
+            
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('totalQuestions').textContent = total;
+            
+            // Set badge based on score
+            const percentage = (score / total) * 100;
+            let badge = '';
+            if (percentage === 100) badge = '👑 Perfect Score!';
+            else if (percentage >= 80) badge = '🏆 Master Explorer';
+            else if (percentage >= 60) badge = '⭐ Great Adventurer';
+            else if (percentage >= 40) badge = '🌟 Rising Star';
+            else badge = '💪 Keep Trying!';
+            
+            document.getElementById('badge').textContent = badge;
+            
+            // Show final city
+            document.getElementById('finalCityItems').innerHTML = cityItems.map(item => 
+                `<span class="city-item">${item}</span>`
+            ).join('');
+        }
+
+        function backToMenu() {
+            document.getElementById('startScreen').style.display = 'block';
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('completeScreen').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
