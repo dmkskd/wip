@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gods & Civilizations - Two Worlds</title>
+    <title>Gods & Civilizations - Three Worlds</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -22,8 +22,8 @@
         .world-card {
             background: rgba(255,255,255,0.1);
             border-radius: 20px;
-            padding: 30px;
-            width: 280px;
+            padding: 25px;
+            width: 240px;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 3px solid transparent;
@@ -31,20 +31,20 @@
         .world-card:hover { transform: translateY(-10px); }
         .world-card.w1:hover { border-color: #ffd700; box-shadow: 0 15px 40px rgba(255,215,0,0.3); }
         .world-card.w2:hover { border-color: #3498db; box-shadow: 0 15px 40px rgba(52,152,219,0.3); }
-        .world-icon { font-size: 4em; margin-bottom: 15px; }
-        .world-title { font-size: 1.4em; margin-bottom: 10px; }
+        .world-card.w3:hover { border-color: #2ecc71; box-shadow: 0 15px 40px rgba(46,204,113,0.3); }
+        .world-icon { font-size: 3.5em; margin-bottom: 12px; }
+        .world-title { font-size: 1.3em; margin-bottom: 8px; }
         .world-card.w1 .world-title { color: #ffd700; }
         .world-card.w2 .world-title { color: #3498db; }
-        .world-desc { color: #aaa; font-size: 0.9em; line-height: 1.5; }
+        .world-card.w3 .world-title { color: #2ecc71; }
+        .world-desc { color: #aaa; font-size: 0.85em; line-height: 1.4; }
         .world-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            margin-top: 15px;
+            display: inline-block; padding: 4px 12px; border-radius: 12px;
+            font-size: 0.75em; margin-top: 12px;
         }
         .w1 .world-badge { background: rgba(255,215,0,0.2); color: #ffd700; }
         .w2 .world-badge { background: rgba(52,152,219,0.2); color: #3498db; }
+        .w3 .world-badge { background: rgba(46,204,113,0.2); color: #2ecc71; }
 
         /* Start Screen */
         .start-screen { display: none; text-align: center; padding: 40px 20px; position: relative; }
@@ -58,12 +58,12 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .game-title { font-size: 2.2em; color: #ffd700; margin-bottom: 10px; }
         .game-title.w2 { color: #3498db; }
+        .game-title.w3 { color: #2ecc71; }
         .game-subtitle { font-size: 1.1em; color: #87ceeb; margin-bottom: 15px; }
         .endless-badge {
             display: inline-block; padding: 8px 20px;
             background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            border-radius: 20px; margin-bottom: 20px;
-            animation: pulse 2s infinite;
+            border-radius: 20px; margin-bottom: 20px; animation: pulse 2s infinite;
         }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .game-desc { color: #aaa; margin-bottom: 25px; line-height: 1.6; }
@@ -74,6 +74,7 @@
             cursor: pointer; font-weight: bold; transition: all 0.3s ease;
         }
         .start-btn.w2 { background: linear-gradient(135deg, #3498db, #5dade2); }
+        .start-btn.w3 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
         .start-btn:hover { transform: scale(1.05); }
         .level-preview { display: flex; justify-content: center; gap: 8px; margin-top: 25px; flex-wrap: wrap; }
         .level-dot { padding: 5px 12px; border-radius: 15px; font-size: 0.75em; font-weight: bold; }
@@ -96,6 +97,7 @@
         }
         .world-ind.w1 { background: rgba(255,215,0,0.2); color: #ffd700; }
         .world-ind.w2 { background: rgba(52,152,219,0.2); color: #3498db; }
+        .world-ind.w3 { background: rgba(46,204,113,0.2); color: #2ecc71; }
         .level-ind { font-size: 1.1em; font-weight: bold; color: #ffd700; }
         .score-disp { font-size: 1em; color: #87ceeb; }
         .round-disp {
@@ -269,6 +271,21 @@
         }
         .continue-btn:hover { transform: scale(1.05); }
 
+        /* Wrong Answers Review */
+        .review-section {
+            background: rgba(231,76,60,0.1); border: 2px solid rgba(231,76,60,0.3);
+            border-radius: 15px; padding: 20px; margin: 20px 0; text-align: left;
+        }
+        .review-title { color: #e74c3c; font-size: 1.2em; margin-bottom: 15px; text-align: center; }
+        .review-item {
+            background: rgba(255,255,255,0.05); border-radius: 10px;
+            padding: 15px; margin-bottom: 12px; border-left: 4px solid #e74c3c;
+        }
+        .review-question { color: #fff; font-size: 1em; margin-bottom: 8px; }
+        .review-answer { color: #2ecc71; font-size: 0.95em; }
+        .review-answer span { color: #ffd700; font-weight: bold; }
+        .no-wrong { color: #2ecc71; text-align: center; font-size: 1.1em; padding: 20px; }
+
         /* Effects */
         .extreme-glow { animation: extreme-pulse 1.5s infinite; }
         @keyframes extreme-pulse {
@@ -308,15 +325,22 @@
                 <div class="world-card w1" onclick="selectWorld(1)">
                     <div class="world-icon">⚡🏛️</div>
                     <h2 class="world-title">WORLD 1</h2>
-                    <h3 style="color:#fff;margin-bottom:10px;">Gods & Myths</h3>
-                    <p class="world-desc">Explore Mount Olympus! Learn about Zeus, Poseidon, Athena, and legendary heroes.</p>
+                    <h3 style="color:#fff;margin-bottom:8px;">Gods & Myths</h3>
+                    <p class="world-desc">Zeus, Poseidon, Athena, heroes & monsters!</p>
                     <span class="world-badge">🔄 ENDLESS</span>
                 </div>
                 <div class="world-card w2" onclick="selectWorld(2)">
                     <div class="world-icon">📜⏳</div>
                     <h2 class="world-title">WORLD 2</h2>
-                    <h3 style="color:#fff;margin-bottom:10px;">Timeline & History</h3>
-                    <p class="world-desc">Travel through time! Discover battles, empires, inventions, and daily life.</p>
+                    <h3 style="color:#fff;margin-bottom:8px;">Timeline & History</h3>
+                    <p class="world-desc">Battles, empires, inventions & daily life!</p>
+                    <span class="world-badge">🔄 ENDLESS</span>
+                </div>
+                <div class="world-card w3" onclick="selectWorld(3)">
+                    <div class="world-icon">🎯📝</div>
+                    <h2 class="world-title">WORLD 3</h2>
+                    <h3 style="color:#fff;margin-bottom:8px;">Review Test!</h3>
+                    <p class="world-desc">Test yourself on W1 Gods & W2 History!</p>
                     <span class="world-badge">🔄 ENDLESS</span>
                 </div>
             </div>
@@ -329,8 +353,8 @@
             <h1 class="game-title" id="gameTitle">Gods & Myths</h1>
             <p class="game-subtitle" id="gameSub">Journey to Ancient Greece & Rome!</p>
             <div class="endless-badge">🔄 ENDLESS MODE 🔄</div>
-            <p class="game-desc" id="gameDesc">Explore Mount Olympus and learn about Zeus, Athena, Hercules, and legendary heroes!</p>
-            <button class="start-btn" id="startBtn" onclick="startGame()">⚡ START ADVENTURE ⚡</button>
+            <p class="game-desc" id="gameDesc">Explore Mount Olympus!</p>
+            <button class="start-btn" id="startBtn" onclick="startGame()">⚡ START ⚡</button>
             <div class="level-preview">
                 <span class="level-dot dot-cakewalk">🍰 Cakewalk</span>
                 <span class="level-dot dot-easy">😊 Easy</span>
@@ -343,7 +367,7 @@
         <!-- Game Screen -->
         <div class="game-screen" id="gameScreen">
             <div class="game-header">
-                <div class="world-ind w1" id="worldInd">🏛️ World 1: Gods & Myths</div>
+                <div class="world-ind w1" id="worldInd">🏛️ World 1</div>
                 <span class="level-ind" id="levelInd">🍰 CAKEWALK</span>
                 <span class="score-disp">Score: <span id="scoreDisp">0</span></span>
                 <div class="round-disp">Round <span id="roundDisp">1</span> • Q<span id="qNumDisp">1</span></div>
@@ -379,6 +403,13 @@
                     <div class="stat-label">Round</div>
                 </div>
             </div>
+            
+            <!-- Wrong Answers Review -->
+            <div class="review-section" id="reviewSection">
+                <h3 class="review-title">📚 Let's Review What You Missed</h3>
+                <div id="reviewContent"></div>
+            </div>
+
             <div class="city-preview">
                 <div class="city-title" style="color:#2c3e50;">Your City</div>
                 <div class="city-preview-items" id="cityPreview"></div>
@@ -446,8 +477,7 @@
                     { type: "matching", question: "Match hero to weakness:", pairs: [{ left: "Achilles", right: "His heel" }, { left: "Orpheus", right: "Looking back" }, { left: "Icarus", right: "Flying too high" }], funFact: "Greek heroes had fatal flaws!" },
                     { type: "riddle", riddle: "Born from blood of slain Medusa,\nA horse with wings, quite the sight!\nI carried heroes through the sky,\nA constellation now on high.", hint: "Flying horse!", answer: "PEGASUS", funFact: "Pegasus was born from Medusa's blood!" },
                     { type: "multiplechoice", question: "What did Orpheus do wrong saving Eurydice?", choices: ["Wrong password", "Looked back", "Wrong song", "Too slow"], answer: "Looked back", funFact: "He was just steps from freedom!" },
-                    { type: "riddle", riddle: "I challenged Athena to weave,\nA contest I thought I'd achieve.\nTurned into something small,\nNow I weave webs on the wall.", hint: "Became a spider!", answer: "ARACHNE", funFact: "That's why spiders are 'arachnids'!" },
-                    { type: "order", question: "Put Trojan War events in order:", items: [{ text: "Paris takes Helen", order: 1 }, { text: "Greeks sail to Troy", order: 2 }, { text: "Achilles kills Hector", order: 3 }, { text: "Trojan Horse", order: 4 }], funFact: "The war lasted 10 years!" }
+                    { type: "riddle", riddle: "I challenged Athena to weave,\nA contest I thought I'd achieve.\nTurned into something small,\nNow I weave webs on the wall.", hint: "Became a spider!", answer: "ARACHNE", funFact: "That's why spiders are 'arachnids'!" }
                 ],
                 rewards: ["⚔️", "🛡️", "👑", "🏛️", "💎"]
             },
@@ -458,12 +488,10 @@
                     { type: "multiplechoice", question: "Which primordial deity existed FIRST?", choices: ["Zeus", "Gaia", "Chaos", "Uranus"], answer: "Chaos", funFact: "Chaos was the void before everything!" },
                     { type: "riddle", riddle: "I ferry souls across river wide,\nFor a coin on lips of those who died.\nRiver Styx was my domain,\nNo coin, no passage—that's plain.", hint: "Ferryman of the dead!", answer: "CHARON", funFact: "Greeks buried dead with coins for Charon!" },
                     { type: "truefalse", question: "Tantalus was punished with food and water just out of reach.", answer: true, funFact: "That's where 'tantalize' comes from!" },
-                    { type: "matching", question: "Match monster to power:", pairs: [{ left: "Sirens", right: "Deadly songs" }, { left: "Scylla", right: "Six heads" }, { left: "Charybdis", right: "Whirlpool" }, { left: "Chimera", right: "Fire breath" }], funFact: "Odysseus sailed between Scylla and Charybdis!" },
+                    { type: "matching", question: "Match monster to power:", pairs: [{ left: "Sirens", right: "Deadly songs" }, { left: "Scylla", right: "Six heads" }, { left: "Charybdis", right: "Whirlpool" }], funFact: "Odysseus sailed between Scylla and Charybdis!" },
                     { type: "multiplechoice", question: "What stayed INSIDE Pandora's Box?", choices: ["Love", "Only Hope", "Death", "Spirits"], answer: "Only Hope", funFact: "Hope remained so humans could survive!" },
                     { type: "riddle", riddle: "Morning four, noon just two,\nEvening three will do.\nAnswer wrong, be my feast,\nPart woman, part lion beast.", hint: "Asked deadly riddles!", answer: "SPHINX", acceptableAnswers: ["SPHINX", "THE SPHINX"], funFact: "Answer is 'man' - crawls, walks, uses cane!" },
-                    { type: "truefalse", question: "Cronus ate his children but Zeus escaped via a rock in blankets.", answer: true, funFact: "Zeus made Cronus vomit up his siblings!" },
-                    { type: "riddle", riddle: "Three sisters we, share one eye,\nOne tooth between us, by and by.\nWe know the future dark and deep,\nSecrets of the fates we keep.", hint: "Perseus tricked them!", answer: "GRAEAE", acceptableAnswers: ["GRAEAE", "GRAY SISTERS", "GREY SISTERS"], funFact: "Perseus stole their eye to find Medusa!" },
-                    { type: "riddle", riddle: "We three determine every thread,\nOne spins, one measures, one cuts dead.\nNot even Zeus can change our way,\nWe control your final day.", hint: "Even gods feared them!", answer: "THE FATES", acceptableAnswers: ["FATES", "THE FATES", "MOIRAI"], funFact: "The Fates were Clotho, Lachesis, Atropos!" }
+                    { type: "truefalse", question: "Cronus ate his children but Zeus escaped via a rock in blankets.", answer: true, funFact: "Zeus made Cronus vomit up his siblings!" }
                 ],
                 rewards: ["👑", "⚔️", "🛡️", "💎", "🌟", "🔱", "💀"]
             }
@@ -478,10 +506,10 @@
                     { type: "riddle", riddle: "I'm a city on seven hills,\nWith soldiers, roads, building skills.\nI conquered lands both far and wide,\nAn empire known for strength and pride!", hint: "Famous ancient empire!", answer: "ROME", funFact: "Rome was called the 'Eternal City'!" },
                     { type: "yesno", question: "Did ancient Greeks invent democracy?", answer: "yes", funFact: "Democracy means 'rule by the people'!" },
                     { type: "truefalse", question: "The pyramids were built by Romans.", answer: false, correctInfo: "Pyramids were built by Egyptians!", funFact: "Pyramids were 2,000 years old when Rome was founded!" },
-                    { type: "riddle", riddle: "A contest held every four years,\nWith running, throwing, athletes' cheers.\nStarted in Greece long ago,\nNow the whole world puts on a show!", hint: "Famous sports competition!", answer: "OLYMPICS", acceptableAnswers: ["OLYMPICS", "THE OLYMPICS", "OLYMPIC GAMES"], funFact: "First Olympics were in 776 BC!" },
+                    { type: "riddle", riddle: "A contest held every four years,\nWith running, throwing, athletes' cheers.\nStarted in Greece long ago,\nNow the whole world puts on a show!", hint: "Famous sports event!", answer: "OLYMPICS", acceptableAnswers: ["OLYMPICS", "THE OLYMPICS", "OLYMPIC GAMES"], funFact: "First Olympics were in 776 BC!" },
                     { type: "yesno", question: "Did Romans build long, straight roads?", answer: "yes", funFact: "Some Roman roads still exist today!" },
                     { type: "matching", question: "Match invention to civilization:", pairs: [{ left: "Democracy", right: "Greeks" }, { left: "Aqueducts", right: "Romans" }], funFact: "Romans brought water into cities!" },
-                    { type: "truefalse", question: "Ancient Greeks wrote plays and stories.", answer: true, funFact: "Greek theaters held 15,000 people!" }
+                    { type: "truefalse", question: "Ancient Greeks wrote plays.", answer: true, funFact: "Greek theaters held 15,000 people!" }
                 ],
                 rewards: ["📜", "🏛️", "⏳"]
             },
@@ -491,7 +519,7 @@
                     { type: "riddle", riddle: "A soldier trained from young age,\nIn a Greek city known for rage.\nWe never surrender, never flee,\nCome back with shield or on it!", hint: "Famous Greek warriors!", answer: "SPARTAN", acceptableAnswers: ["SPARTAN", "SPARTANS", "SPARTA"], funFact: "Spartan training started at age 7!" },
                     { type: "truefalse", question: "Gladiators fought in the Colosseum.", answer: true, funFact: "Colosseum held 50,000 spectators!" },
                     { type: "yesno", question: "Did Greeks use an alphabet?", answer: "yes", funFact: "'Alphabet' comes from alpha and beta!" },
-                    { type: "riddle", riddle: "I'm a place where learning grew,\nPhilosophers taught what was true.\nSocrates and Plato walked my ground,\nIn ancient Greece is where I'm found!", hint: "Place of learning!", answer: "ATHENS", acceptableAnswers: ["ATHENS", "ACADEMY"], funFact: "Athens was center of art and philosophy!" },
+                    { type: "riddle", riddle: "I'm a place where learning grew,\nPhilosophers taught what was true.\nSocrates and Plato here,\nIn ancient Greece, ideas clear!", hint: "Place of learning!", answer: "ATHENS", acceptableAnswers: ["ATHENS", "ACADEMY"], funFact: "Athens was center of philosophy!" },
                     { type: "multiplechoice", question: "What did Romans bathe in?", choices: ["Rivers only", "Public bath houses", "Never bathed", "Private pools"], answer: "Public bath houses", funFact: "Roman baths had hot, warm, cold pools!" },
                     { type: "truefalse", question: "Greek children played with toys.", answer: true, funFact: "Greek kids had dolls, balls, yo-yos!" },
                     { type: "matching", question: "Match city to fame:", pairs: [{ left: "Athens", right: "Philosophy" }, { left: "Sparta", right: "Warriors" }, { left: "Rome", right: "Empire" }], funFact: "Athens and Sparta were rivals!" },
@@ -504,12 +532,12 @@
                 questions: [
                     { type: "riddle", riddle: "I conquered from Greece to India,\nAt thirty-two I was no more.\nThey called me 'Great' through the land,\nMy empire vast and grand!", hint: "Famous young conqueror!", answer: "ALEXANDER", acceptableAnswers: ["ALEXANDER", "ALEXANDER THE GREAT"], funFact: "Alexander never lost a battle!" },
                     { type: "truefalse", question: "Julius Caesar was a Roman emperor.", answer: false, correctInfo: "Caesar was dictator. Augustus was first emperor!", funFact: "July is named after Julius Caesar!" },
-                    { type: "yesno", question: "Did Greeks have coins and money?", answer: "yes", funFact: "Greek coins showed owls or gods!" },
-                    { type: "riddle", riddle: "Three hundred warriors held the pass,\nAgainst a Persian army vast.\nWe fought and died, earned great fame,\nThermopylae was our battle's name!", hint: "Famous Spartan last stand!", answer: "SPARTANS", acceptableAnswers: ["SPARTANS", "300 SPARTANS", "THREE HUNDRED"], funFact: "King Leonidas led the 300!" },
-                    { type: "multiplechoice", question: "What was a Roman legion?", choices: ["Food", "Group of soldiers", "Temple", "Ship"], answer: "Group of soldiers", funFact: "A legion had about 5,000 soldiers!" },
+                    { type: "yesno", question: "Did Greeks have coins?", answer: "yes", funFact: "Greek coins showed owls or gods!" },
+                    { type: "riddle", riddle: "Three hundred warriors held the pass,\nAgainst a Persian army vast.\nWe fought and died, earned great fame,\nThermopylae was our name!", hint: "Famous Spartan last stand!", answer: "SPARTANS", acceptableAnswers: ["SPARTANS", "300 SPARTANS", "THREE HUNDRED"], funFact: "King Leonidas led the 300!" },
+                    { type: "multiplechoice", question: "What was a Roman legion?", choices: ["Food", "Soldiers", "Temple", "Ship"], answer: "Soldiers", funFact: "A legion had about 5,000 soldiers!" },
                     { type: "matching", question: "Match event to date:", pairs: [{ left: "First Olympics", right: "776 BC" }, { left: "Rome founded", right: "753 BC" }, { left: "Rome fell", right: "476 AD" }], funFact: "Roman Empire lasted 1,000+ years!" },
                     { type: "truefalse", question: "Cleopatra was last pharaoh of Egypt.", answer: true, funFact: "Cleopatra lived closer to us than to pyramid builders!" },
-                    { type: "riddle", riddle: "Beware the Ides of March, said they,\nBut I ignored and paid the way.\nStabbed by friends in Rome's great hall,\n'Et tu?' I cried as I did fall!", hint: "Famous Roman leader!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR"], funFact: "Caesar was stabbed 23 times!" }
+                    { type: "riddle", riddle: "Beware the Ides of March, said they,\nBut I ignored and paid the way.\nStabbed by friends in hall,\n'Et tu?' I cried as I did fall!", hint: "Famous Roman leader!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR"], funFact: "Caesar was stabbed 23 times!" }
                 ],
                 rewards: ["📜", "⛲", "🗿", "⚔️", "👑"]
             },
@@ -521,9 +549,8 @@
                     { type: "riddle", riddle: "I wrote about the Trojan War,\nBlind poet, tales of ancient lore.\nIliad and Odyssey,\nAre epic poems by me!", hint: "Famous Greek poet!", answer: "HOMER", funFact: "We don't know if Homer was one person!" },
                     { type: "truefalse", question: "Library of Alexandria was largest in ancient world.", answer: true, funFact: "It may have held 400,000 scrolls!" },
                     { type: "matching", question: "Match philosopher to idea:", pairs: [{ left: "Socrates", right: "Question everything" }, { left: "Plato", right: "World of forms" }, { left: "Aristotle", right: "Logic & science" }], funFact: "Each was teacher of the next!" },
-                    { type: "riddle", riddle: "I ran 26 miles with the news,\n'We won!' I cried, paid my dues.\nFrom Marathon I ran so far,\nNow races bear my journey's star!", hint: "Origin of marathon!", answer: "PHEIDIPPIDES", acceptableAnswers: ["PHEIDIPPIDES", "MARATHON", "MESSENGER"], funFact: "Marathons are 26.2 miles because of this!" },
+                    { type: "riddle", riddle: "I ran 26 miles with the news,\n'We won!' I cried, then paid my dues.\nFrom Marathon I ran so far,\nNow races bear my star!", hint: "Origin of marathon!", answer: "PHEIDIPPIDES", acceptableAnswers: ["PHEIDIPPIDES", "MARATHON", "MESSENGER"], funFact: "Marathons are 26.2 miles because of this!" },
                     { type: "multiplechoice", question: "What did Archimedes discover in bathtub?", choices: ["Gravity", "Water displacement", "Electricity", "Magnetism"], answer: "Water displacement", funFact: "He shouted 'Eureka!' - 'I found it!'" },
-                    { type: "order", question: "Put empires in order (earliest to latest):", items: [{ text: "Egyptian Empire", order: 1 }, { text: "Greek Empire", order: 2 }, { text: "Roman Empire", order: 3 }, { text: "Byzantine Empire", order: 4 }], funFact: "Byzantine was eastern Roman Empire!" },
                     { type: "riddle", riddle: "A mountain that one day blew,\nBuried Pompeii and people too.\nIn 79 AD I woke,\nFrozen in ash, no joke!", hint: "Famous volcanic eruption!", answer: "VESUVIUS", acceptableAnswers: ["VESUVIUS", "MOUNT VESUVIUS"], funFact: "Pompeii preserved Roman daily life!" }
                 ],
                 rewards: ["⚔️", "🛡️", "👑", "📜", "💎"]
@@ -533,22 +560,71 @@
                 questions: [
                     { type: "riddle", riddle: "Strangled by my own mom's plot,\nEmperor at sixteen, quite a lot!\nBlamed Christians for Rome's fire,\nMy cruelty made my name inspire!", hint: "Cruel Roman emperor!", answer: "NERO", funFact: "Legend says Nero played music while Rome burned!" },
                     { type: "multiplechoice", question: "What was the Pax Romana?", choices: ["Roman bread", "200 years of peace", "A god", "Army formation"], answer: "200 years of peace", funFact: "Pax Romana lasted 27 BC to 180 AD!" },
-                    { type: "riddle", riddle: "I calculated pi, moved the world,\nWith levers my genius unfurled.\n'Give me lever long enough,' I said,\n'And I'll move Earth!' from my head!", hint: "Brilliant Greek mathematician!", answer: "ARCHIMEDES", funFact: "Archimedes invented war machines!" },
+                    { type: "riddle", riddle: "I calculated pi, moved the world,\nWith levers my genius unfurled.\n'Give me lever long enough,' I said,\n'I'll move the Earth!' from my head!", hint: "Brilliant mathematician!", answer: "ARCHIMEDES", funFact: "Archimedes invented war machines!" },
                     { type: "truefalse", question: "Twelve Tables were Rome's first written laws.", answer: true, funFact: "They were carved on bronze in 450 BC!" },
-                    { type: "matching", question: "Match battle to significance:", pairs: [{ left: "Marathon", right: "Greeks beat Persia" }, { left: "Thermopylae", right: "300 Spartans" }, { left: "Actium", right: "Octavian wins" }], funFact: "Battle of Actium made Octavian emperor!" },
-                    { type: "riddle", riddle: "I crossed the Rubicon one day,\n'The die is cast!' I heard me say.\nThis act of war changed Rome's fate,\nRepublic died, Empire was great!", hint: "Started civil war!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR"], funFact: "Crossing Rubicon meant no going back!" },
-                    { type: "multiplechoice", question: "What was Greek Fire?", choices: ["Cooking method", "Weapon that burned on water", "Ceremony", "Pottery"], answer: "Weapon that burned on water", funFact: "Greek Fire formula is lost to history!" },
-                    { type: "order", question: "Put Roman emperors in order:", items: [{ text: "Augustus (first)", order: 1 }, { text: "Nero (cruel)", order: 2 }, { text: "Trajan (expansion)", order: 3 }, { text: "Constantine (Christian)", order: 4 }], funFact: "Rome had over 70 emperors!" },
-                    { type: "truefalse", question: "Romans had central heating called hypocausts.", answer: true, funFact: "Hot air flowed under floors and through walls!" },
-                    { type: "multiplechoice", question: "Why did Rome fall in 476 AD?", choices: ["One cause", "Many: invasions, economy, politics", "Volcano", "Plague only"], answer: "Many: invasions, economy, politics", funFact: "Historians still debate why Rome fell!" }
+                    { type: "matching", question: "Match battle to result:", pairs: [{ left: "Marathon", right: "Greeks beat Persia" }, { left: "Thermopylae", right: "300 Spartans" }, { left: "Actium", right: "Octavian wins" }], funFact: "Battle of Actium made Octavian emperor!" },
+                    { type: "riddle", riddle: "I crossed the Rubicon one day,\n'The die is cast!' I heard me say.\nThis act of war changed fate,\nRepublic died, Empire great!", hint: "Started civil war!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR"], funFact: "Crossing Rubicon meant no going back!" },
+                    { type: "multiplechoice", question: "What was Greek Fire?", choices: ["Cooking method", "Weapon burning on water", "Ceremony", "Pottery"], answer: "Weapon burning on water", funFact: "Greek Fire formula is lost to history!" },
+                    { type: "truefalse", question: "Romans had central heating called hypocausts.", answer: true, funFact: "Hot air flowed under floors and walls!" }
                 ],
                 rewards: ["👑", "⚔️", "🛡️", "💎", "🌟", "📜", "💀"]
             }
         };
 
+        // ============ WORLD 3: REVIEW WORLD ============
+        // Tests knowledge from World 1 (Gods) and World 2 (History)
+        
+        const world3Data = {
+            w1review: {
+                name: "⚡ W1: Gods Review", 
+                color: "#ffd700",
+                questions: [
+                    { type: "multiplechoice", question: "Who was king of all the Greek gods?", choices: ["Poseidon", "Hades", "Zeus", "Apollo"], answer: "Zeus", funFact: "Zeus ruled from Mount Olympus!" },
+                    { type: "riddle", riddle: "I have three heads and guard the dead,\nIn the Underworld I make my bed.\nNo soul escapes my watchful eyes,\nI'm Hades' pet of fearsome size!", hint: "Three-headed dog!", answer: "CERBERUS", funFact: "Cerberus means 'spotted' in Greek!" },
+                    { type: "matching", question: "Match Greek gods to Roman names:", pairs: [{ left: "Zeus", right: "Jupiter" }, { left: "Poseidon", right: "Neptune" }, { left: "Ares", right: "Mars" }, { left: "Athena", right: "Minerva" }], funFact: "Romans adopted Greek gods but gave them new names!" },
+                    { type: "truefalse", question: "Athena was the goddess of wisdom and war.", answer: true, funFact: "Athena's symbol was the owl!" },
+                    { type: "multiplechoice", question: "What weapon did Poseidon carry?", choices: ["Lightning bolt", "Sword", "Trident", "Bow"], answer: "Trident", funFact: "Poseidon could cause earthquakes with his trident!" },
+                    { type: "riddle", riddle: "Twelve labors I had to do,\nFighting monsters through and through.\nThe strongest hero, that is me,\nSon of Zeus for all to see!", hint: "Strongest Greek hero!", answer: "HERCULES", acceptableAnswers: ["HERCULES", "HERACLES"], funFact: "Hercules became a god after completing his labors!" },
+                    { type: "yesno", question: "Did Hermes have wings on his sandals?", answer: "yes", funFact: "Hermes was the fastest of all the gods!" },
+                    { type: "multiplechoice", question: "Who flew too close to the sun?", choices: ["Perseus", "Theseus", "Icarus", "Orpheus"], answer: "Icarus", funFact: "The wax holding Icarus's wings melted!" },
+                    { type: "truefalse", question: "Medusa could turn people to stone by looking at them.", answer: true, funFact: "Perseus used a mirror shield to defeat her!" },
+                    { type: "riddle", riddle: "I stole fire for humankind,\nChained to a rock, my fate unkind.\nAn eagle ate my liver each day,\nBut it grew back, to my dismay!", hint: "Punished forever for helping humans!", answer: "PROMETHEUS", funFact: "Prometheus means 'forethought' in Greek!" },
+                    { type: "matching", question: "Match heroes to their famous deeds:", pairs: [{ left: "Perseus", right: "Killed Medusa" }, { left: "Theseus", right: "Defeated Minotaur" }, { left: "Odysseus", right: "Trojan Horse" }], funFact: "Greek heroes inspired stories for thousands of years!" },
+                    { type: "multiplechoice", question: "What stayed inside Pandora's Box?", choices: ["Love", "Hope", "Death", "Fear"], answer: "Hope", funFact: "Hope remained so humans could survive all the evils released!" }
+                ],
+                rewards: ["⚡", "🏛️", "🦉", "🔱", "⭐", "👑"]
+            },
+            w2review: {
+                name: "📜 W2: History Review", 
+                color: "#3498db",
+                questions: [
+                    { type: "multiplechoice", question: "Which civilization invented democracy?", choices: ["Romans", "Egyptians", "Greeks", "Persians"], answer: "Greeks", funFact: "Democracy means 'rule by the people'!" },
+                    { type: "riddle", riddle: "I crossed the Alps with elephants tall,\nTo make the mighty Romans fall.\nFrom Carthage I led my force,\nWinning battles on my course!", hint: "Almost conquered Rome!", answer: "HANNIBAL", funFact: "Hannibal crossed the Alps with 37 elephants!" },
+                    { type: "matching", question: "Match the event to its date:", pairs: [{ left: "First Olympics", right: "776 BC" }, { left: "Rome founded", right: "753 BC" }, { left: "Rome fell", right: "476 AD" }], funFact: "Ancient history spans thousands of years!" },
+                    { type: "truefalse", question: "Julius Caesar was the first Roman emperor.", answer: false, correctInfo: "Augustus was the first emperor. Caesar was a dictator!", funFact: "The month July is named after Julius Caesar!" },
+                    { type: "multiplechoice", question: "How many Spartans fought at Thermopylae?", choices: ["100", "300", "500", "1000"], answer: "300", funFact: "King Leonidas led the 300 Spartans!" },
+                    { type: "riddle", riddle: "I conquered from Greece to India's shore,\nAt thirty-two I was no more.\nThey called me 'Great' through the land,\nMy empire vast and grand!", hint: "Young conqueror who never lost!", answer: "ALEXANDER", acceptableAnswers: ["ALEXANDER", "ALEXANDER THE GREAT"], funFact: "Alexander created one of the largest empires in history!" },
+                    { type: "yesno", question: "Did Romans build aqueducts to carry water?", answer: "yes", funFact: "Some Roman aqueducts still stand today!" },
+                    { type: "multiplechoice", question: "What was the Colosseum used for?", choices: ["Theater plays", "Gladiator fights", "Senate meetings", "Markets"], answer: "Gladiator fights", funFact: "The Colosseum could hold 50,000 spectators!" },
+                    { type: "truefalse", question: "Cleopatra was the last pharaoh of Egypt.", answer: true, funFact: "Cleopatra lived closer to our time than to when the pyramids were built!" },
+                    { type: "riddle", riddle: "In 79 AD I woke from sleep,\nBuried a city in ash so deep.\nPompeii frozen in time that day,\nMy eruption took lives away!", hint: "Famous volcano near Rome!", answer: "VESUVIUS", acceptableAnswers: ["VESUVIUS", "MOUNT VESUVIUS"], funFact: "Pompeii was preserved so well we can see Roman daily life!" },
+                    { type: "matching", question: "Match philosophers to their ideas:", pairs: [{ left: "Socrates", right: "Question everything" }, { left: "Plato", right: "World of forms" }, { left: "Aristotle", right: "Logic & science" }], funFact: "Each philosopher taught the next one!" },
+                    { type: "multiplechoice", question: "What did Archimedes shout when he made his discovery?", choices: ["Wow!", "Eureka!", "Amazing!", "Victory!"], answer: "Eureka!", funFact: "Eureka means 'I found it!' in Greek!" }
+                ],
+                rewards: ["📜", "⏳", "🏺", "⚔️", "🛡️", "🏆"]
+            }
+        };
+        
+        // World 3 uses different level names
+        const world3Levels = ['w1review', 'w2review'];
+
         // ============ GAME STATE ============
         const levelOrder = ['cakewalk', 'easy', 'ok', 'hard', 'extreme'];
-        const levelColors = { cakewalk: '#a8e6cf', easy: '#88d8ff', ok: '#ffd93d', hard: '#ff6b6b', extreme: '#9b59b6' };
+        const levelColors = { cakewalk: '#a8e6cf', easy: '#88d8ff', ok: '#ffd93d', hard: '#ff6b6b', extreme: '#9b59b6', w1review: '#ffd700', w2review: '#3498db' };
+        
+        function getCurrentLevelOrder() {
+            return currentWorld === 3 ? world3Levels : levelOrder;
+        }
         
         let currentWorld = 1;
         let currentLevelIndex = 0;
@@ -561,6 +637,7 @@
         let matchedPairs = 0;
         let usedQuestions = {};
         let currentQ = null;
+        let wrongAnswers = []; // Track wrong answers for review
 
         // ============ NAVIGATION ============
         function selectWorld(w) {
@@ -574,16 +651,24 @@
                 document.getElementById('gameTitle').className = 'game-title';
                 document.getElementById('gameSub').textContent = 'Journey to Ancient Greece & Rome!';
                 document.getElementById('gameDesc').textContent = 'Explore Mount Olympus and learn about Zeus, Athena, Hercules, and legendary heroes!';
-                document.getElementById('startBtn').textContent = '⚡ START ADVENTURE ⚡';
+                document.getElementById('startBtn').textContent = '⚡ START ⚡';
                 document.getElementById('startBtn').className = 'start-btn';
-            } else {
+            } else if (w === 2) {
                 document.getElementById('gameIcon').textContent = '📜⏳';
                 document.getElementById('gameTitle').textContent = 'Timeline & History';
                 document.getElementById('gameTitle').className = 'game-title w2';
                 document.getElementById('gameSub').textContent = 'Travel Through Ancient Time!';
                 document.getElementById('gameDesc').textContent = 'Discover famous battles, empires, inventions, and how ancient people lived!';
-                document.getElementById('startBtn').textContent = '⏳ START JOURNEY ⏳';
+                document.getElementById('startBtn').textContent = '⏳ START ⏳';
                 document.getElementById('startBtn').className = 'start-btn w2';
+            } else {
+                document.getElementById('gameIcon').textContent = '🎯📝';
+                document.getElementById('gameTitle').textContent = 'Review Test!';
+                document.getElementById('gameTitle').className = 'game-title w3';
+                document.getElementById('gameSub').textContent = 'Test Your Knowledge!';
+                document.getElementById('gameDesc').textContent = 'Review questions from World 1 (Gods) and World 2 (History)!';
+                document.getElementById('startBtn').textContent = '🎯 START TEST 🎯';
+                document.getElementById('startBtn').className = 'start-btn w3';
             }
         }
 
@@ -592,7 +677,11 @@
             document.getElementById('worldSelect').style.display = 'block';
         }
 
-        function getGameData() { return currentWorld === 1 ? world1Data : world2Data; }
+        function getGameData() { 
+            if (currentWorld === 1) return world1Data;
+            if (currentWorld === 2) return world2Data;
+            return world3Data;
+        }
 
         function startGame() {
             currentLevelIndex = 0;
@@ -601,8 +690,10 @@
             levelScore = 0;
             round = 1;
             cityItems = [];
+            wrongAnswers = [];
             usedQuestions = {};
-            levelOrder.forEach(l => usedQuestions[l] = []);
+            const levels = getCurrentLevelOrder();
+            levels.forEach(l => usedQuestions[l] = []);
             
             document.getElementById('startScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
@@ -613,10 +704,14 @@
                 wInd.textContent = '🏛️ World 1: Gods & Myths';
                 wInd.className = 'world-ind w1';
                 document.getElementById('cityTitle').textContent = '🏙️ Your Ancient City';
-            } else {
+            } else if (currentWorld === 2) {
                 wInd.textContent = '📜 World 2: Timeline & History';
                 wInd.className = 'world-ind w2';
                 document.getElementById('cityTitle').textContent = '📜 Your Timeline';
+            } else {
+                wInd.textContent = '🎯 World 3: Review Test';
+                wInd.className = 'world-ind w3';
+                document.getElementById('cityTitle').textContent = '🏆 Your Trophies';
             }
             
             updateLevelUI();
@@ -638,7 +733,8 @@
 
         function updateLevelUI() {
             const data = getGameData();
-            const level = levelOrder[currentLevelIndex];
+            const levels = getCurrentLevelOrder();
+            const level = levels[currentLevelIndex];
             const ld = data[level];
             
             document.getElementById('levelInd').textContent = ld.name;
@@ -653,7 +749,8 @@
         }
 
         function showQuestion() {
-            const level = levelOrder[currentLevelIndex];
+            const levels = getCurrentLevelOrder();
+            const level = levels[currentLevelIndex];
             currentQ = getRandomQuestion(level);
             
             const perLevel = 5;
@@ -723,18 +820,21 @@
         // ============ ANSWER CHECKING ============
         function checkTF(ans) {
             const correct = ans === currentQ.answer;
+            if (!correct) addWrongAnswer(currentQ, currentQ.answer ? "TRUE" : "FALSE");
             showFeedback(correct, currentQ);
             document.querySelectorAll('.ans-btn').forEach(b => b.disabled = true);
         }
 
         function checkYN(ans) {
             const correct = ans === currentQ.answer;
+            if (!correct) addWrongAnswer(currentQ, currentQ.answer.toUpperCase());
             showFeedback(correct, currentQ);
             document.querySelectorAll('.ans-btn').forEach(b => b.disabled = true);
         }
 
         function checkMC(ans) {
             const correct = ans === currentQ.answer;
+            if (!correct) addWrongAnswer(currentQ, currentQ.answer);
             document.querySelectorAll('.choice-btn').forEach(b => {
                 if (b.textContent === currentQ.answer) b.classList.add('correct');
                 else if (b.textContent === ans && !correct) b.classList.add('incorrect');
@@ -749,6 +849,7 @@
             if (!correct && currentQ.acceptableAnswers) {
                 correct = currentQ.acceptableAnswers.some(a => userAns === a.toUpperCase() || userAns.includes(a.toUpperCase()));
             }
+            if (!correct) addWrongAnswer(currentQ, currentQ.answer);
             showFeedback(correct, currentQ, null, currentQ.answer);
             document.getElementById('riddleIn').disabled = true;
             document.querySelector('.submit-btn').disabled = true;
@@ -828,8 +929,21 @@
             items.forEach((item, i) => {
                 if (parseInt(item.dataset.order) !== sorted[i].order) correct = false;
             });
+            if (!correct) {
+                const correctOrder = sorted.map(s => s.text).join(' → ');
+                addWrongAnswer(currentQ, correctOrder);
+            }
             showFeedback(correct, currentQ);
             document.querySelector('.submit-btn').disabled = true;
+        }
+
+        // ============ WRONG ANSWERS TRACKING ============
+        function addWrongAnswer(question, correctAnswer) {
+            let questionText = question.question || question.riddle || "Put in correct order";
+            wrongAnswers.push({
+                question: questionText,
+                correctAnswer: correctAnswer
+            });
         }
 
         // ============ FEEDBACK & PROGRESSION ============
@@ -871,7 +985,8 @@
 
         function addCityItem() {
             const data = getGameData();
-            const level = levelOrder[currentLevelIndex];
+            const levels = getCurrentLevelOrder();
+            const level = levels[currentLevelIndex];
             const rewards = data[level].rewards;
             const reward = rewards[Math.floor(Math.random() * rewards.length)];
             cityItems.push(reward);
@@ -897,7 +1012,8 @@
             document.getElementById('levelComplete').style.display = 'block';
             
             const data = getGameData();
-            const level = levelOrder[currentLevelIndex];
+            const levels = getCurrentLevelOrder();
+            const level = levels[currentLevelIndex];
             
             document.getElementById('lcTitle').textContent = data[level].name + ' Complete!';
             document.getElementById('lcScore').textContent = levelScore;
@@ -911,20 +1027,41 @@
             
             document.getElementById('cityPreview').innerHTML = cityItems.map(i => `<span>${i}</span>`).join('');
             
-            let nextIdx = currentLevelIndex + 1;
-            if (nextIdx >= levelOrder.length) {
-                nextIdx = 0;
-                document.getElementById('nextPreview').innerHTML = `<h3>🔄 Round ${round + 1}!</h3><p style="color:#ffd700">${data[levelOrder[0]].name}</p>`;
+            // Show wrong answers review
+            const reviewSection = document.getElementById('reviewSection');
+            const reviewContent = document.getElementById('reviewContent');
+            
+            if (wrongAnswers.length > 0) {
+                reviewSection.style.display = 'block';
+                reviewContent.innerHTML = wrongAnswers.map(w => `
+                    <div class="review-item">
+                        <div class="review-question">❓ ${w.question}</div>
+                        <div class="review-answer">✅ Correct answer: <span>${w.correctAnswer}</span></div>
+                    </div>
+                `).join('');
             } else {
-                document.getElementById('nextPreview').innerHTML = `<h3>Next Up:</h3><p>${data[levelOrder[nextIdx]].name}</p>`;
+                reviewSection.style.display = 'block';
+                reviewContent.innerHTML = '<div class="no-wrong">🎉 Perfect! You got everything right!</div>';
+            }
+            
+            // Clear wrong answers for next level
+            wrongAnswers = [];
+            
+            let nextIdx = currentLevelIndex + 1;
+            if (nextIdx >= levels.length) {
+                nextIdx = 0;
+                document.getElementById('nextPreview').innerHTML = `<h3>🔄 Round ${round + 1}!</h3><p style="color:#ffd700">${data[levels[0]].name}</p>`;
+            } else {
+                document.getElementById('nextPreview').innerHTML = `<h3>Next Up:</h3><p>${data[levels[nextIdx]].name}</p>`;
             }
             
             createConfetti();
         }
 
         function continueToNextLevel() {
+            const levels = getCurrentLevelOrder();
             currentLevelIndex++;
-            if (currentLevelIndex >= levelOrder.length) {
+            if (currentLevelIndex >= levels.length) {
                 currentLevelIndex = 0;
                 round++;
             }
