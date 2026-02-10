@@ -3,779 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gods & Civilizations - Endless Adventure</title>
+    <title>Gods & Civilizations - Two Worlds</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             color: #fff;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Start Screen */
-        .start-screen {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .game-title {
-            font-size: 2.8em;
-            color: #ffd700;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            margin-bottom: 10px;
-        }
-
-        .game-subtitle {
-            font-size: 1.3em;
-            color: #87ceeb;
-            margin-bottom: 20px;
-        }
-
-        .endless-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            border-radius: 20px;
-            font-size: 1em;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .game-description {
-            font-size: 1.1em;
-            color: #aaa;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .temple-icon {
-            font-size: 80px;
-            margin-bottom: 30px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        .start-btn {
-            padding: 25px 60px;
-            font-size: 1.5em;
-            background: linear-gradient(135deg, #ffd700, #ffed4a);
-            border: none;
-            border-radius: 20px;
-            color: #1a1a2e;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255,215,0,0.3);
-        }
-
-        .start-btn:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 35px rgba(255,215,0,0.5);
-        }
-
-        .level-preview {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 40px;
-            flex-wrap: wrap;
-        }
-
-        .level-dot {
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: bold;
-        }
-
-        .dot-cakewalk { background: rgba(168, 230, 207, 0.3); color: #a8e6cf; }
-        .dot-easy { background: rgba(136, 216, 255, 0.3); color: #88d8ff; }
-        .dot-ok { background: rgba(255, 217, 61, 0.3); color: #ffd93d; }
-        .dot-hard { background: rgba(255, 107, 107, 0.3); color: #ff6b6b; }
-        .dot-extreme { background: rgba(155, 89, 182, 0.3); color: #9b59b6; }
-
-        /* Game Screen */
-        .game-screen {
-            display: none;
-        }
-
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .level-indicator {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #ffd700;
-        }
-
-        .score-display {
-            font-size: 1.1em;
-            color: #87ceeb;
-        }
-
-        .round-display {
-            font-size: 1em;
-            color: #a8e6cf;
-            width: 100%;
-            text-align: center;
-            padding-top: 5px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 5px;
-        }
-
-        .level-progress-bar {
-            width: 100%;
-            height: 12px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 10px;
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
-
-        .level-progress-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-
-        .question-card {
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        
+        /* World Select */
+        .world-select { text-align: center; padding: 40px 20px; }
+        .main-title { font-size: 2.5em; color: #ffd700; margin-bottom: 10px; }
+        .main-subtitle { font-size: 1.2em; color: #87ceeb; margin-bottom: 30px; }
+        .worlds-container { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        .world-card {
             background: rgba(255,255,255,0.1);
             border-radius: 20px;
             padding: 30px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .question-type {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(255,215,0,0.3);
-            border-radius: 20px;
-            font-size: 0.85em;
-            color: #ffd700;
-            margin-bottom: 15px;
-        }
-
-        .question-text {
-            font-size: 1.4em;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .answers {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .answer-btn {
-            padding: 18px 25px;
-            font-size: 1.15em;
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            color: #fff;
+            width: 280px;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-align: left;
+            border: 3px solid transparent;
         }
-
-        .answer-btn:hover {
-            background: rgba(255,255,255,0.25);
-            border-color: #ffd700;
-            transform: translateX(8px);
+        .world-card:hover { transform: translateY(-10px); }
+        .world-card.w1:hover { border-color: #ffd700; box-shadow: 0 15px 40px rgba(255,215,0,0.3); }
+        .world-card.w2:hover { border-color: #3498db; box-shadow: 0 15px 40px rgba(52,152,219,0.3); }
+        .world-icon { font-size: 4em; margin-bottom: 15px; }
+        .world-title { font-size: 1.4em; margin-bottom: 10px; }
+        .world-card.w1 .world-title { color: #ffd700; }
+        .world-card.w2 .world-title { color: #3498db; }
+        .world-desc { color: #aaa; font-size: 0.9em; line-height: 1.5; }
+        .world-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-top: 15px;
         }
+        .w1 .world-badge { background: rgba(255,215,0,0.2); color: #ffd700; }
+        .w2 .world-badge { background: rgba(52,152,219,0.2); color: #3498db; }
 
-        .answer-btn.correct {
-            background: rgba(46, 204, 113, 0.5);
-            border-color: #2ecc71;
+        /* Start Screen */
+        .start-screen { display: none; text-align: center; padding: 40px 20px; position: relative; }
+        .back-btn {
+            position: absolute; top: 10px; left: 10px;
+            padding: 10px 20px; background: rgba(255,255,255,0.1);
+            border: none; border-radius: 10px; color: #fff; cursor: pointer;
         }
-
-        .answer-btn.incorrect {
-            background: rgba(231, 76, 60, 0.5);
-            border-color: #e74c3c;
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+        .game-icon { font-size: 60px; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .game-title { font-size: 2.2em; color: #ffd700; margin-bottom: 10px; }
+        .game-title.w2 { color: #3498db; }
+        .game-subtitle { font-size: 1.1em; color: #87ceeb; margin-bottom: 15px; }
+        .endless-badge {
+            display: inline-block; padding: 8px 20px;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            border-radius: 20px; margin-bottom: 20px;
+            animation: pulse 2s infinite;
         }
-
-        .answer-btn:disabled {
-            cursor: not-allowed;
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .game-desc { color: #aaa; margin-bottom: 25px; line-height: 1.6; }
+        .start-btn {
+            padding: 18px 50px; font-size: 1.3em;
+            background: linear-gradient(135deg, #ffd700, #ffed4a);
+            border: none; border-radius: 20px; color: #1a1a2e;
+            cursor: pointer; font-weight: bold; transition: all 0.3s ease;
         }
+        .start-btn.w2 { background: linear-gradient(135deg, #3498db, #5dade2); }
+        .start-btn:hover { transform: scale(1.05); }
+        .level-preview { display: flex; justify-content: center; gap: 8px; margin-top: 25px; flex-wrap: wrap; }
+        .level-dot { padding: 5px 12px; border-radius: 15px; font-size: 0.75em; font-weight: bold; }
+        .dot-cakewalk { background: rgba(168,230,207,0.3); color: #a8e6cf; }
+        .dot-easy { background: rgba(136,216,255,0.3); color: #88d8ff; }
+        .dot-ok { background: rgba(255,217,61,0.3); color: #ffd93d; }
+        .dot-hard { background: rgba(255,107,107,0.3); color: #ff6b6b; }
+        .dot-extreme { background: rgba(155,89,182,0.3); color: #9b59b6; }
 
-        /* Riddle Styles */
+        /* Game Screen */
+        .game-screen { display: none; }
+        .game-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 18px; background: rgba(255,255,255,0.1);
+            border-radius: 15px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+        }
+        .world-ind {
+            font-size: 0.85em; padding: 4px 12px; border-radius: 10px;
+            width: 100%; text-align: center; margin-bottom: 5px;
+        }
+        .world-ind.w1 { background: rgba(255,215,0,0.2); color: #ffd700; }
+        .world-ind.w2 { background: rgba(52,152,219,0.2); color: #3498db; }
+        .level-ind { font-size: 1.1em; font-weight: bold; color: #ffd700; }
+        .score-disp { font-size: 1em; color: #87ceeb; }
+        .round-disp {
+            font-size: 0.9em; color: #a8e6cf; width: 100%; text-align: center;
+            padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3px;
+        }
+        .progress-bar {
+            width: 100%; height: 10px; background: rgba(255,255,255,0.2);
+            border-radius: 10px; margin-bottom: 20px; overflow: hidden;
+        }
+        .progress-fill { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
+        .question-card {
+            background: rgba(255,255,255,0.1); border-radius: 20px;
+            padding: 25px; margin-bottom: 15px;
+        }
+        .q-type {
+            display: inline-block; padding: 5px 12px;
+            background: rgba(255,215,0,0.3); border-radius: 15px;
+            font-size: 0.8em; color: #ffd700; margin-bottom: 12px;
+        }
+        .q-text { font-size: 1.2em; margin-bottom: 20px; line-height: 1.5; }
+        .answers { display: flex; flex-direction: column; gap: 10px; }
+        .ans-btn {
+            padding: 14px 20px; font-size: 1em;
+            background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px; color: #fff; cursor: pointer; transition: all 0.3s ease; text-align: left;
+        }
+        .ans-btn:hover { background: rgba(255,255,255,0.25); border-color: #ffd700; transform: translateX(5px); }
+        .ans-btn.correct { background: rgba(46,204,113,0.5); border-color: #2ecc71; }
+        .ans-btn.incorrect { background: rgba(231,76,60,0.5); border-color: #e74c3c; }
+        .ans-btn:disabled { cursor: not-allowed; }
+
+        /* Riddle */
         .riddle-box {
             background: linear-gradient(135deg, rgba(155,89,182,0.3), rgba(142,68,173,0.3));
-            border: 2px solid #9b59b6;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            text-align: center;
+            border: 2px solid #9b59b6; border-radius: 15px;
+            padding: 20px; margin-bottom: 20px; text-align: center;
         }
-
-        .riddle-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-
-        .riddle-text {
-            font-size: 1.3em;
-            font-style: italic;
-            line-height: 1.6;
-            color: #e8daef;
-        }
-
+        .riddle-icon { font-size: 2em; margin-bottom: 10px; }
+        .riddle-text { font-size: 1.1em; font-style: italic; line-height: 1.6; color: #e8daef; }
         .riddle-input {
-            width: 100%;
-            padding: 18px;
-            font-size: 1.3em;
-            text-align: center;
-            border: 2px solid rgba(155,89,182,0.5);
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 20px;
+            width: 100%; padding: 15px; font-size: 1.1em; text-align: center;
+            border: 2px solid rgba(155,89,182,0.5); border-radius: 10px;
+            background: rgba(255,255,255,0.1); color: #fff;
+            text-transform: uppercase; letter-spacing: 2px; margin-top: 15px;
         }
-
-        .riddle-input:focus {
-            outline: none;
-            border-color: #9b59b6;
-        }
-
+        .riddle-input:focus { outline: none; border-color: #9b59b6; }
         .riddle-hint {
-            margin-top: 15px;
-            padding: 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            font-size: 0.95em;
-            color: #aaa;
+            margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.1);
+            border-radius: 8px; font-size: 0.9em; color: #aaa;
         }
 
-        /* Matching Game */
-        .matching-container {
-            display: flex;
-            justify-content: space-around;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .matching-column {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .matching-column h4 {
-            text-align: center;
-            color: #ffd700;
-            margin-bottom: 8px;
-        }
-
+        /* Matching */
+        .match-container { display: flex; justify-content: space-around; gap: 20px; flex-wrap: wrap; }
+        .match-col { display: flex; flex-direction: column; gap: 10px; }
+        .match-col h4 { text-align: center; color: #ffd700; margin-bottom: 5px; font-size: 0.9em; }
         .match-item {
-            padding: 14px 22px;
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            min-width: 130px;
+            padding: 12px 18px; background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3); border-radius: 8px;
+            cursor: pointer; transition: all 0.3s ease; text-align: center; min-width: 110px; font-size: 0.9em;
+        }
+        .match-item:hover { background: rgba(255,255,255,0.25); }
+        .match-item.selected { border-color: #ffd700; background: rgba(255,215,0,0.3); }
+        .match-item.matched { border-color: #2ecc71; background: rgba(46,204,113,0.3); }
+        .match-item.wrong { border-color: #e74c3c; background: rgba(231,76,60,0.3); animation: shake 0.4s ease; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        /* Multiple Choice */
+        .choices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .choice-btn {
+            padding: 12px 15px; font-size: 0.95em;
+            background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px; color: #fff; cursor: pointer; transition: all 0.3s ease; text-align: center;
+        }
+        .choice-btn:hover { background: rgba(255,255,255,0.25); border-color: #ffd700; }
+        .choice-btn.correct { background: rgba(46,204,113,0.5); border-color: #2ecc71; }
+        .choice-btn.incorrect { background: rgba(231,76,60,0.5); border-color: #e74c3c; }
+
+        /* Order */
+        .order-list { display: flex; flex-direction: column; gap: 8px; }
+        .order-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 15px; background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3); border-radius: 8px;
+            cursor: move; transition: all 0.3s ease; font-size: 0.9em;
+        }
+        .order-item:hover { background: rgba(255,255,255,0.25); }
+        .order-item.dragging { opacity: 0.5; border-color: #ffd700; }
+        .order-num {
+            width: 26px; height: 26px; background: #ffd700; color: #1a1a2e;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; flex-shrink: 0; font-size: 0.85em;
         }
 
-        .match-item:hover {
-            background: rgba(255,255,255,0.25);
-        }
-
-        .match-item.selected {
-            border-color: #ffd700;
-            background: rgba(255,215,0,0.3);
-        }
-
-        .match-item.matched {
-            border-color: #2ecc71;
-            background: rgba(46,204,113,0.3);
-        }
-
-        .match-item.wrong {
-            border-color: #e74c3c;
-            background: rgba(231,76,60,0.3);
-            animation: shake 0.4s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-
-        /* Unscramble */
-        .scrambled-word {
-            font-size: 2.2em;
-            color: #ffd700;
-            text-align: center;
-            letter-spacing: 10px;
-            margin-bottom: 25px;
-            font-weight: bold;
-        }
-
-        .unscramble-input, .fill-input {
-            width: 100%;
-            padding: 18px;
-            font-size: 1.4em;
-            text-align: center;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-        }
-
-        .unscramble-input:focus, .fill-input:focus {
-            outline: none;
-            border-color: #ffd700;
-        }
-
+        /* Submit & Write */
         .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            margin-top: 18px;
-            font-size: 1.2em;
-            background: linear-gradient(135deg, #ffd700, #ffed4a);
-            border: none;
-            border-radius: 12px;
-            color: #1a1a2e;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            display: block; width: 100%; padding: 14px; margin-top: 15px;
+            font-size: 1.1em; background: linear-gradient(135deg, #ffd700, #ffed4a);
+            border: none; border-radius: 10px; color: #1a1a2e;
+            cursor: pointer; font-weight: bold; transition: all 0.3s ease;
         }
-
-        .submit-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(255,215,0,0.4);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Write Your Own */
+        .submit-btn:hover { transform: scale(1.02); }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .write-input {
-            width: 100%;
-            padding: 18px;
-            font-size: 1.1em;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            min-height: 120px;
-            resize: vertical;
+            width: 100%; padding: 15px; font-size: 1em;
+            border: 2px solid rgba(255,255,255,0.3); border-radius: 10px;
+            background: rgba(255,255,255,0.1); color: #fff; min-height: 80px; resize: vertical;
         }
-
-        .write-input:focus {
-            outline: none;
-            border-color: #ffd700;
-        }
+        .write-input:focus { outline: none; border-color: #ffd700; }
 
         /* Feedback */
         .feedback {
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 12px;
-            font-size: 1.2em;
-            display: none;
+            text-align: center; padding: 15px; margin-top: 15px;
+            border-radius: 10px; font-size: 1.1em; display: none;
         }
-
-        .feedback.correct {
-            background: rgba(46,204,113,0.3);
-            border: 2px solid #2ecc71;
-        }
-
-        .feedback.incorrect {
-            background: rgba(231,76,60,0.3);
-            border: 2px solid #e74c3c;
-        }
-
-        .feedback.neutral {
-            background: rgba(52,152,219,0.3);
-            border: 2px solid #3498db;
-        }
-
+        .feedback.correct { background: rgba(46,204,113,0.3); border: 2px solid #2ecc71; }
+        .feedback.incorrect { background: rgba(231,76,60,0.3); border: 2px solid #e74c3c; }
+        .feedback.neutral { background: rgba(52,152,219,0.3); border: 2px solid #3498db; }
         .fun-fact {
-            background: rgba(155,89,182,0.3);
-            border: 2px solid #9b59b6;
-            padding: 18px;
-            border-radius: 12px;
-            margin-top: 18px;
-            display: none;
+            background: rgba(155,89,182,0.3); border: 2px solid #9b59b6;
+            padding: 15px; border-radius: 10px; margin-top: 15px; display: none;
         }
-
-        .fun-fact-title {
-            color: #d4a5ff;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
+        .fun-fact-title { color: #d4a5ff; font-weight: bold; margin-bottom: 5px; }
         .next-btn {
-            display: none;
-            width: 100%;
-            padding: 18px;
-            margin-top: 20px;
-            font-size: 1.2em;
-            background: linear-gradient(135deg, #3498db, #5dade2);
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            display: none; width: 100%; padding: 15px; margin-top: 15px;
+            font-size: 1.1em; background: linear-gradient(135deg, #3498db, #5dade2);
+            border: none; border-radius: 10px; color: #fff;
+            cursor: pointer; font-weight: bold; transition: all 0.3s ease;
         }
+        .next-btn:hover { transform: scale(1.02); }
+        .next-btn.level-done { background: linear-gradient(135deg, #2ecc71, #27ae60); }
 
-        .next-btn:hover {
-            transform: scale(1.03);
-        }
-
-        .next-level-btn {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-        }
-
-        /* City Display */
-        .city-container {
+        /* City */
+        .city-box {
             background: linear-gradient(180deg, #87ceeb 0%, #98d8c8 50%, #7cb342 100%);
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 25px;
-            min-height: 100px;
+            border-radius: 15px; padding: 20px; margin-top: 20px; min-height: 70px;
         }
+        .city-title { text-align: center; color: #2c3e50; margin-bottom: 10px; font-size: 0.95em; }
+        .city-items { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: 1.8em; }
+        .city-item { animation: pop 0.5s ease; }
+        @keyframes pop { 0% { transform: scale(0); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
-        .city-title {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 18px;
-            font-size: 1.1em;
-        }
-
-        .city-items {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            font-size: 2.2em;
-        }
-
-        .city-item {
-            animation: pop 0.5s ease;
-        }
-
-        @keyframes pop {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-
-        /* Level Complete Screen */
-        .level-complete-screen {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .level-complete-title {
-            font-size: 2.5em;
-            color: #ffd700;
-            margin-bottom: 15px;
-        }
-
-        .level-complete-score {
-            font-size: 1.3em;
-            color: #87ceeb;
-            margin-bottom: 25px;
-        }
-
-        .level-badge {
-            display: inline-block;
-            padding: 15px 30px;
+        /* Level Complete */
+        .level-complete { display: none; text-align: center; padding: 30px 20px; }
+        .lc-title { font-size: 2em; color: #ffd700; margin-bottom: 12px; }
+        .lc-score { font-size: 1.1em; color: #87ceeb; margin-bottom: 15px; }
+        .lc-badge {
+            display: inline-block; padding: 12px 25px;
             background: linear-gradient(135deg, #ffd700, #ffed4a);
-            color: #1a1a2e;
-            border-radius: 30px;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 20px 0;
+            color: #1a1a2e; border-radius: 25px; font-size: 1.1em; font-weight: bold; margin: 15px 0;
         }
-
-        .next-level-preview {
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
+        .stats-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 15px 0; }
+        .stat-box {
+            background: rgba(255,255,255,0.1); border-radius: 10px;
+            padding: 12px 20px; min-width: 90px;
         }
-
-        .next-level-preview h3 {
-            color: #ffd700;
-            margin-bottom: 10px;
-        }
-
-        .continue-btn {
-            padding: 20px 50px;
-            font-size: 1.3em;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            border: none;
-            border-radius: 15px;
-            color: #fff;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .continue-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(46,204,113,0.4);
-        }
-
+        .stat-num { font-size: 1.4em; color: #ffd700; font-weight: bold; }
+        .stat-label { color: #aaa; font-size: 0.75em; }
         .city-preview {
             background: linear-gradient(180deg, #87ceeb 0%, #98d8c8 50%, #7cb342 100%);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
+            border-radius: 12px; padding: 15px; margin: 15px 0;
         }
-
-        .city-preview-items {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            font-size: 2em;
+        .city-preview-items { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; font-size: 1.6em; }
+        .next-preview { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin: 15px 0; }
+        .next-preview h3 { color: #ffd700; margin-bottom: 8px; }
+        .continue-btn {
+            padding: 16px 40px; font-size: 1.1em;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border: none; border-radius: 12px; color: #fff;
+            cursor: pointer; font-weight: bold; transition: all 0.3s ease; margin-top: 15px;
         }
+        .continue-btn:hover { transform: scale(1.05); }
 
-        /* Stats Display */
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
-        .stat-box {
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 15px 25px;
-            min-width: 120px;
-        }
-
-        .stat-number {
-            font-size: 1.8em;
-            color: #ffd700;
-            font-weight: bold;
-        }
-
-        .stat-label {
-            color: #aaa;
-            font-size: 0.85em;
-        }
-
-        /* Multiple Choice */
-        .choices-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .choice-btn {
-            padding: 15px 20px;
-            font-size: 1.1em;
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .choice-btn:hover {
-            background: rgba(255,255,255,0.25);
-            border-color: #ffd700;
-        }
-
-        .choice-btn.correct {
-            background: rgba(46, 204, 113, 0.5);
-            border-color: #2ecc71;
-        }
-
-        .choice-btn.incorrect {
-            background: rgba(231, 76, 60, 0.5);
-            border-color: #e74c3c;
-        }
-
-        /* Who Am I */
-        .clues-list {
-            list-style: none;
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .clues-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-left: 30px;
-            position: relative;
-        }
-
-        .clues-list li::before {
-            content: "💡";
-            position: absolute;
-            left: 0;
-        }
-
-        /* Order Puzzle */
-        .order-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .order-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 20px;
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            cursor: move;
-            transition: all 0.3s ease;
-        }
-
-        .order-item:hover {
-            background: rgba(255,255,255,0.25);
-        }
-
-        .order-item.dragging {
-            opacity: 0.5;
-            border-color: #ffd700;
-        }
-
-        .order-number {
-            width: 30px;
-            height: 30px;
-            background: #ffd700;
-            color: #1a1a2e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1000;
-        }
-
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            animation: confetti-fall 3s ease-out forwards;
-        }
-
-        @keyframes confetti-fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* Extreme Level Glow */
-        .extreme-glow {
-            animation: extreme-pulse 1.5s infinite;
-        }
-
+        /* Effects */
+        .extreme-glow { animation: extreme-pulse 1.5s infinite; }
         @keyframes extreme-pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(155, 89, 182, 0.5); }
-            50% { box-shadow: 0 0 40px rgba(155, 89, 182, 0.8); }
+            0%, 100% { box-shadow: 0 0 20px rgba(155,89,182,0.5); }
+            50% { box-shadow: 0 0 40px rgba(155,89,182,0.8); }
         }
-
-        /* Hard Level Glow */
-        .hard-glow {
-            animation: hard-pulse 2s infinite;
-        }
-
+        .hard-glow { animation: hard-pulse 2s infinite; }
         @keyframes hard-pulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 107, 107, 0.4); }
-            50% { box-shadow: 0 0 30px rgba(255, 107, 107, 0.7); }
+            0%, 100% { box-shadow: 0 0 15px rgba(255,107,107,0.4); }
+            50% { box-shadow: 0 0 30px rgba(255,107,107,0.7); }
+        }
+        .confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        .confetti-piece { position: absolute; width: 10px; height: 10px; animation: confetti-fall 3s ease-out forwards; }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
         @media (max-width: 600px) {
-            .game-title { font-size: 2em; }
-            .question-text { font-size: 1.2em; }
-            .matching-container { flex-direction: column; align-items: center; }
-            .city-items { font-size: 1.8em; }
-            .level-preview { gap: 6px; }
-            .level-dot { padding: 5px 10px; font-size: 0.75em; }
+            .main-title { font-size: 1.8em; }
+            .game-title { font-size: 1.8em; }
+            .q-text { font-size: 1.05em; }
+            .match-container { flex-direction: column; align-items: center; }
             .choices-grid { grid-template-columns: 1fr; }
+            .world-card { width: 100%; }
+            .worlds-container { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- World Select -->
+        <div class="world-select" id="worldSelect">
+            <h1 class="main-title">🏛️ Gods & Civilizations 🏛️</h1>
+            <p class="main-subtitle">Choose Your Adventure!</p>
+            <div class="worlds-container">
+                <div class="world-card w1" onclick="selectWorld(1)">
+                    <div class="world-icon">⚡🏛️</div>
+                    <h2 class="world-title">WORLD 1</h2>
+                    <h3 style="color:#fff;margin-bottom:10px;">Gods & Myths</h3>
+                    <p class="world-desc">Explore Mount Olympus! Learn about Zeus, Poseidon, Athena, and legendary heroes.</p>
+                    <span class="world-badge">🔄 ENDLESS</span>
+                </div>
+                <div class="world-card w2" onclick="selectWorld(2)">
+                    <div class="world-icon">📜⏳</div>
+                    <h2 class="world-title">WORLD 2</h2>
+                    <h3 style="color:#fff;margin-bottom:10px;">Timeline & History</h3>
+                    <p class="world-desc">Travel through time! Discover battles, empires, inventions, and daily life.</p>
+                    <span class="world-badge">🔄 ENDLESS</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Start Screen -->
         <div class="start-screen" id="startScreen">
-            <div class="temple-icon">🏛️</div>
-            <h1 class="game-title">Gods & Civilizations</h1>
-            <p class="game-subtitle">Journey to Ancient Greece & Rome!</p>
+            <button class="back-btn" onclick="backToWorldSelect()">← Back</button>
+            <div class="game-icon" id="gameIcon">⚡🏛️</div>
+            <h1 class="game-title" id="gameTitle">Gods & Myths</h1>
+            <p class="game-subtitle" id="gameSub">Journey to Ancient Greece & Rome!</p>
             <div class="endless-badge">🔄 ENDLESS MODE 🔄</div>
-            <p class="game-description">
-                Play through 5 levels, then keep going forever!<br>
-                Questions get MUCH harder. How far can you go?
-            </p>
-            <button class="start-btn" onclick="startGame()">⚡ START ADVENTURE ⚡</button>
+            <p class="game-desc" id="gameDesc">Explore Mount Olympus and learn about Zeus, Athena, Hercules, and legendary heroes!</p>
+            <button class="start-btn" id="startBtn" onclick="startGame()">⚡ START ADVENTURE ⚡</button>
             <div class="level-preview">
                 <span class="level-dot dot-cakewalk">🍰 Cakewalk</span>
                 <span class="level-dot dot-easy">😊 Easy</span>
@@ -788,527 +343,214 @@
         <!-- Game Screen -->
         <div class="game-screen" id="gameScreen">
             <div class="game-header">
-                <span class="level-indicator" id="levelIndicator">🍰 CAKEWALK</span>
-                <span class="score-display">Score: <span id="scoreDisplay">0</span></span>
-                <div class="round-display">Round <span id="roundDisplay">1</span> • Question <span id="questionNumDisplay">1</span></div>
+                <div class="world-ind w1" id="worldInd">🏛️ World 1: Gods & Myths</div>
+                <span class="level-ind" id="levelInd">🍰 CAKEWALK</span>
+                <span class="score-disp">Score: <span id="scoreDisp">0</span></span>
+                <div class="round-disp">Round <span id="roundDisp">1</span> • Q<span id="qNumDisp">1</span></div>
             </div>
-            <div class="level-progress-bar">
-                <div class="level-progress-fill" id="levelProgressFill" style="width: 0%"></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
             </div>
-            <div class="question-card" id="questionCard">
-                <!-- Question content goes here -->
-            </div>
+            <div class="question-card" id="qCard"></div>
             <div class="feedback" id="feedback"></div>
             <div class="fun-fact" id="funFact">
                 <div class="fun-fact-title">✨ Fun Fact!</div>
                 <div id="funFactText"></div>
             </div>
             <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
-            
-            <div class="city-container">
-                <div class="city-title">🏙️ Your Ancient City</div>
+            <div class="city-box">
+                <div class="city-title" id="cityTitle">🏙️ Your Ancient City</div>
                 <div class="city-items" id="cityItems"></div>
             </div>
         </div>
 
-        <!-- Level Complete Screen -->
-        <div class="level-complete-screen" id="levelCompleteScreen">
-            <h1 class="level-complete-title" id="levelCompleteTitle">🎉 Level Complete! 🎉</h1>
-            <p class="level-complete-score">You got <span id="levelScore">0</span> out of <span id="levelTotal">0</span> correct!</p>
-            <div class="level-badge" id="levelBadge">⭐ Great Job!</div>
-            
-            <div class="stats-container">
+        <!-- Level Complete -->
+        <div class="level-complete" id="levelComplete">
+            <h1 class="lc-title" id="lcTitle">🎉 Level Complete! 🎉</h1>
+            <p class="lc-score">You got <span id="lcScore">0</span> out of <span id="lcTotal">0</span> correct!</p>
+            <div class="lc-badge" id="lcBadge">⭐ Great Job!</div>
+            <div class="stats-row">
                 <div class="stat-box">
-                    <div class="stat-number" id="totalScoreStat">0</div>
+                    <div class="stat-num" id="totalScoreStat">0</div>
                     <div class="stat-label">Total Score</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number" id="roundStat">1</div>
+                    <div class="stat-num" id="roundStat">1</div>
                     <div class="stat-label">Round</div>
                 </div>
             </div>
-
             <div class="city-preview">
-                <div class="city-title" style="color: #2c3e50;">Your City So Far</div>
-                <div class="city-preview-items" id="cityPreviewItems"></div>
+                <div class="city-title" style="color:#2c3e50;">Your City</div>
+                <div class="city-preview-items" id="cityPreview"></div>
             </div>
-
-            <div class="next-level-preview" id="nextLevelPreview">
+            <div class="next-preview" id="nextPreview">
                 <h3>Next Up:</h3>
-                <p id="nextLevelName">😊 EASY Level</p>
-                <p style="color: #aaa; margin-top: 10px;">Get ready for more challenges!</p>
+                <p id="nextLevelName">😊 EASY</p>
             </div>
             <button class="continue-btn" onclick="continueToNextLevel()">Continue →</button>
         </div>
     </div>
 
     <script>
-        // MASSIVE Question Bank with HARDER Hard and EXTREME levels
-        const gameData = {
+        // ============ WORLD 1: GODS & MYTHS ============
+        const world1Data = {
             cakewalk: {
-                name: "🍰 CAKEWALK",
-                color: "#a8e6cf",
+                name: "🍰 CAKEWALK", color: "#a8e6cf",
                 questions: [
-                    {
-                        type: "truefalse",
-                        question: "The Greek gods lived on Mount Olympus.",
-                        answer: true,
-                        funFact: "Mount Olympus is a real mountain in Greece that's almost 10,000 feet tall!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I'm the king up in the sky,\nWith thunder clouds floating by.\nBolts of light are what I throw,\nWho am I? Do you know?",
-                        hint: "He's the boss of all the gods!",
-                        answer: "ZEUS",
-                        funFact: "Zeus's symbol was the eagle, the king of birds!"
-                    },
-                    {
-                        type: "yesno",
-                        question: "Did ancient Greeks build temples?",
-                        answer: "yes",
-                        funFact: "Greek temples were painted in bright colors like red, blue, and gold!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "Poseidon was the god of the sky.",
-                        answer: false,
-                        correctInfo: "Poseidon was the god of the sea!",
-                        funFact: "Poseidon could create new islands by hitting the sea with his trident!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "Deep below the waves I stay,\nWith dolphins and fish I play.\nA trident is my special stick,\nGuess my name, come on, be quick!",
-                        hint: "He rules the ocean!",
-                        answer: "POSEIDON",
-                        funFact: "Sailors would pray to Poseidon before going on a voyage!"
-                    },
-                    {
-                        type: "yesno",
-                        question: "Were the Olympics invented by the Greeks?",
-                        answer: "yes",
-                        funFact: "In ancient Olympics, winners got olive wreaths instead of gold medals!"
-                    },
-                    {
-                        type: "matching",
-                        question: "Match the god to what they control:",
-                        pairs: [
-                            { left: "Zeus", right: "⚡ Sky & Thunder" },
-                            { left: "Poseidon", right: "🌊 Ocean & Sea" }
-                        ],
-                        funFact: "Zeus and Poseidon were brothers who split up the world!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I have columns tall and white,\nI'm a building, quite a sight.\nGods were worshipped here each day,\nWhat am I? Can you say?",
-                        hint: "Greeks built these for their gods!",
-                        answer: "TEMPLE",
-                        funFact: "The most famous temple is the Parthenon in Athens!"
-                    },
-                    {
-                        type: "write",
-                        question: "If you could visit ancient Greece, what would you want to see?",
-                        funFact: "Ancient Greece had amazing theaters, temples, and stadiums!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "Greek gods could live forever.",
-                        answer: true,
-                        funFact: "The gods drank a special drink called nectar that kept them immortal!"
-                    }
+                    { type: "truefalse", question: "The Greek gods lived on Mount Olympus.", answer: true, funFact: "Mount Olympus is a real mountain in Greece!" },
+                    { type: "riddle", riddle: "I'm the king up in the sky,\nWith thunder clouds floating by.\nBolts of light are what I throw,\nWho am I? Do you know?", hint: "Boss of all gods!", answer: "ZEUS", funFact: "Zeus's symbol was the eagle!" },
+                    { type: "yesno", question: "Did ancient Greeks build temples?", answer: "yes", funFact: "Greek temples were painted in bright colors!" },
+                    { type: "truefalse", question: "Poseidon was the god of the sky.", answer: false, correctInfo: "Poseidon was god of the sea!", funFact: "Poseidon could create islands with his trident!" },
+                    { type: "riddle", riddle: "Deep below the waves I stay,\nWith dolphins and fish I play.\nA trident is my special stick,\nGuess my name, be quick!", hint: "Rules the ocean!", answer: "POSEIDON", funFact: "Sailors prayed to Poseidon before voyages!" },
+                    { type: "yesno", question: "Were the Olympics invented by Greeks?", answer: "yes", funFact: "Winners got olive wreaths, not gold medals!" },
+                    { type: "matching", question: "Match the god to their power:", pairs: [{ left: "Zeus", right: "⚡ Thunder" }, { left: "Poseidon", right: "🌊 Ocean" }], funFact: "Zeus and Poseidon were brothers!" },
+                    { type: "truefalse", question: "Greek gods could live forever.", answer: true, funFact: "Gods drank nectar to stay immortal!" }
                 ],
                 rewards: ["🏛️", "🌳", "⛲"]
             },
             easy: {
-                name: "😊 EASY",
-                color: "#88d8ff",
+                name: "😊 EASY", color: "#88d8ff",
                 questions: [
-                    {
-                        type: "riddle",
-                        riddle: "An owl sits upon my arm,\nWisdom keeps the world from harm.\nI help heroes win their fights,\nWith clever plans and bright insights.\nWho am I?",
-                        hint: "She's the goddess of wisdom!",
-                        answer: "ATHENA",
-                        funFact: "Athena was born fully grown from Zeus's head!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "Hermes had wings on his sandals.",
-                        answer: true,
-                        funFact: "Hermes could fly faster than any bird!"
-                    },
-                    {
-                        type: "yesno",
-                        question: "Did Apollo drive the sun across the sky?",
-                        answer: "yes",
-                        funFact: "Apollo's chariot was pulled by four fire-breathing horses!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I run and fly without a rest,\nAt being fast I am the best.\nI bring messages all day long,\nWith winged sandals, I am strong!\nWho am I?",
-                        hint: "He's the messenger god!",
-                        answer: "HERMES",
-                        funFact: "Hermes also guided souls to the underworld!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "What animal was sacred to Athena?",
-                        choices: ["Lion", "Owl", "Eagle", "Snake"],
-                        answer: "Owl",
-                        funFact: "The owl represented wisdom because it could see in the dark!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "Artemis was the goddess of the hunt.",
-                        answer: true,
-                        funFact: "Artemis never missed when she shot her bow and arrows!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I play sweet music all day long,\nThe sun obeys me, bright and strong.\nArtemis is my twin sister dear,\nNow tell me, who am I here?",
-                        hint: "He's the god of music and the sun!",
-                        answer: "APOLLO",
-                        funFact: "Apollo invented the lyre, a stringed instrument!"
-                    },
-                    {
-                        type: "matching",
-                        question: "Match each god to their symbol:",
-                        pairs: [
-                            { left: "Athena", right: "🦉 Owl" },
-                            { left: "Apollo", right: "☀️ Sun" },
-                            { left: "Artemis", right: "🏹 Bow & Arrow" }
-                        ],
-                        funFact: "Artemis and Apollo were twins born on a tiny island!"
-                    },
-                    {
-                        type: "yesno",
-                        question: "Did Hades live on Mount Olympus?",
-                        answer: "no",
-                        funFact: "Hades lived in the Underworld where all dead souls went!"
-                    },
-                    {
-                        type: "write",
-                        question: "Which Greek god would you want as a friend? Why?",
-                        funFact: "Each Greek god had different personalities just like people!"
-                    }
+                    { type: "riddle", riddle: "An owl sits upon my arm,\nWisdom keeps the world from harm.\nI help heroes win their fights,\nWith clever plans and insights.", hint: "Goddess of wisdom!", answer: "ATHENA", funFact: "Athena was born from Zeus's head!" },
+                    { type: "truefalse", question: "Hermes had wings on his sandals.", answer: true, funFact: "Hermes could fly faster than any bird!" },
+                    { type: "yesno", question: "Did Apollo drive the sun across the sky?", answer: "yes", funFact: "Apollo's chariot had fire-breathing horses!" },
+                    { type: "riddle", riddle: "I run and fly without a rest,\nAt being fast I am the best.\nMessages I bring all day,\nWith winged sandals on my way!", hint: "Messenger god!", answer: "HERMES", funFact: "Hermes guided souls to the underworld!" },
+                    { type: "multiplechoice", question: "What animal was sacred to Athena?", choices: ["Lion", "Owl", "Eagle", "Snake"], answer: "Owl", funFact: "Owls represented wisdom!" },
+                    { type: "truefalse", question: "Artemis was goddess of the hunt.", answer: true, funFact: "Artemis never missed with her bow!" },
+                    { type: "matching", question: "Match god to symbol:", pairs: [{ left: "Athena", right: "🦉 Owl" }, { left: "Apollo", right: "☀️ Sun" }, { left: "Artemis", right: "🏹 Bow" }], funFact: "Artemis and Apollo were twins!" },
+                    { type: "yesno", question: "Did Hades live on Mount Olympus?", answer: "no", funFact: "Hades lived in the Underworld!" }
                 ],
                 rewards: ["🏛️", "🗿", "🌺", "🏺"]
             },
             ok: {
-                name: "👍 OK",
-                color: "#ffd93d",
+                name: "👍 OK", color: "#ffd93d",
                 questions: [
-                    {
-                        type: "riddle",
-                        riddle: "I'm the strongest man around,\nDoing tasks across the ground.\nTwelve hard labors were my test,\nI'm a hero, one of the best!\nWho am I?",
-                        hint: "He completed 12 impossible tasks!",
-                        answer: "HERCULES",
-                        funFact: "Hercules was so strong he could wrestle lions!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "The Romans called Zeus 'Jupiter'.",
-                        answer: true,
-                        funFact: "The planet Jupiter is named after the Roman king of gods!"
-                    },
-                    {
-                        type: "yesno",
-                        question: "Did Cerberus have three heads?",
-                        answer: "yes",
-                        funFact: "Cerberus was the guard dog of the Underworld!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "Three heads I have, with teeth so sharp,\nI guard a place that's very dark.\nNo one gets past me, that's my goal,\nI watch the gate where souls all roll.\nWhat am I?",
-                        hint: "It's Hades' famous pet!",
-                        answer: "CERBERUS",
-                        funFact: "Only Orpheus put Cerberus to sleep with music!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "What is Neptune the Roman god of?",
-                        choices: ["War", "The Sea", "Fire", "Love"],
-                        answer: "The Sea",
-                        funFact: "Neptune is the same as the Greek god Poseidon!"
-                    },
-                    {
-                        type: "matching",
-                        question: "Match Greek gods to their Roman names:",
-                        pairs: [
-                            { left: "Zeus", right: "Jupiter" },
-                            { left: "Ares", right: "Mars" },
-                            { left: "Aphrodite", right: "Venus" }
-                        ],
-                        funFact: "Romans borrowed most of their gods from the Greeks!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I am the goddess of love so sweet,\nWith beauty that none can beat.\nFrom sea foam I was born one day,\nNow who am I? Come on, say!",
-                        hint: "She's the most beautiful goddess!",
-                        answer: "APHRODITE",
-                        funFact: "Aphrodite's Roman name is Venus - like the planet!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "Greek children went to school.",
-                        answer: true,
-                        funFact: "Only boys went to school - girls learned at home!"
-                    },
-                    {
-                        type: "yesno",
-                        question: "Did Hephaestus make weapons for the gods?",
-                        answer: "yes",
-                        funFact: "Hephaestus made Zeus's lightning bolts!"
-                    },
-                    {
-                        type: "write",
-                        question: "Describe what you think a feast on Mount Olympus would be like.",
-                        funFact: "The gods ate ambrosia and drank nectar at their feasts!"
-                    }
+                    { type: "riddle", riddle: "I'm the strongest man around,\nDoing tasks across the ground.\nTwelve hard labors were my test,\nI'm a hero, one of the best!", hint: "Did 12 impossible tasks!", answer: "HERCULES", funFact: "Hercules could wrestle lions!" },
+                    { type: "truefalse", question: "Romans called Zeus 'Jupiter'.", answer: true, funFact: "The planet Jupiter is named after him!" },
+                    { type: "yesno", question: "Did Cerberus have three heads?", answer: "yes", funFact: "Cerberus guarded the Underworld!" },
+                    { type: "riddle", riddle: "Three heads I have, teeth so sharp,\nI guard a place that's very dark.\nNo one escapes my watchful eyes,\nI'm Hades' pet of massive size!", hint: "Three-headed guard dog!", answer: "CERBERUS", funFact: "Orpheus put Cerberus to sleep with music!" },
+                    { type: "multiplechoice", question: "Neptune is Roman god of what?", choices: ["War", "The Sea", "Fire", "Love"], answer: "The Sea", funFact: "Neptune = Greek Poseidon!" },
+                    { type: "matching", question: "Match Greek to Roman names:", pairs: [{ left: "Zeus", right: "Jupiter" }, { left: "Ares", right: "Mars" }, { left: "Aphrodite", right: "Venus" }], funFact: "Romans borrowed Greek gods!" },
+                    { type: "truefalse", question: "Hephaestus made weapons for gods.", answer: true, funFact: "Hephaestus made Zeus's lightning bolts!" },
+                    { type: "riddle", riddle: "I am goddess of love so sweet,\nWith beauty none can beat.\nFrom sea foam I was born,\nRomans call me Venus morn!", hint: "Goddess of love!", answer: "APHRODITE", funFact: "Venus the planet is named after her!" }
                 ],
                 rewards: ["🏛️", "⛲", "🗿", "🏺", "👑"]
             },
             hard: {
-                name: "🔥 HARD",
-                color: "#ff6b6b",
+                name: "🔥 HARD", color: "#ff6b6b",
                 questions: [
-                    {
-                        type: "riddle",
-                        riddle: "I sailed for years through stormy seas,\nFighting monsters, if you please.\nA one-eyed giant tried to eat my crew,\nThe Trojan Horse? That was my idea too!\nWho am I?",
-                        hint: "He took 10 years to get home from Troy!",
-                        answer: "ODYSSEUS",
-                        acceptableAnswers: ["ODYSSEUS", "ULYSSES"],
-                        funFact: "Odysseus's journey home took 10 years and is told in Homer's Odyssey!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "How many heads did the Hydra have, and what happened when one was cut off?",
-                        choices: ["5 heads, they didn't grow back", "9 heads, 2 grew back for each one cut", "3 heads, 1 grew back", "7 heads, 3 grew back"],
-                        answer: "9 heads, 2 grew back for each one cut",
-                        funFact: "Hercules had to burn each neck stump to stop new heads from growing!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I was cursed to never be believed,\nThough every prophecy I conceived.\nTroy would fall, I tried to warn,\nBut everyone just laughed in scorn.\nWho am I?",
-                        hint: "She could see the future but no one believed her!",
-                        answer: "CASSANDRA",
-                        funFact: "Apollo cursed Cassandra because she rejected him!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "The Cyclops Polyphemus was the son of Poseidon.",
-                        answer: true,
-                        funFact: "When Odysseus blinded Polyphemus, Poseidon cursed his journey home!"
-                    },
-                    {
-                        type: "matching",
-                        question: "Match these TRICKY pairs - heroes to their fatal weakness:",
-                        pairs: [
-                            { left: "Achilles", right: "His heel" },
-                            { left: "Samson", right: "His hair" },
-                            { left: "Oedipus", right: "His pride" },
-                            { left: "Orpheus", right: "Looking back" }
-                        ],
-                        funFact: "Greek heroes often had one weakness that led to their downfall!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "Born from blood of slain Medusa,\nA horse with wings, quite the producer!\nI carried thunder for Zeus so high,\nA constellation now in the sky.\nWhat am I?",
-                        hint: "A famous flying horse!",
-                        answer: "PEGASUS",
-                        funFact: "Pegasus was born from Medusa's blood when Perseus cut off her head!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "What did Orpheus do wrong when trying to rescue his wife Eurydice from the Underworld?",
-                        choices: ["He forgot the password", "He looked back at her before leaving", "He sang the wrong song", "He took too long"],
-                        answer: "He looked back at her before leaving",
-                        funFact: "Orpheus was just steps away from freedom when he looked back!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "King Minos kept the Minotaur in a labyrinth designed by Daedalus.",
-                        answer: true,
-                        funFact: "Daedalus was so clever that Minos trapped him in his own labyrinth!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I challenged Athena to weave,\nA contest I thought I'd achieve.\nBut I was turned into something small,\nNow I weave webs upon the wall.\nWho am I?",
-                        hint: "She became a spider!",
-                        answer: "ARACHNE",
-                        funFact: "That's why spiders are called 'arachnids' - from Arachne's name!"
-                    },
-                    {
-                        type: "order",
-                        question: "Put these events from the Trojan War in the correct order:",
-                        items: [
-                            { text: "Paris takes Helen from Sparta", order: 1 },
-                            { text: "Greeks sail to Troy with 1000 ships", order: 2 },
-                            { text: "Achilles kills Hector", order: 3 },
-                            { text: "Greeks hide in the Trojan Horse", order: 4 },
-                            { text: "Troy is destroyed", order: 5 }
-                        ],
-                        funFact: "The Trojan War lasted 10 years before the horse trick worked!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "Why did the Trojan War start?",
-                        choices: ["Zeus wanted entertainment", "Paris took Helen from her husband", "Athena was angry", "Poseidon flooded Troy"],
-                        answer: "Paris took Helen from her husband",
-                        funFact: "Helen was considered the most beautiful woman in the world!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I judged three goddesses one day,\nWho was most beautiful, they'd say.\nI chose love's goddess for my prize,\nAnd started a war of epic size.\nWho am I?",
-                        hint: "A prince of Troy who made a terrible choice!",
-                        answer: "PARIS",
-                        funFact: "The three goddesses Paris judged were Hera, Athena, and Aphrodite!"
-                    }
+                    { type: "riddle", riddle: "I sailed for years through stormy seas,\nFighting monsters, if you please.\nA Cyclops tried to eat my crew,\nThe Trojan Horse? My idea too!", hint: "10 years to get home!", answer: "ODYSSEUS", acceptableAnswers: ["ODYSSEUS", "ULYSSES"], funFact: "His journey is told in Homer's Odyssey!" },
+                    { type: "multiplechoice", question: "What happened when you cut a Hydra head?", choices: ["It died", "Two more grew", "It grew wings", "Nothing"], answer: "Two more grew", funFact: "Hercules burned necks to stop new heads!" },
+                    { type: "riddle", riddle: "I was cursed to never be believed,\nThough every prophecy I perceived.\nTroy would fall, I tried to warn,\nBut everyone just laughed in scorn.", hint: "Could see future, no one believed!", answer: "CASSANDRA", funFact: "Apollo cursed her for rejecting him!" },
+                    { type: "truefalse", question: "Cyclops Polyphemus was Poseidon's son.", answer: true, funFact: "Poseidon cursed Odysseus for blinding him!" },
+                    { type: "matching", question: "Match hero to weakness:", pairs: [{ left: "Achilles", right: "His heel" }, { left: "Orpheus", right: "Looking back" }, { left: "Icarus", right: "Flying too high" }], funFact: "Greek heroes had fatal flaws!" },
+                    { type: "riddle", riddle: "Born from blood of slain Medusa,\nA horse with wings, quite the sight!\nI carried heroes through the sky,\nA constellation now on high.", hint: "Flying horse!", answer: "PEGASUS", funFact: "Pegasus was born from Medusa's blood!" },
+                    { type: "multiplechoice", question: "What did Orpheus do wrong saving Eurydice?", choices: ["Wrong password", "Looked back", "Wrong song", "Too slow"], answer: "Looked back", funFact: "He was just steps from freedom!" },
+                    { type: "riddle", riddle: "I challenged Athena to weave,\nA contest I thought I'd achieve.\nTurned into something small,\nNow I weave webs on the wall.", hint: "Became a spider!", answer: "ARACHNE", funFact: "That's why spiders are 'arachnids'!" },
+                    { type: "order", question: "Put Trojan War events in order:", items: [{ text: "Paris takes Helen", order: 1 }, { text: "Greeks sail to Troy", order: 2 }, { text: "Achilles kills Hector", order: 3 }, { text: "Trojan Horse", order: 4 }], funFact: "The war lasted 10 years!" }
                 ],
                 rewards: ["⚔️", "🛡️", "👑", "🏛️", "💎"]
             },
             extreme: {
-                name: "💀 EXTREME",
-                color: "#9b59b6",
+                name: "💀 EXTREME", color: "#9b59b6",
                 questions: [
-                    {
-                        type: "riddle",
-                        riddle: "I stole fire from gods above,\nGave it to humans out of love.\nChained to a rock for my crime so grave,\nAn eagle ate my liver, day after day.\nNot even death could be my save.\nWho am I?",
-                        hint: "He was punished for eternity for helping humans!",
-                        answer: "PROMETHEUS",
-                        funFact: "Prometheus's liver grew back every night only to be eaten again each day!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "In Greek mythology, which primordial deity was the first to exist, from whom all others came?",
-                        choices: ["Zeus", "Gaia", "Chaos", "Uranus"],
-                        answer: "Chaos",
-                        funFact: "Chaos was the void from which Gaia (Earth), Tartarus, and Eros emerged!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "I ferried souls across a river wide,\nFor a coin placed on the lips of those who died.\nThe River Styx was my domain,\nNo coin, no passage—that's my refrain.\nWho am I?",
-                        hint: "The ferryman of the dead!",
-                        answer: "CHARON",
-                        funFact: "Greeks buried their dead with coins on their eyes or in their mouths for Charon's fee!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "Tantalus was punished by being forced to stand in a pool of water beneath fruit trees, but both water and fruit retreated when he reached for them.",
-                        answer: true,
-                        funFact: "This is where we get the word 'tantalize' - something just out of reach!"
-                    },
-                    {
-                        type: "matching",
-                        question: "Match these EXTREMELY difficult pairs - the monster to its specific deadly ability:",
-                        pairs: [
-                            { left: "Sirens", right: "Luring songs that crash ships" },
-                            { left: "Scylla", right: "Six heads that snatch sailors" },
-                            { left: "Charybdis", right: "Whirlpool that swallows ships" },
-                            { left: "Chimera", right: "Fire-breathing lion-goat-snake" }
-                        ],
-                        funFact: "Odysseus had to sail between Scylla and Charybdis - choosing the lesser evil!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "Four of us pulled the chariot of night,\nThrough the sky without any light.\nOur mother was darkness, our job never done,\nWe return when you cannot see the sun.\nWhat are we?",
-                        hint: "The horses of Nyx, goddess of night!",
-                        answer: "NIGHT HORSES",
-                        acceptableAnswers: ["NIGHT HORSES", "HORSES OF NYX", "NYX HORSES", "HORSES"],
-                        funFact: "The four horses of night were named Shade, Shadow, Darkness, and Fear!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "What THREE things did Pandora's Box release that remained INSIDE when she closed it?",
-                        choices: ["Love, peace, wisdom", "Only Hope remained inside", "Death, disease, old age", "Three spirits escaped"],
-                        answer: "Only Hope remained inside",
-                        funFact: "Hope stayed in the box so humans would always have something to hold onto!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "In the morning four, at noon just two,\nIn the evening three will do.\nAnswer wrong and you'll be my feast,\nI'm no woman, I'm a beast.\nWhat creature am I?",
-                        hint: "This creature asked riddles and ate those who failed!",
-                        answer: "SPHINX",
-                        acceptableAnswers: ["SPHINX", "THE SPHINX"],
-                        funFact: "The answer to the riddle is 'man' - crawls as baby, walks as adult, uses cane when old!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "The Titan Cronus ate his children because of a prophecy that one would overthrow him, but Zeus escaped because his mother Rhea hid him and gave Cronus a stone wrapped in blankets instead.",
-                        answer: true,
-                        funFact: "Zeus later made Cronus vomit up his siblings - who became the Olympian gods!"
-                    },
-                    {
-                        type: "order",
-                        question: "Put the Greek Ages of Man in order from BEST to WORST:",
-                        items: [
-                            { text: "Golden Age - Humans lived like gods, no work needed", order: 1 },
-                            { text: "Silver Age - Humans were childish, ignored the gods", order: 2 },
-                            { text: "Bronze Age - Violent warriors who destroyed themselves", order: 3 },
-                            { text: "Heroic Age - Age of demigods and great heroes", order: 4 },
-                            { text: "Iron Age - Current age of toil, suffering, and death", order: 5 }
-                        ],
-                        funFact: "Greeks believed humanity got worse with each age!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "Three sisters we, who share one eye,\nOne tooth between us, by and by.\nWe know the future, dark and deep,\nSecrets of the fates we keep.\nWho are we?",
-                        hint: "Perseus tricked them to find Medusa!",
-                        answer: "GRAEAE",
-                        acceptableAnswers: ["GRAEAE", "THE GRAEAE", "GRAY SISTERS", "GREY SISTERS", "THREE GRAY SISTERS"],
-                        funFact: "Perseus stole their shared eye and tooth to force them to reveal Medusa's location!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "Which of these is the CORRECT order of the Twelve Labors of Hercules for the FIRST THREE labors?",
-                        choices: [
-                            "Nemean Lion → Lernaean Hydra → Golden Hind",
-                            "Hydra → Lion → Boar",
-                            "Lion → Boar → Hydra",
-                            "Golden Hind → Lion → Hydra"
-                        ],
-                        answer: "Nemean Lion → Lernaean Hydra → Golden Hind",
-                        funFact: "The Nemean Lion's skin was impenetrable, so Hercules had to strangle it!"
-                    },
-                    {
-                        type: "riddle",
-                        riddle: "We three determine every soul's thread,\nOne spins, one measures, one cuts you dead.\nNot even Zeus can change our way,\nWe control your final day.\nWho are we?",
-                        hint: "Even gods feared these three sisters!",
-                        answer: "THE FATES",
-                        acceptableAnswers: ["FATES", "THE FATES", "MOIRAI", "THE MOIRAI", "THREE FATES"],
-                        funFact: "The Fates were Clotho (spinner), Lachesis (measurer), and Atropos (cutter of life's thread)!"
-                    },
-                    {
-                        type: "truefalse",
-                        question: "The five rivers of the Underworld were Styx (hate), Acheron (pain), Lethe (forgetfulness), Phlegethon (fire), and Cocytus (wailing).",
-                        answer: true,
-                        funFact: "Drinking from the River Lethe made souls forget their past lives before reincarnation!"
-                    },
-                    {
-                        type: "multiplechoice",
-                        question: "What special gift did the Cyclopes give to each of the three major Olympian brothers?",
-                        choices: [
-                            "Zeus: lightning, Poseidon: trident, Hades: invisibility helmet",
-                            "Zeus: sword, Poseidon: armor, Hades: crown",
-                            "Zeus: wings, Poseidon: chariot, Hades: key",
-                            "Zeus: throne, Poseidon: palace, Hades: throne"
-                        ],
-                        answer: "Zeus: lightning, Poseidon: trident, Hades: invisibility helmet",
-                        funFact: "The Cyclopes were master craftsmen imprisoned by Cronus until Zeus freed them!"
-                    }
+                    { type: "riddle", riddle: "I stole fire from gods above,\nGave it to humans out of love.\nChained to rock for my crime,\nEagle ate my liver for all time.", hint: "Punished forever for helping humans!", answer: "PROMETHEUS", funFact: "His liver grew back each night!" },
+                    { type: "multiplechoice", question: "Which primordial deity existed FIRST?", choices: ["Zeus", "Gaia", "Chaos", "Uranus"], answer: "Chaos", funFact: "Chaos was the void before everything!" },
+                    { type: "riddle", riddle: "I ferry souls across river wide,\nFor a coin on lips of those who died.\nRiver Styx was my domain,\nNo coin, no passage—that's plain.", hint: "Ferryman of the dead!", answer: "CHARON", funFact: "Greeks buried dead with coins for Charon!" },
+                    { type: "truefalse", question: "Tantalus was punished with food and water just out of reach.", answer: true, funFact: "That's where 'tantalize' comes from!" },
+                    { type: "matching", question: "Match monster to power:", pairs: [{ left: "Sirens", right: "Deadly songs" }, { left: "Scylla", right: "Six heads" }, { left: "Charybdis", right: "Whirlpool" }, { left: "Chimera", right: "Fire breath" }], funFact: "Odysseus sailed between Scylla and Charybdis!" },
+                    { type: "multiplechoice", question: "What stayed INSIDE Pandora's Box?", choices: ["Love", "Only Hope", "Death", "Spirits"], answer: "Only Hope", funFact: "Hope remained so humans could survive!" },
+                    { type: "riddle", riddle: "Morning four, noon just two,\nEvening three will do.\nAnswer wrong, be my feast,\nPart woman, part lion beast.", hint: "Asked deadly riddles!", answer: "SPHINX", acceptableAnswers: ["SPHINX", "THE SPHINX"], funFact: "Answer is 'man' - crawls, walks, uses cane!" },
+                    { type: "truefalse", question: "Cronus ate his children but Zeus escaped via a rock in blankets.", answer: true, funFact: "Zeus made Cronus vomit up his siblings!" },
+                    { type: "riddle", riddle: "Three sisters we, share one eye,\nOne tooth between us, by and by.\nWe know the future dark and deep,\nSecrets of the fates we keep.", hint: "Perseus tricked them!", answer: "GRAEAE", acceptableAnswers: ["GRAEAE", "GRAY SISTERS", "GREY SISTERS"], funFact: "Perseus stole their eye to find Medusa!" },
+                    { type: "riddle", riddle: "We three determine every thread,\nOne spins, one measures, one cuts dead.\nNot even Zeus can change our way,\nWe control your final day.", hint: "Even gods feared them!", answer: "THE FATES", acceptableAnswers: ["FATES", "THE FATES", "MOIRAI"], funFact: "The Fates were Clotho, Lachesis, Atropos!" }
                 ],
-                rewards: ["👑", "⚔️", "🛡️", "💎", "🌟", "🔱", "🦅", "💀"]
+                rewards: ["👑", "⚔️", "🛡️", "💎", "🌟", "🔱", "💀"]
             }
         };
 
-        const levelOrder = ['cakewalk', 'easy', 'ok', 'hard', 'extreme'];
-        const levelColors = {
-            cakewalk: '#a8e6cf',
-            easy: '#88d8ff',
-            ok: '#ffd93d',
-            hard: '#ff6b6b',
-            extreme: '#9b59b6'
+        // ============ WORLD 2: TIMELINE & HISTORY ============
+        const world2Data = {
+            cakewalk: {
+                name: "🍰 CAKEWALK", color: "#a8e6cf",
+                questions: [
+                    { type: "truefalse", question: "Ancient Greece existed before Ancient Rome.", answer: true, funFact: "Greece started ~800 BC, Rome ~753 BC!" },
+                    { type: "riddle", riddle: "I'm a city on seven hills,\nWith soldiers, roads, building skills.\nI conquered lands both far and wide,\nAn empire known for strength and pride!", hint: "Famous ancient empire!", answer: "ROME", funFact: "Rome was called the 'Eternal City'!" },
+                    { type: "yesno", question: "Did ancient Greeks invent democracy?", answer: "yes", funFact: "Democracy means 'rule by the people'!" },
+                    { type: "truefalse", question: "The pyramids were built by Romans.", answer: false, correctInfo: "Pyramids were built by Egyptians!", funFact: "Pyramids were 2,000 years old when Rome was founded!" },
+                    { type: "riddle", riddle: "A contest held every four years,\nWith running, throwing, athletes' cheers.\nStarted in Greece long ago,\nNow the whole world puts on a show!", hint: "Famous sports competition!", answer: "OLYMPICS", acceptableAnswers: ["OLYMPICS", "THE OLYMPICS", "OLYMPIC GAMES"], funFact: "First Olympics were in 776 BC!" },
+                    { type: "yesno", question: "Did Romans build long, straight roads?", answer: "yes", funFact: "Some Roman roads still exist today!" },
+                    { type: "matching", question: "Match invention to civilization:", pairs: [{ left: "Democracy", right: "Greeks" }, { left: "Aqueducts", right: "Romans" }], funFact: "Romans brought water into cities!" },
+                    { type: "truefalse", question: "Ancient Greeks wrote plays and stories.", answer: true, funFact: "Greek theaters held 15,000 people!" }
+                ],
+                rewards: ["📜", "🏛️", "⏳"]
+            },
+            easy: {
+                name: "😊 EASY", color: "#88d8ff",
+                questions: [
+                    { type: "riddle", riddle: "A soldier trained from young age,\nIn a Greek city known for rage.\nWe never surrender, never flee,\nCome back with shield or on it!", hint: "Famous Greek warriors!", answer: "SPARTAN", acceptableAnswers: ["SPARTAN", "SPARTANS", "SPARTA"], funFact: "Spartan training started at age 7!" },
+                    { type: "truefalse", question: "Gladiators fought in the Colosseum.", answer: true, funFact: "Colosseum held 50,000 spectators!" },
+                    { type: "yesno", question: "Did Greeks use an alphabet?", answer: "yes", funFact: "'Alphabet' comes from alpha and beta!" },
+                    { type: "riddle", riddle: "I'm a place where learning grew,\nPhilosophers taught what was true.\nSocrates and Plato walked my ground,\nIn ancient Greece is where I'm found!", hint: "Place of learning!", answer: "ATHENS", acceptableAnswers: ["ATHENS", "ACADEMY"], funFact: "Athens was center of art and philosophy!" },
+                    { type: "multiplechoice", question: "What did Romans bathe in?", choices: ["Rivers only", "Public bath houses", "Never bathed", "Private pools"], answer: "Public bath houses", funFact: "Roman baths had hot, warm, cold pools!" },
+                    { type: "truefalse", question: "Greek children played with toys.", answer: true, funFact: "Greek kids had dolls, balls, yo-yos!" },
+                    { type: "matching", question: "Match city to fame:", pairs: [{ left: "Athens", right: "Philosophy" }, { left: "Sparta", right: "Warriors" }, { left: "Rome", right: "Empire" }], funFact: "Athens and Sparta were rivals!" },
+                    { type: "yesno", question: "Did Romans have concrete?", answer: "yes", funFact: "Roman concrete is stronger than modern!" }
+                ],
+                rewards: ["📜", "🗿", "⚔️", "🏺"]
+            },
+            ok: {
+                name: "👍 OK", color: "#ffd93d",
+                questions: [
+                    { type: "riddle", riddle: "I conquered from Greece to India,\nAt thirty-two I was no more.\nThey called me 'Great' through the land,\nMy empire vast and grand!", hint: "Famous young conqueror!", answer: "ALEXANDER", acceptableAnswers: ["ALEXANDER", "ALEXANDER THE GREAT"], funFact: "Alexander never lost a battle!" },
+                    { type: "truefalse", question: "Julius Caesar was a Roman emperor.", answer: false, correctInfo: "Caesar was dictator. Augustus was first emperor!", funFact: "July is named after Julius Caesar!" },
+                    { type: "yesno", question: "Did Greeks have coins and money?", answer: "yes", funFact: "Greek coins showed owls or gods!" },
+                    { type: "riddle", riddle: "Three hundred warriors held the pass,\nAgainst a Persian army vast.\nWe fought and died, earned great fame,\nThermopylae was our battle's name!", hint: "Famous Spartan last stand!", answer: "SPARTANS", acceptableAnswers: ["SPARTANS", "300 SPARTANS", "THREE HUNDRED"], funFact: "King Leonidas led the 300!" },
+                    { type: "multiplechoice", question: "What was a Roman legion?", choices: ["Food", "Group of soldiers", "Temple", "Ship"], answer: "Group of soldiers", funFact: "A legion had about 5,000 soldiers!" },
+                    { type: "matching", question: "Match event to date:", pairs: [{ left: "First Olympics", right: "776 BC" }, { left: "Rome founded", right: "753 BC" }, { left: "Rome fell", right: "476 AD" }], funFact: "Roman Empire lasted 1,000+ years!" },
+                    { type: "truefalse", question: "Cleopatra was last pharaoh of Egypt.", answer: true, funFact: "Cleopatra lived closer to us than to pyramid builders!" },
+                    { type: "riddle", riddle: "Beware the Ides of March, said they,\nBut I ignored and paid the way.\nStabbed by friends in Rome's great hall,\n'Et tu?' I cried as I did fall!", hint: "Famous Roman leader!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR"], funFact: "Caesar was stabbed 23 times!" }
+                ],
+                rewards: ["📜", "⛲", "🗿", "⚔️", "👑"]
+            },
+            hard: {
+                name: "🔥 HARD", color: "#ff6b6b",
+                questions: [
+                    { type: "riddle", riddle: "I crossed the Alps with elephants tall,\nTo make the mighty Romans fall.\nFrom Carthage came my deadly force,\nI won each battle on my course!", hint: "Almost conquered Rome!", answer: "HANNIBAL", funFact: "Hannibal crossed Alps with 37 elephants!" },
+                    { type: "multiplechoice", question: "How long was the Peloponnesian War?", choices: ["5 years", "10 years", "27 years", "50 years"], answer: "27 years", funFact: "The war weakened all of Greece!" },
+                    { type: "riddle", riddle: "I wrote about the Trojan War,\nBlind poet, tales of ancient lore.\nIliad and Odyssey,\nAre epic poems by me!", hint: "Famous Greek poet!", answer: "HOMER", funFact: "We don't know if Homer was one person!" },
+                    { type: "truefalse", question: "Library of Alexandria was largest in ancient world.", answer: true, funFact: "It may have held 400,000 scrolls!" },
+                    { type: "matching", question: "Match philosopher to idea:", pairs: [{ left: "Socrates", right: "Question everything" }, { left: "Plato", right: "World of forms" }, { left: "Aristotle", right: "Logic & science" }], funFact: "Each was teacher of the next!" },
+                    { type: "riddle", riddle: "I ran 26 miles with the news,\n'We won!' I cried, paid my dues.\nFrom Marathon I ran so far,\nNow races bear my journey's star!", hint: "Origin of marathon!", answer: "PHEIDIPPIDES", acceptableAnswers: ["PHEIDIPPIDES", "MARATHON", "MESSENGER"], funFact: "Marathons are 26.2 miles because of this!" },
+                    { type: "multiplechoice", question: "What did Archimedes discover in bathtub?", choices: ["Gravity", "Water displacement", "Electricity", "Magnetism"], answer: "Water displacement", funFact: "He shouted 'Eureka!' - 'I found it!'" },
+                    { type: "order", question: "Put empires in order (earliest to latest):", items: [{ text: "Egyptian Empire", order: 1 }, { text: "Greek Empire", order: 2 }, { text: "Roman Empire", order: 3 }, { text: "Byzantine Empire", order: 4 }], funFact: "Byzantine was eastern Roman Empire!" },
+                    { type: "riddle", riddle: "A mountain that one day blew,\nBuried Pompeii and people too.\nIn 79 AD I woke,\nFrozen in ash, no joke!", hint: "Famous volcanic eruption!", answer: "VESUVIUS", acceptableAnswers: ["VESUVIUS", "MOUNT VESUVIUS"], funFact: "Pompeii preserved Roman daily life!" }
+                ],
+                rewards: ["⚔️", "🛡️", "👑", "📜", "💎"]
+            },
+            extreme: {
+                name: "💀 EXTREME", color: "#9b59b6",
+                questions: [
+                    { type: "riddle", riddle: "Strangled by my own mom's plot,\nEmperor at sixteen, quite a lot!\nBlamed Christians for Rome's fire,\nMy cruelty made my name inspire!", hint: "Cruel Roman emperor!", answer: "NERO", funFact: "Legend says Nero played music while Rome burned!" },
+                    { type: "multiplechoice", question: "What was the Pax Romana?", choices: ["Roman bread", "200 years of peace", "A god", "Army formation"], answer: "200 years of peace", funFact: "Pax Romana lasted 27 BC to 180 AD!" },
+                    { type: "riddle", riddle: "I calculated pi, moved the world,\nWith levers my genius unfurled.\n'Give me lever long enough,' I said,\n'And I'll move Earth!' from my head!", hint: "Brilliant Greek mathematician!", answer: "ARCHIMEDES", funFact: "Archimedes invented war machines!" },
+                    { type: "truefalse", question: "Twelve Tables were Rome's first written laws.", answer: true, funFact: "They were carved on bronze in 450 BC!" },
+                    { type: "matching", question: "Match battle to significance:", pairs: [{ left: "Marathon", right: "Greeks beat Persia" }, { left: "Thermopylae", right: "300 Spartans" }, { left: "Actium", right: "Octavian wins" }], funFact: "Battle of Actium made Octavian emperor!" },
+                    { type: "riddle", riddle: "I crossed the Rubicon one day,\n'The die is cast!' I heard me say.\nThis act of war changed Rome's fate,\nRepublic died, Empire was great!", hint: "Started civil war!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR"], funFact: "Crossing Rubicon meant no going back!" },
+                    { type: "multiplechoice", question: "What was Greek Fire?", choices: ["Cooking method", "Weapon that burned on water", "Ceremony", "Pottery"], answer: "Weapon that burned on water", funFact: "Greek Fire formula is lost to history!" },
+                    { type: "order", question: "Put Roman emperors in order:", items: [{ text: "Augustus (first)", order: 1 }, { text: "Nero (cruel)", order: 2 }, { text: "Trajan (expansion)", order: 3 }, { text: "Constantine (Christian)", order: 4 }], funFact: "Rome had over 70 emperors!" },
+                    { type: "truefalse", question: "Romans had central heating called hypocausts.", answer: true, funFact: "Hot air flowed under floors and through walls!" },
+                    { type: "multiplechoice", question: "Why did Rome fall in 476 AD?", choices: ["One cause", "Many: invasions, economy, politics", "Volcano", "Plague only"], answer: "Many: invasions, economy, politics", funFact: "Historians still debate why Rome fell!" }
+                ],
+                rewards: ["👑", "⚔️", "🛡️", "💎", "🌟", "📜", "💀"]
+            }
         };
 
-        // Game State
+        // ============ GAME STATE ============
+        const levelOrder = ['cakewalk', 'easy', 'ok', 'hard', 'extreme'];
+        const levelColors = { cakewalk: '#a8e6cf', easy: '#88d8ff', ok: '#ffd93d', hard: '#ff6b6b', extreme: '#9b59b6' };
+        
+        let currentWorld = 1;
         let currentLevelIndex = 0;
         let currentQuestionIndex = 0;
         let totalScore = 0;
@@ -1318,6 +560,39 @@
         let selectedMatch = null;
         let matchedPairs = 0;
         let usedQuestions = {};
+        let currentQ = null;
+
+        // ============ NAVIGATION ============
+        function selectWorld(w) {
+            currentWorld = w;
+            document.getElementById('worldSelect').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+            
+            if (w === 1) {
+                document.getElementById('gameIcon').textContent = '⚡🏛️';
+                document.getElementById('gameTitle').textContent = 'Gods & Myths';
+                document.getElementById('gameTitle').className = 'game-title';
+                document.getElementById('gameSub').textContent = 'Journey to Ancient Greece & Rome!';
+                document.getElementById('gameDesc').textContent = 'Explore Mount Olympus and learn about Zeus, Athena, Hercules, and legendary heroes!';
+                document.getElementById('startBtn').textContent = '⚡ START ADVENTURE ⚡';
+                document.getElementById('startBtn').className = 'start-btn';
+            } else {
+                document.getElementById('gameIcon').textContent = '📜⏳';
+                document.getElementById('gameTitle').textContent = 'Timeline & History';
+                document.getElementById('gameTitle').className = 'game-title w2';
+                document.getElementById('gameSub').textContent = 'Travel Through Ancient Time!';
+                document.getElementById('gameDesc').textContent = 'Discover famous battles, empires, inventions, and how ancient people lived!';
+                document.getElementById('startBtn').textContent = '⏳ START JOURNEY ⏳';
+                document.getElementById('startBtn').className = 'start-btn w2';
+            }
+        }
+
+        function backToWorldSelect() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('worldSelect').style.display = 'block';
+        }
+
+        function getGameData() { return currentWorld === 1 ? world1Data : world2Data; }
 
         function startGame() {
             currentLevelIndex = 0;
@@ -1327,306 +602,186 @@
             round = 1;
             cityItems = [];
             usedQuestions = {};
-            
-            // Initialize used questions tracker
-            levelOrder.forEach(level => {
-                usedQuestions[level] = [];
-            });
+            levelOrder.forEach(l => usedQuestions[l] = []);
             
             document.getElementById('startScreen').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
-            document.getElementById('levelCompleteScreen').style.display = 'none';
             document.getElementById('cityItems').innerHTML = '';
+            
+            const wInd = document.getElementById('worldInd');
+            if (currentWorld === 1) {
+                wInd.textContent = '🏛️ World 1: Gods & Myths';
+                wInd.className = 'world-ind w1';
+                document.getElementById('cityTitle').textContent = '🏙️ Your Ancient City';
+            } else {
+                wInd.textContent = '📜 World 2: Timeline & History';
+                wInd.className = 'world-ind w2';
+                document.getElementById('cityTitle').textContent = '📜 Your Timeline';
+            }
             
             updateLevelUI();
             showQuestion();
         }
 
+        // ============ GAME LOGIC ============
         function getRandomQuestion(level) {
-            const questions = gameData[level].questions;
+            const data = getGameData();
+            const qs = data[level].questions;
             const used = usedQuestions[level];
-            
-            // Get available questions
-            let available = [];
-            for (let i = 0; i < questions.length; i++) {
-                if (!used.includes(i)) {
-                    available.push(i);
-                }
-            }
-            
-            // If all questions used, reset and allow repeats
-            if (available.length === 0) {
-                usedQuestions[level] = [];
-                available = questions.map((_, i) => i);
-            }
-            
-            // Pick random question
-            const randomIndex = available[Math.floor(Math.random() * available.length)];
-            usedQuestions[level].push(randomIndex);
-            
-            return questions[randomIndex];
+            let avail = [];
+            for (let i = 0; i < qs.length; i++) { if (!used.includes(i)) avail.push(i); }
+            if (avail.length === 0) { usedQuestions[level] = []; avail = qs.map((_, i) => i); }
+            const idx = avail[Math.floor(Math.random() * avail.length)];
+            usedQuestions[level].push(idx);
+            return qs[idx];
         }
 
         function updateLevelUI() {
-            const currentLevel = levelOrder[currentLevelIndex];
-            const levelData = gameData[currentLevel];
+            const data = getGameData();
+            const level = levelOrder[currentLevelIndex];
+            const ld = data[level];
             
-            document.getElementById('levelIndicator').textContent = levelData.name;
-            document.getElementById('levelProgressFill').style.background = levelColors[currentLevel];
-            document.getElementById('scoreDisplay').textContent = totalScore;
-            document.getElementById('roundDisplay').textContent = round;
+            document.getElementById('levelInd').textContent = ld.name;
+            document.getElementById('progressFill').style.background = levelColors[level];
+            document.getElementById('scoreDisp').textContent = totalScore;
+            document.getElementById('roundDisp').textContent = round;
             
-            // Add glow effects for harder levels
-            const questionCard = document.getElementById('questionCard');
-            questionCard.classList.remove('extreme-glow', 'hard-glow');
-            
-            if (currentLevel === 'extreme') {
-                questionCard.classList.add('extreme-glow');
-            } else if (currentLevel === 'hard') {
-                questionCard.classList.add('hard-glow');
-            }
+            const qc = document.getElementById('qCard');
+            qc.classList.remove('extreme-glow', 'hard-glow');
+            if (level === 'extreme') qc.classList.add('extreme-glow');
+            else if (level === 'hard') qc.classList.add('hard-glow');
         }
 
         function showQuestion() {
-            const currentLevel = levelOrder[currentLevelIndex];
-            const levelData = gameData[currentLevel];
-            const question = getRandomQuestion(currentLevel);
+            const level = levelOrder[currentLevelIndex];
+            currentQ = getRandomQuestion(level);
             
-            // Update progress (5 questions per level)
-            const questionsPerLevel = 5;
-            const progress = (currentQuestionIndex / questionsPerLevel) * 100;
-            document.getElementById('levelProgressFill').style.width = progress + '%';
-            document.getElementById('questionNumDisplay').textContent = currentQuestionIndex + 1;
+            const perLevel = 5;
+            document.getElementById('progressFill').style.width = (currentQuestionIndex / perLevel * 100) + '%';
+            document.getElementById('qNumDisp').textContent = currentQuestionIndex + 1;
             
-            // Hide feedback and next button
             document.getElementById('feedback').style.display = 'none';
             document.getElementById('funFact').style.display = 'none';
             document.getElementById('nextBtn').style.display = 'none';
             document.getElementById('nextBtn').className = 'next-btn';
             
-            // Reset matching state
             selectedMatch = null;
             matchedPairs = 0;
             
-            const questionCard = document.getElementById('questionCard');
+            const qc = document.getElementById('qCard');
+            const q = currentQ;
             
-            // Store current question for checking
-            questionCard.dataset.currentQuestion = JSON.stringify(question);
-            
-            switch(question.type) {
+            switch(q.type) {
                 case 'truefalse':
-                    questionCard.innerHTML = `
-                        <span class="question-type">True or False</span>
-                        <p class="question-text">${question.question}</p>
-                        <div class="answers">
-                            <button class="answer-btn" onclick="checkTrueFalse(true)">✓ TRUE</button>
-                            <button class="answer-btn" onclick="checkTrueFalse(false)">✗ FALSE</button>
-                        </div>
-                    `;
+                    qc.innerHTML = `<span class="q-type">True or False</span><p class="q-text">${q.question}</p>
+                        <div class="answers"><button class="ans-btn" onclick="checkTF(true)">✓ TRUE</button>
+                        <button class="ans-btn" onclick="checkTF(false)">✗ FALSE</button></div>`;
                     break;
-                    
                 case 'yesno':
-                    questionCard.innerHTML = `
-                        <span class="question-type">Yes or No</span>
-                        <p class="question-text">${question.question}</p>
-                        <div class="answers">
-                            <button class="answer-btn" onclick="checkYesNo('yes')">👍 YES</button>
-                            <button class="answer-btn" onclick="checkYesNo('no')">👎 NO</button>
-                        </div>
-                    `;
+                    qc.innerHTML = `<span class="q-type">Yes or No</span><p class="q-text">${q.question}</p>
+                        <div class="answers"><button class="ans-btn" onclick="checkYN('yes')">👍 YES</button>
+                        <button class="ans-btn" onclick="checkYN('no')">👎 NO</button></div>`;
                     break;
-
                 case 'riddle':
-                    questionCard.innerHTML = `
-                        <span class="question-type">🧩 Riddle Time!</span>
-                        <div class="riddle-box">
-                            <div class="riddle-icon">🤔</div>
-                            <p class="riddle-text">${question.riddle.replace(/\n/g, '<br>')}</p>
-                        </div>
-                        <input type="text" class="riddle-input" id="riddleInput" placeholder="Type your answer..." maxlength="30">
-                        <div class="riddle-hint">💡 Hint: ${question.hint}</div>
-                        <button class="submit-btn" onclick="checkRiddle()">Solve Riddle!</button>
-                    `;
-                    document.getElementById('riddleInput').addEventListener('keypress', function(e) {
-                        if (e.key === 'Enter') checkRiddle();
-                    });
+                    qc.innerHTML = `<span class="q-type">🧩 Riddle!</span>
+                        <div class="riddle-box"><div class="riddle-icon">🤔</div>
+                        <p class="riddle-text">${q.riddle.replace(/\n/g, '<br>')}</p></div>
+                        <input type="text" class="riddle-input" id="riddleIn" placeholder="Your answer..." maxlength="30">
+                        <div class="riddle-hint">💡 ${q.hint}</div>
+                        <button class="submit-btn" onclick="checkRiddle()">Solve!</button>`;
+                    document.getElementById('riddleIn').addEventListener('keypress', e => { if (e.key === 'Enter') checkRiddle(); });
                     break;
-                    
-                case 'unscramble':
-                    questionCard.innerHTML = `
-                        <span class="question-type">Unscramble</span>
-                        <p class="question-text">${question.question}</p>
-                        <div class="scrambled-word">${question.scrambled}</div>
-                        <input type="text" class="unscramble-input" id="unscrambleInput" placeholder="Type your answer..." maxlength="15">
-                        <button class="submit-btn" onclick="checkUnscramble()">Check Answer</button>
-                    `;
-                    document.getElementById('unscrambleInput').addEventListener('keypress', function(e) {
-                        if (e.key === 'Enter') checkUnscramble();
-                    });
-                    break;
-
                 case 'multiplechoice':
-                    let choicesHtml = question.choices.map(c => 
-                        `<button class="choice-btn" onclick="checkMultipleChoice('${c.replace(/'/g, "\\'")}')">${c}</button>`
-                    ).join('');
-                    questionCard.innerHTML = `
-                        <span class="question-type">Multiple Choice</span>
-                        <p class="question-text">${question.question}</p>
-                        <div class="choices-grid">${choicesHtml}</div>
-                    `;
+                    const choicesHtml = q.choices.map(c => `<button class="choice-btn" onclick="checkMC('${c.replace(/'/g, "\\'")}')">${c}</button>`).join('');
+                    qc.innerHTML = `<span class="q-type">Multiple Choice</span><p class="q-text">${q.question}</p>
+                        <div class="choices-grid">${choicesHtml}</div>`;
                     break;
-                    
                 case 'matching':
-                    let leftItems = question.pairs.map((p, i) => `<div class="match-item" onclick="selectMatch('left', ${i}, this)">${p.left}</div>`).join('');
-                    let rightItems = [...question.pairs].sort(() => Math.random() - 0.5)
-                        .map((p, i) => `<div class="match-item" onclick="selectMatch('right', '${p.right.replace(/'/g, "\\'")}', this)">${p.right}</div>`).join('');
-                    
-                    questionCard.innerHTML = `
-                        <span class="question-type">Matching</span>
-                        <p class="question-text">${question.question}</p>
-                        <div class="matching-container">
-                            <div class="matching-column">
-                                <h4>Match From</h4>
-                                ${leftItems}
-                            </div>
-                            <div class="matching-column">
-                                <h4>Match To</h4>
-                                ${rightItems}
-                            </div>
-                        </div>
-                    `;
+                    const left = q.pairs.map((p, i) => `<div class="match-item" onclick="selectMatch('left',${i},this)">${p.left}</div>`).join('');
+                    const right = [...q.pairs].sort(() => Math.random() - 0.5).map(p => `<div class="match-item" onclick="selectMatch('right','${p.right.replace(/'/g, "\\'")}',this)">${p.right}</div>`).join('');
+                    qc.innerHTML = `<span class="q-type">Matching</span><p class="q-text">${q.question}</p>
+                        <div class="match-container"><div class="match-col"><h4>Match From</h4>${left}</div>
+                        <div class="match-col"><h4>Match To</h4>${right}</div></div>`;
                     break;
-                    
                 case 'write':
-                    questionCard.innerHTML = `
-                        <span class="question-type">Write Your Own Answer</span>
-                        <p class="question-text">${question.question}</p>
-                        <textarea class="write-input" id="writeInput" placeholder="Write your answer here..."></textarea>
-                        <button class="submit-btn" onclick="checkWrite()">Submit Answer</button>
-                    `;
+                    qc.innerHTML = `<span class="q-type">Write Answer</span><p class="q-text">${q.question}</p>
+                        <textarea class="write-input" id="writeIn" placeholder="Your answer..."></textarea>
+                        <button class="submit-btn" onclick="checkWrite()">Submit</button>`;
                     break;
-                    
                 case 'order':
-                    let shuffled = [...question.items].sort(() => Math.random() - 0.5);
-                    let orderItems = shuffled.map((item, i) => `
-                        <div class="order-item" draggable="true" data-order="${item.order}">
-                            <span class="order-number">${i + 1}</span>
-                            <span>${item.text}</span>
-                        </div>
-                    `).join('');
-                    
-                    questionCard.innerHTML = `
-                        <span class="question-type">Put In Order</span>
-                        <p class="question-text">${question.question}</p>
-                        <div class="order-list" id="orderList">${orderItems}</div>
-                        <button class="submit-btn" onclick="checkOrder()">Check Order</button>
-                    `;
-                    setupDragAndDrop();
+                    const shuffled = [...q.items].sort(() => Math.random() - 0.5);
+                    const orderHtml = shuffled.map((item, i) => `<div class="order-item" draggable="true" data-order="${item.order}">
+                        <span class="order-num">${i + 1}</span><span>${item.text}</span></div>`).join('');
+                    qc.innerHTML = `<span class="q-type">Put In Order</span><p class="q-text">${q.question}</p>
+                        <div class="order-list" id="orderList">${orderHtml}</div>
+                        <button class="submit-btn" onclick="checkOrder()">Check Order</button>`;
+                    setupDragDrop();
                     break;
             }
         }
 
-        function getCurrentQuestion() {
-            return JSON.parse(document.getElementById('questionCard').dataset.currentQuestion);
+        // ============ ANSWER CHECKING ============
+        function checkTF(ans) {
+            const correct = ans === currentQ.answer;
+            showFeedback(correct, currentQ);
+            document.querySelectorAll('.ans-btn').forEach(b => b.disabled = true);
         }
 
-        function checkTrueFalse(answer) {
-            const question = getCurrentQuestion();
-            const correct = answer === question.answer;
-            showFeedback(correct, question);
-            disableButtons();
+        function checkYN(ans) {
+            const correct = ans === currentQ.answer;
+            showFeedback(correct, currentQ);
+            document.querySelectorAll('.ans-btn').forEach(b => b.disabled = true);
         }
 
-        function checkYesNo(answer) {
-            const question = getCurrentQuestion();
-            const correct = answer === question.answer;
-            showFeedback(correct, question);
-            disableButtons();
-        }
-
-        function checkMultipleChoice(answer) {
-            const question = getCurrentQuestion();
-            const correct = answer === question.answer;
-            
-            // Highlight correct/incorrect
-            document.querySelectorAll('.choice-btn').forEach(btn => {
-                if (btn.textContent === question.answer) {
-                    btn.classList.add('correct');
-                } else if (btn.textContent === answer && !correct) {
-                    btn.classList.add('incorrect');
-                }
-                btn.disabled = true;
-                btn.style.cursor = 'not-allowed';
+        function checkMC(ans) {
+            const correct = ans === currentQ.answer;
+            document.querySelectorAll('.choice-btn').forEach(b => {
+                if (b.textContent === currentQ.answer) b.classList.add('correct');
+                else if (b.textContent === ans && !correct) b.classList.add('incorrect');
+                b.disabled = true;
             });
-            
-            showFeedback(correct, question);
+            showFeedback(correct, currentQ);
         }
 
         function checkRiddle() {
-            const question = getCurrentQuestion();
-            const userAnswer = document.getElementById('riddleInput').value.toUpperCase().trim().replace(/\s+/g, ' ');
-            
-            let correct = userAnswer === question.answer;
-            
-            // Check acceptable answers if available
-            if (!correct && question.acceptableAnswers) {
-                correct = question.acceptableAnswers.some(ans => 
-                    userAnswer === ans.toUpperCase() || userAnswer.includes(ans.toUpperCase())
-                );
+            const userAns = document.getElementById('riddleIn').value.toUpperCase().trim();
+            let correct = userAns === currentQ.answer;
+            if (!correct && currentQ.acceptableAnswers) {
+                correct = currentQ.acceptableAnswers.some(a => userAns === a.toUpperCase() || userAns.includes(a.toUpperCase()));
             }
-            
-            showFeedback(correct, question, null, question.answer);
-            document.getElementById('riddleInput').disabled = true;
+            showFeedback(correct, currentQ, null, currentQ.answer);
+            document.getElementById('riddleIn').disabled = true;
             document.querySelector('.submit-btn').disabled = true;
         }
 
-        function checkUnscramble() {
-            const question = getCurrentQuestion();
-            const userAnswer = document.getElementById('unscrambleInput').value.toUpperCase().trim();
-            const correct = userAnswer === question.answer;
-            showFeedback(correct, question, null, question.answer);
-            document.getElementById('unscrambleInput').disabled = true;
-            document.querySelector('.submit-btn').disabled = true;
-        }
-
-        function selectMatch(side, value, element) {
-            if (element.classList.contains('matched')) return;
-            
-            const question = getCurrentQuestion();
-            
-            if (selectedMatch === null) {
-                selectedMatch = { side, value, element };
-                element.classList.add('selected');
+        function selectMatch(side, value, el) {
+            if (el.classList.contains('matched')) return;
+            if (!selectedMatch) {
+                selectedMatch = { side, value, el };
+                el.classList.add('selected');
             } else if (selectedMatch.side === side) {
-                selectedMatch.element.classList.remove('selected');
-                selectedMatch = { side, value, element };
-                element.classList.add('selected');
+                selectedMatch.el.classList.remove('selected');
+                selectedMatch = { side, value, el };
+                el.classList.add('selected');
             } else {
-                // Check if match is correct
                 let isCorrect = false;
                 if (selectedMatch.side === 'left') {
-                    const pair = question.pairs[selectedMatch.value];
-                    isCorrect = pair.right === value;
+                    isCorrect = currentQ.pairs[selectedMatch.value].right === value;
                 } else {
-                    const pair = question.pairs[value];
-                    isCorrect = pair.right === selectedMatch.value;
+                    isCorrect = currentQ.pairs[value].right === selectedMatch.value;
                 }
-                
                 if (isCorrect) {
-                    selectedMatch.element.classList.remove('selected');
-                    selectedMatch.element.classList.add('matched');
-                    element.classList.add('matched');
+                    selectedMatch.el.classList.remove('selected');
+                    selectedMatch.el.classList.add('matched');
+                    el.classList.add('matched');
                     matchedPairs++;
-                    
-                    if (matchedPairs === question.pairs.length) {
-                        showFeedback(true, question);
-                    }
+                    if (matchedPairs === currentQ.pairs.length) showFeedback(true, currentQ);
                 } else {
-                    selectedMatch.element.classList.add('wrong');
-                    element.classList.add('wrong');
+                    selectedMatch.el.classList.add('wrong');
+                    el.classList.add('wrong');
                     setTimeout(() => {
-                        selectedMatch.element.classList.remove('wrong', 'selected');
-                        element.classList.remove('wrong');
+                        selectedMatch.el.classList.remove('wrong', 'selected');
+                        el.classList.remove('wrong');
                         selectedMatch = null;
                     }, 500);
                     return;
@@ -1636,136 +791,101 @@
         }
 
         function checkWrite() {
-            const question = getCurrentQuestion();
-            const userAnswer = document.getElementById('writeInput').value.trim();
-            
-            if (userAnswer.length > 0) {
-                showFeedback('neutral', question, "Great answer! There's no wrong answer for this one.");
-                document.getElementById('writeInput').disabled = true;
+            const ans = document.getElementById('writeIn').value.trim();
+            if (ans.length > 0) {
+                showFeedback('neutral', currentQ, "Great answer!");
+                document.getElementById('writeIn').disabled = true;
                 document.querySelector('.submit-btn').disabled = true;
             }
         }
 
-        function setupDragAndDrop() {
-            const orderList = document.getElementById('orderList');
-            const items = orderList.querySelectorAll('.order-item');
-            
+        function setupDragDrop() {
+            const list = document.getElementById('orderList');
+            const items = list.querySelectorAll('.order-item');
             items.forEach(item => {
-                item.addEventListener('dragstart', () => {
-                    item.classList.add('dragging');
-                });
-                
-                item.addEventListener('dragend', () => {
-                    item.classList.remove('dragging');
-                    updateOrderNumbers();
-                });
+                item.addEventListener('dragstart', () => item.classList.add('dragging'));
+                item.addEventListener('dragend', () => { item.classList.remove('dragging'); updateOrderNums(); });
             });
-            
-            orderList.addEventListener('dragover', e => {
+            list.addEventListener('dragover', e => {
                 e.preventDefault();
                 const dragging = document.querySelector('.dragging');
-                const siblings = [...orderList.querySelectorAll('.order-item:not(.dragging)')];
-                const nextSibling = siblings.find(sibling => {
-                    const box = sibling.getBoundingClientRect();
-                    return e.clientY < box.top + box.height / 2;
-                });
-                orderList.insertBefore(dragging, nextSibling);
+                const siblings = [...list.querySelectorAll('.order-item:not(.dragging)')];
+                const next = siblings.find(s => e.clientY < s.getBoundingClientRect().top + s.getBoundingClientRect().height / 2);
+                list.insertBefore(dragging, next);
             });
         }
 
-        function updateOrderNumbers() {
-            const items = document.querySelectorAll('.order-item');
-            items.forEach((item, index) => {
-                item.querySelector('.order-number').textContent = index + 1;
+        function updateOrderNums() {
+            document.querySelectorAll('.order-item').forEach((item, i) => {
+                item.querySelector('.order-num').textContent = i + 1;
             });
         }
 
         function checkOrder() {
-            const question = getCurrentQuestion();
             const items = document.querySelectorAll('.order-item');
+            const sorted = [...currentQ.items].sort((a, b) => a.order - b.order);
             let correct = true;
-            
-            // Get the expected order
-            const sortedItems = [...question.items].sort((a, b) => a.order - b.order);
-            
-            items.forEach((item, index) => {
-                const itemOrder = parseInt(item.dataset.order);
-                const expectedOrder = sortedItems[index].order;
-                if (itemOrder !== expectedOrder) correct = false;
+            items.forEach((item, i) => {
+                if (parseInt(item.dataset.order) !== sorted[i].order) correct = false;
             });
-            
-            showFeedback(correct, question);
+            showFeedback(correct, currentQ);
             document.querySelector('.submit-btn').disabled = true;
         }
 
-        function disableButtons() {
-            document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
-        }
-
-        function showFeedback(correct, question, customMessage = null, correctAnswer = null) {
-            const feedback = document.getElementById('feedback');
-            const funFact = document.getElementById('funFact');
-            const nextBtn = document.getElementById('nextBtn');
+        // ============ FEEDBACK & PROGRESSION ============
+        function showFeedback(correct, q, customMsg = null, correctAns = null) {
+            const fb = document.getElementById('feedback');
+            const ff = document.getElementById('funFact');
+            const nb = document.getElementById('nextBtn');
             
             if (correct === 'neutral') {
-                feedback.className = 'feedback neutral';
-                feedback.innerHTML = `✨ ${customMessage}`;
-                totalScore++;
-                levelScore++;
+                fb.className = 'feedback neutral';
+                fb.innerHTML = '✨ ' + customMsg;
+                totalScore++; levelScore++;
             } else if (correct) {
-                feedback.className = 'feedback correct';
-                feedback.innerHTML = '🎉 Correct! Great job!';
-                totalScore++;
-                levelScore++;
+                fb.className = 'feedback correct';
+                fb.innerHTML = '🎉 Correct!';
+                totalScore++; levelScore++;
                 addCityItem();
             } else {
-                feedback.className = 'feedback incorrect';
-                let message = '❌ Not quite!';
-                if (question.correctInfo) {
-                    message += ` ${question.correctInfo}`;
-                } else if (correctAnswer) {
-                    message += ` The answer was: ${correctAnswer}`;
-                }
-                feedback.innerHTML = message;
+                fb.className = 'feedback incorrect';
+                let msg = '❌ Not quite!';
+                if (q.correctInfo) msg += ' ' + q.correctInfo;
+                else if (correctAns) msg += ' Answer: ' + correctAns;
+                fb.innerHTML = msg;
             }
             
-            feedback.style.display = 'block';
-            document.getElementById('scoreDisplay').textContent = totalScore;
+            fb.style.display = 'block';
+            document.getElementById('scoreDisp').textContent = totalScore;
+            document.getElementById('funFactText').textContent = q.funFact;
+            ff.style.display = 'block';
             
-            // Show fun fact
-            document.getElementById('funFactText').textContent = question.funFact;
-            funFact.style.display = 'block';
-            
-            // Show next button
-            const questionsPerLevel = 5;
-            if (currentQuestionIndex < questionsPerLevel - 1) {
-                nextBtn.textContent = 'Next Question →';
+            if (currentQuestionIndex < 4) {
+                nb.textContent = 'Next Question →';
             } else {
-                nextBtn.textContent = '🎉 Complete Level!';
-                nextBtn.classList.add('next-level-btn');
+                nb.textContent = '🎉 Complete Level!';
+                nb.classList.add('level-done');
             }
-            nextBtn.style.display = 'block';
+            nb.style.display = 'block';
         }
 
         function addCityItem() {
-            const currentLevel = levelOrder[currentLevelIndex];
-            const levelData = gameData[currentLevel];
-            const rewardIndex = Math.floor(Math.random() * levelData.rewards.length);
-            const reward = levelData.rewards[rewardIndex];
+            const data = getGameData();
+            const level = levelOrder[currentLevelIndex];
+            const rewards = data[level].rewards;
+            const reward = rewards[Math.floor(Math.random() * rewards.length)];
             cityItems.push(reward);
             
-            const cityContainer = document.getElementById('cityItems');
-            const itemSpan = document.createElement('span');
-            itemSpan.className = 'city-item';
-            itemSpan.textContent = reward;
-            cityContainer.appendChild(itemSpan);
+            const container = document.getElementById('cityItems');
+            const span = document.createElement('span');
+            span.className = 'city-item';
+            span.textContent = reward;
+            container.appendChild(span);
         }
 
         function nextQuestion() {
-            const questionsPerLevel = 5;
             currentQuestionIndex++;
-            
-            if (currentQuestionIndex >= questionsPerLevel) {
+            if (currentQuestionIndex >= 5) {
                 showLevelComplete();
             } else {
                 showQuestion();
@@ -1774,68 +894,44 @@
 
         function showLevelComplete() {
             document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('levelCompleteScreen').style.display = 'block';
+            document.getElementById('levelComplete').style.display = 'block';
             
-            const currentLevel = levelOrder[currentLevelIndex];
-            const levelData = gameData[currentLevel];
-            const questionsPerLevel = 5;
+            const data = getGameData();
+            const level = levelOrder[currentLevelIndex];
             
-            document.getElementById('levelCompleteTitle').textContent = `${levelData.name} Complete!`;
-            document.getElementById('levelScore').textContent = levelScore;
-            document.getElementById('levelTotal').textContent = questionsPerLevel;
+            document.getElementById('lcTitle').textContent = data[level].name + ' Complete!';
+            document.getElementById('lcScore').textContent = levelScore;
+            document.getElementById('lcTotal').textContent = 5;
             document.getElementById('totalScoreStat').textContent = totalScore;
             document.getElementById('roundStat').textContent = round;
             
-            // Set badge
-            const percentage = (levelScore / questionsPerLevel) * 100;
-            let badge = '';
-            if (percentage === 100) badge = '🌟 Perfect!';
-            else if (percentage >= 80) badge = '⭐ Amazing!';
-            else if (percentage >= 60) badge = '👍 Good Job!';
-            else badge = '💪 Keep Going!';
+            const pct = (levelScore / 5) * 100;
+            let badge = pct === 100 ? '🌟 Perfect!' : pct >= 80 ? '⭐ Amazing!' : pct >= 60 ? '👍 Good Job!' : '💪 Keep Going!';
+            document.getElementById('lcBadge').textContent = badge;
             
-            document.getElementById('levelBadge').textContent = badge;
+            document.getElementById('cityPreview').innerHTML = cityItems.map(i => `<span>${i}</span>`).join('');
             
-            // Show city preview
-            document.getElementById('cityPreviewItems').innerHTML = cityItems.map(item => 
-                `<span>${item}</span>`
-            ).join('');
-            
-            // Show next level preview
-            let nextLevelIndex = currentLevelIndex + 1;
-            if (nextLevelIndex >= levelOrder.length) {
-                nextLevelIndex = 0;
-                document.getElementById('nextLevelPreview').innerHTML = `
-                    <h3>🔄 Starting Round ${round + 1}!</h3>
-                    <p style="color: #ffd700;">${gameData[levelOrder[0]].name}</p>
-                    <p style="color: #aaa; margin-top: 10px;">The adventure continues forever!</p>
-                `;
+            let nextIdx = currentLevelIndex + 1;
+            if (nextIdx >= levelOrder.length) {
+                nextIdx = 0;
+                document.getElementById('nextPreview').innerHTML = `<h3>🔄 Round ${round + 1}!</h3><p style="color:#ffd700">${data[levelOrder[0]].name}</p>`;
             } else {
-                const nextLevelData = gameData[levelOrder[nextLevelIndex]];
-                document.getElementById('nextLevelPreview').innerHTML = `
-                    <h3>Next Up:</h3>
-                    <p id="nextLevelName">${nextLevelData.name}</p>
-                    <p style="color: #aaa; margin-top: 10px;">Get ready for more challenges!</p>
-                `;
+                document.getElementById('nextPreview').innerHTML = `<h3>Next Up:</h3><p>${data[levelOrder[nextIdx]].name}</p>`;
             }
             
-            // Confetti!
             createConfetti();
         }
 
         function continueToNextLevel() {
             currentLevelIndex++;
-            
-            // Loop back to start for endless mode
             if (currentLevelIndex >= levelOrder.length) {
                 currentLevelIndex = 0;
                 round++;
             }
-            
             currentQuestionIndex = 0;
             levelScore = 0;
             
-            document.getElementById('levelCompleteScreen').style.display = 'none';
+            document.getElementById('levelComplete').style.display = 'none';
             document.getElementById('gameScreen').style.display = 'block';
             
             updateLevelUI();
@@ -1843,29 +939,22 @@
         }
 
         function createConfetti() {
-            const colors = ['#ffd700', '#ff6b6b', '#88d8ff', '#a8e6cf', '#9b59b6', '#f39c12'];
-            const confettiContainer = document.createElement('div');
-            confettiContainer.className = 'confetti';
-            document.body.appendChild(confettiContainer);
+            const colors = ['#ffd700', '#ff6b6b', '#88d8ff', '#a8e6cf', '#9b59b6'];
+            const container = document.createElement('div');
+            container.className = 'confetti';
+            document.body.appendChild(container);
             
             for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti-piece';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                confettiContainer.appendChild(confetti);
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = Math.random() * 100 + 'vw';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDelay = Math.random() * 2 + 's';
+                piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(piece);
             }
             
-            setTimeout(() => confettiContainer.remove(), 5000);
-        }
-
-        function backToMenu() {
-            document.getElementById('startScreen').style.display = 'block';
-            document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('levelCompleteScreen').style.display = 'none';
-            document.getElementById('cityItems').innerHTML = '';
+            setTimeout(() => container.remove(), 5000);
         }
     </script>
 </body>
