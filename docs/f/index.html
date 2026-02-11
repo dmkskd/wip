@@ -8,186 +8,215 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 25%, #F7DC6F 50%, #F8B500 75%, #FAD7A0 100%);
+            background-attachment: fixed;
             min-height: 100vh;
-            color: #fff;
+            color: #2c3e50;
         }
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
         
         /* World Select */
         .world-select { text-align: center; padding: 40px 20px; }
-        .main-title { font-size: 2.5em; color: #ffd700; margin-bottom: 10px; }
-        .main-subtitle { font-size: 1.2em; color: #87ceeb; margin-bottom: 30px; }
+        .main-title { font-size: 2.5em; color: #1a5276; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(255,255,255,0.8); }
+        .main-subtitle { font-size: 1.2em; color: #2874a6; margin-bottom: 30px; }
         .worlds-container { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
         .world-card {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.85);
             border-radius: 20px;
             padding: 25px;
             width: 240px;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 3px solid transparent;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
         .world-card:hover { transform: translateY(-10px); }
-        .world-card.w1:hover { border-color: #ffd700; box-shadow: 0 15px 40px rgba(255,215,0,0.3); }
+        .world-card.w1:hover { border-color: #f39c12; box-shadow: 0 15px 40px rgba(243,156,18,0.3); }
         .world-card.w2:hover { border-color: #3498db; box-shadow: 0 15px 40px rgba(52,152,219,0.3); }
-        .world-card.w3:hover { border-color: #2ecc71; box-shadow: 0 15px 40px rgba(46,204,113,0.3); }
+        .world-card.w3:hover { border-color: #27ae60; box-shadow: 0 15px 40px rgba(39,174,96,0.3); }
         .world-icon { font-size: 3.5em; margin-bottom: 12px; }
         .world-title { font-size: 1.3em; margin-bottom: 8px; }
-        .world-card.w1 .world-title { color: #ffd700; }
-        .world-card.w2 .world-title { color: #3498db; }
-        .world-card.w3 .world-title { color: #2ecc71; }
-        .world-desc { color: #aaa; font-size: 0.85em; line-height: 1.4; }
+        .world-card.w1 .world-title { color: #d35400; }
+        .world-card.w2 .world-title { color: #2980b9; }
+        .world-card.w3 .world-title { color: #27ae60; }
+        .world-desc { color: #555; font-size: 0.85em; line-height: 1.4; }
         .world-badge {
             display: inline-block; padding: 4px 12px; border-radius: 12px;
             font-size: 0.75em; margin-top: 12px;
         }
-        .w1 .world-badge { background: rgba(255,215,0,0.2); color: #ffd700; }
-        .w2 .world-badge { background: rgba(52,152,219,0.2); color: #3498db; }
-        .w3 .world-badge { background: rgba(46,204,113,0.2); color: #2ecc71; }
+        .w1 .world-badge { background: rgba(243,156,18,0.2); color: #d35400; }
+        .w2 .world-badge { background: rgba(52,152,219,0.2); color: #2980b9; }
+        .w3 .world-badge { background: rgba(39,174,96,0.2); color: #27ae60; }
 
         /* Start Screen */
         .start-screen { display: none; text-align: center; padding: 40px 20px; position: relative; }
         .back-btn {
             position: absolute; top: 10px; left: 10px;
-            padding: 10px 20px; background: rgba(255,255,255,0.1);
-            border: none; border-radius: 10px; color: #fff; cursor: pointer;
+            padding: 10px 20px; background: rgba(255,255,255,0.8);
+            border: none; border-radius: 10px; color: #2c3e50; cursor: pointer;
+            font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .back-btn:hover { background: rgba(255,255,255,0.2); }
+        .back-btn:hover { background: rgba(255,255,255,1); }
         .game-icon { font-size: 60px; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .game-title { font-size: 2.2em; color: #ffd700; margin-bottom: 10px; }
-        .game-title.w2 { color: #3498db; }
-        .game-title.w3 { color: #2ecc71; }
-        .game-subtitle { font-size: 1.1em; color: #87ceeb; margin-bottom: 15px; }
+        .game-title { font-size: 2.2em; color: #1a5276; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(255,255,255,0.8); }
+        .game-title.w2 { color: #2874a6; }
+        .game-title.w3 { color: #1e8449; }
+        .game-subtitle { font-size: 1.1em; color: #2c3e50; margin-bottom: 15px; }
         .endless-badge {
             display: inline-block; padding: 8px 20px;
             background: linear-gradient(135deg, #9b59b6, #8e44ad);
             border-radius: 20px; margin-bottom: 20px; animation: pulse 2s infinite;
+            color: #fff;
         }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .game-desc { color: #aaa; margin-bottom: 25px; line-height: 1.6; }
+        .game-desc { color: #555; margin-bottom: 25px; line-height: 1.6; }
         .start-btn {
             padding: 18px 50px; font-size: 1.3em;
-            background: linear-gradient(135deg, #ffd700, #ffed4a);
-            border: none; border-radius: 20px; color: #1a1a2e;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border: none; border-radius: 20px; color: #fff;
             cursor: pointer; font-weight: bold; transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(243,156,18,0.4);
         }
-        .start-btn.w2 { background: linear-gradient(135deg, #3498db, #5dade2); }
-        .start-btn.w3 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .start-btn.w2 { background: linear-gradient(135deg, #3498db, #2980b9); box-shadow: 0 5px 20px rgba(52,152,219,0.4); }
+        .start-btn.w3 { background: linear-gradient(135deg, #27ae60, #1e8449); box-shadow: 0 5px 20px rgba(39,174,96,0.4); }
         .start-btn:hover { transform: scale(1.05); }
         .level-preview { display: flex; justify-content: center; gap: 8px; margin-top: 25px; flex-wrap: wrap; }
         .level-dot { padding: 5px 12px; border-radius: 15px; font-size: 0.75em; font-weight: bold; }
-        .dot-cakewalk { background: rgba(168,230,207,0.3); color: #a8e6cf; }
-        .dot-easy { background: rgba(136,216,255,0.3); color: #88d8ff; }
-        .dot-ok { background: rgba(255,217,61,0.3); color: #ffd93d; }
-        .dot-hard { background: rgba(255,107,107,0.3); color: #ff6b6b; }
-        .dot-extreme { background: rgba(155,89,182,0.3); color: #9b59b6; }
+        .dot-cakewalk { background: rgba(46,204,113,0.3); color: #1e8449; }
+        .dot-easy { background: rgba(52,152,219,0.3); color: #2874a6; }
+        .dot-ok { background: rgba(241,196,15,0.4); color: #9a7d0a; }
+        .dot-hard { background: rgba(231,76,60,0.3); color: #c0392b; }
+        .dot-extreme { background: rgba(155,89,182,0.3); color: #7d3c98; }
 
         /* Game Screen */
         .game-screen { display: none; }
         .game-header {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 18px; background: rgba(255,255,255,0.1);
+            padding: 12px 18px; background: rgba(255,255,255,0.85);
             border-radius: 15px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .world-ind {
             font-size: 0.85em; padding: 4px 12px; border-radius: 10px;
-            width: 100%; text-align: center; margin-bottom: 5px;
+            width: 100%; text-align: center; margin-bottom: 5px; font-weight: bold;
         }
-        .world-ind.w1 { background: rgba(255,215,0,0.2); color: #ffd700; }
-        .world-ind.w2 { background: rgba(52,152,219,0.2); color: #3498db; }
-        .world-ind.w3 { background: rgba(46,204,113,0.2); color: #2ecc71; }
-        .level-ind { font-size: 1.1em; font-weight: bold; color: #ffd700; }
-        .score-disp { font-size: 1em; color: #87ceeb; }
+        .world-ind.w1 { background: rgba(243,156,18,0.2); color: #d35400; }
+        .world-ind.w2 { background: rgba(52,152,219,0.2); color: #2874a6; }
+        .world-ind.w3 { background: rgba(39,174,96,0.2); color: #1e8449; }
+        .level-ind { font-size: 1.1em; font-weight: bold; color: #d35400; }
+        .score-disp { font-size: 1em; color: #2874a6; font-weight: bold; }
         .round-disp {
-            font-size: 0.9em; color: #a8e6cf; width: 100%; text-align: center;
-            padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3px;
+            font-size: 0.9em; color: #1e8449; width: 100%; text-align: center;
+            padding-top: 5px; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 3px; font-weight: bold;
         }
         .progress-bar {
-            width: 100%; height: 10px; background: rgba(255,255,255,0.2);
+            width: 100%; height: 10px; background: rgba(255,255,255,0.5);
             border-radius: 10px; margin-bottom: 20px; overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .progress-fill { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
         .question-card {
-            background: rgba(255,255,255,0.1); border-radius: 20px;
+            background: rgba(255,255,255,0.9); border-radius: 20px;
             padding: 25px; margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            color: #2c3e50;
         }
+        /* Question Image */
+        .question-image {
+            text-align: center;
+            font-size: 4em;
+            margin-bottom: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(243,156,18,0.1), rgba(52,152,219,0.1));
+            border-radius: 15px;
+            animation: gentle-bounce 2s ease-in-out infinite;
+        }
+        @keyframes gentle-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
         .q-type {
             display: inline-block; padding: 5px 12px;
-            background: rgba(255,215,0,0.3); border-radius: 15px;
-            font-size: 0.8em; color: #ffd700; margin-bottom: 12px;
+            background: rgba(243,156,18,0.2); border-radius: 15px;
+            font-size: 0.8em; color: #d35400; margin-bottom: 12px; font-weight: bold;
         }
-        .q-text { font-size: 1.2em; margin-bottom: 20px; line-height: 1.5; }
+        .q-text { font-size: 1.2em; margin-bottom: 20px; line-height: 1.5; color: #2c3e50; }
         .answers { display: flex; flex-direction: column; gap: 10px; }
         .ans-btn {
             padding: 14px 20px; font-size: 1em;
-            background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px; color: #fff; cursor: pointer; transition: all 0.3s ease; text-align: left;
+            background: rgba(52,152,219,0.1); border: 2px solid rgba(52,152,219,0.3);
+            border-radius: 10px; color: #2c3e50; cursor: pointer; transition: all 0.3s ease; text-align: left;
         }
-        .ans-btn:hover { background: rgba(255,255,255,0.25); border-color: #ffd700; transform: translateX(5px); }
-        .ans-btn.correct { background: rgba(46,204,113,0.5); border-color: #2ecc71; }
-        .ans-btn.incorrect { background: rgba(231,76,60,0.5); border-color: #e74c3c; }
+        .ans-btn:hover { background: rgba(52,152,219,0.2); border-color: #3498db; transform: translateX(5px); }
+        .ans-btn.correct { background: rgba(46,204,113,0.3); border-color: #27ae60; }
+        .ans-btn.incorrect { background: rgba(231,76,60,0.3); border-color: #e74c3c; }
         .ans-btn:disabled { cursor: not-allowed; }
 
         /* Riddle */
         .riddle-box {
-            background: linear-gradient(135deg, rgba(155,89,182,0.3), rgba(142,68,173,0.3));
+            background: linear-gradient(135deg, rgba(155,89,182,0.15), rgba(142,68,173,0.15));
             border: 2px solid #9b59b6; border-radius: 15px;
             padding: 20px; margin-bottom: 20px; text-align: center;
         }
         .riddle-icon { font-size: 2em; margin-bottom: 10px; }
-        .riddle-text { font-size: 1.1em; font-style: italic; line-height: 1.6; color: #e8daef; }
+        .riddle-text { font-size: 1.1em; font-style: italic; line-height: 1.6; color: #5b2c6f; }
         .riddle-input {
             width: 100%; padding: 15px; font-size: 1.1em; text-align: center;
             border: 2px solid rgba(155,89,182,0.5); border-radius: 10px;
-            background: rgba(255,255,255,0.1); color: #fff;
+            background: rgba(255,255,255,0.8); color: #2c3e50;
             text-transform: uppercase; letter-spacing: 2px; margin-top: 15px;
         }
         .riddle-input:focus { outline: none; border-color: #9b59b6; }
         .riddle-hint {
-            margin-top: 12px; padding: 10px; background: rgba(255,255,255,0.1);
-            border-radius: 8px; font-size: 0.9em; color: #aaa;
+            margin-top: 12px; padding: 10px; background: rgba(155,89,182,0.1);
+            border-radius: 8px; font-size: 0.9em; color: #7d3c98;
         }
 
         /* Matching */
         .match-container { display: flex; justify-content: space-around; gap: 20px; flex-wrap: wrap; }
         .match-col { display: flex; flex-direction: column; gap: 10px; }
-        .match-col h4 { text-align: center; color: #ffd700; margin-bottom: 5px; font-size: 0.9em; }
+        .match-col h4 { text-align: center; color: #d35400; margin-bottom: 5px; font-size: 0.9em; }
         .match-item {
-            padding: 12px 18px; background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3); border-radius: 8px;
+            padding: 12px 18px; background: rgba(52,152,219,0.1);
+            border: 2px solid rgba(52,152,219,0.3); border-radius: 8px;
             cursor: pointer; transition: all 0.3s ease; text-align: center; min-width: 110px; font-size: 0.9em;
+            color: #2c3e50;
         }
-        .match-item:hover { background: rgba(255,255,255,0.25); }
-        .match-item.selected { border-color: #ffd700; background: rgba(255,215,0,0.3); }
-        .match-item.matched { border-color: #2ecc71; background: rgba(46,204,113,0.3); }
-        .match-item.wrong { border-color: #e74c3c; background: rgba(231,76,60,0.3); animation: shake 0.4s ease; }
+        .match-item:hover { background: rgba(52,152,219,0.2); }
+        .match-item.selected { border-color: #f39c12; background: rgba(243,156,18,0.2); }
+        .match-item.matched { border-color: #27ae60; background: rgba(39,174,96,0.2); }
+        .match-item.wrong { border-color: #e74c3c; background: rgba(231,76,60,0.2); animation: shake 0.4s ease; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 
         /* Multiple Choice */
         .choices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .choice-btn {
             padding: 12px 15px; font-size: 0.95em;
-            background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px; color: #fff; cursor: pointer; transition: all 0.3s ease; text-align: center;
+            background: rgba(52,152,219,0.1); border: 2px solid rgba(52,152,219,0.3);
+            border-radius: 10px; color: #2c3e50; cursor: pointer; transition: all 0.3s ease; text-align: center;
         }
-        .choice-btn:hover { background: rgba(255,255,255,0.25); border-color: #ffd700; }
-        .choice-btn.correct { background: rgba(46,204,113,0.5); border-color: #2ecc71; }
-        .choice-btn.incorrect { background: rgba(231,76,60,0.5); border-color: #e74c3c; }
+        .choice-btn:hover { background: rgba(52,152,219,0.2); border-color: #3498db; }
+        .choice-btn.correct { background: rgba(39,174,96,0.3); border-color: #27ae60; }
+        .choice-btn.incorrect { background: rgba(231,76,60,0.3); border-color: #e74c3c; }
 
         /* Order */
         .order-list { display: flex; flex-direction: column; gap: 8px; }
         .order-item {
             display: flex; align-items: center; gap: 10px;
-            padding: 12px 15px; background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3); border-radius: 8px;
-            cursor: move; transition: all 0.3s ease; font-size: 0.9em;
+            padding: 12px 15px; background: rgba(52,152,219,0.1);
+            border: 2px solid rgba(52,152,219,0.3); border-radius: 8px;
+            cursor: move; transition: all 0.3s ease; font-size: 0.9em; color: #2c3e50;
         }
-        .order-item:hover { background: rgba(255,255,255,0.25); }
-        .order-item.dragging { opacity: 0.5; border-color: #ffd700; }
+        .order-item:hover { background: rgba(52,152,219,0.2); }
+        .order-item.dragging { opacity: 0.5; border-color: #f39c12; }
         .order-num {
-            width: 26px; height: 26px; background: #ffd700; color: #1a1a2e;
+            width: 26px; height: 26px; background: #f39c12; color: #fff;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-weight: bold; flex-shrink: 0; font-size: 0.85em;
         }
@@ -195,79 +224,88 @@
         /* Submit & Write */
         .submit-btn {
             display: block; width: 100%; padding: 14px; margin-top: 15px;
-            font-size: 1.1em; background: linear-gradient(135deg, #ffd700, #ffed4a);
-            border: none; border-radius: 10px; color: #1a1a2e;
+            font-size: 1.1em; background: linear-gradient(135deg, #f39c12, #e67e22);
+            border: none; border-radius: 10px; color: #fff;
             cursor: pointer; font-weight: bold; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(243,156,18,0.3);
         }
         .submit-btn:hover { transform: scale(1.02); }
         .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .write-input {
             width: 100%; padding: 15px; font-size: 1em;
-            border: 2px solid rgba(255,255,255,0.3); border-radius: 10px;
-            background: rgba(255,255,255,0.1); color: #fff; min-height: 80px; resize: vertical;
+            border: 2px solid rgba(52,152,219,0.3); border-radius: 10px;
+            background: rgba(255,255,255,0.8); color: #2c3e50; min-height: 80px; resize: vertical;
         }
-        .write-input:focus { outline: none; border-color: #ffd700; }
+        .write-input:focus { outline: none; border-color: #3498db; }
 
         /* Feedback */
         .feedback {
             text-align: center; padding: 15px; margin-top: 15px;
             border-radius: 10px; font-size: 1.1em; display: none;
         }
-        .feedback.correct { background: rgba(46,204,113,0.3); border: 2px solid #2ecc71; }
-        .feedback.incorrect { background: rgba(231,76,60,0.3); border: 2px solid #e74c3c; }
-        .feedback.neutral { background: rgba(52,152,219,0.3); border: 2px solid #3498db; }
+        .feedback.correct { background: rgba(39,174,96,0.2); border: 2px solid #27ae60; color: #1e8449; }
+        .feedback.incorrect { background: rgba(231,76,60,0.2); border: 2px solid #e74c3c; color: #c0392b; }
+        .feedback.neutral { background: rgba(52,152,219,0.2); border: 2px solid #3498db; color: #2874a6; }
         .fun-fact {
-            background: rgba(155,89,182,0.3); border: 2px solid #9b59b6;
+            background: rgba(155,89,182,0.15); border: 2px solid #9b59b6;
             padding: 15px; border-radius: 10px; margin-top: 15px; display: none;
         }
-        .fun-fact-title { color: #d4a5ff; font-weight: bold; margin-bottom: 5px; }
+        .fun-fact-title { color: #7d3c98; font-weight: bold; margin-bottom: 5px; }
+        #funFactText { color: #5b2c6f; }
         .next-btn {
             display: none; width: 100%; padding: 15px; margin-top: 15px;
-            font-size: 1.1em; background: linear-gradient(135deg, #3498db, #5dade2);
+            font-size: 1.1em; background: linear-gradient(135deg, #3498db, #2980b9);
             border: none; border-radius: 10px; color: #fff;
             cursor: pointer; font-weight: bold; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52,152,219,0.3);
         }
         .next-btn:hover { transform: scale(1.02); }
-        .next-btn.level-done { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .next-btn.level-done { background: linear-gradient(135deg, #27ae60, #1e8449); box-shadow: 0 4px 15px rgba(39,174,96,0.3); }
 
         /* City */
         .city-box {
-            background: linear-gradient(180deg, #87ceeb 0%, #98d8c8 50%, #7cb342 100%);
+            background: linear-gradient(180deg, #87CEEB 0%, #98D8C8 50%, #90EE90 100%);
             border-radius: 15px; padding: 20px; margin-top: 20px; min-height: 70px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .city-title { text-align: center; color: #2c3e50; margin-bottom: 10px; font-size: 0.95em; }
+        .city-title { text-align: center; color: #1e8449; margin-bottom: 10px; font-size: 0.95em; font-weight: bold; }
         .city-items { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; font-size: 1.8em; }
         .city-item { animation: pop 0.5s ease; }
         @keyframes pop { 0% { transform: scale(0); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
         /* Level Complete */
         .level-complete { display: none; text-align: center; padding: 30px 20px; }
-        .lc-title { font-size: 2em; color: #ffd700; margin-bottom: 12px; }
-        .lc-score { font-size: 1.1em; color: #87ceeb; margin-bottom: 15px; }
+        .lc-title { font-size: 2em; color: #d35400; margin-bottom: 12px; text-shadow: 2px 2px 4px rgba(255,255,255,0.5); }
+        .lc-score { font-size: 1.1em; color: #2c3e50; margin-bottom: 15px; }
         .lc-badge {
             display: inline-block; padding: 12px 25px;
-            background: linear-gradient(135deg, #ffd700, #ffed4a);
-            color: #1a1a2e; border-radius: 25px; font-size: 1.1em; font-weight: bold; margin: 15px 0;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: #fff; border-radius: 25px; font-size: 1.1em; font-weight: bold; margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(243,156,18,0.3);
         }
         .stats-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 15px 0; }
         .stat-box {
-            background: rgba(255,255,255,0.1); border-radius: 10px;
+            background: rgba(255,255,255,0.8); border-radius: 10px;
             padding: 12px 20px; min-width: 90px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .stat-num { font-size: 1.4em; color: #ffd700; font-weight: bold; }
-        .stat-label { color: #aaa; font-size: 0.75em; }
+        .stat-num { font-size: 1.4em; color: #d35400; font-weight: bold; }
+        .stat-label { color: #555; font-size: 0.75em; }
         .city-preview {
-            background: linear-gradient(180deg, #87ceeb 0%, #98d8c8 50%, #7cb342 100%);
+            background: linear-gradient(180deg, #87CEEB 0%, #98D8C8 50%, #90EE90 100%);
             border-radius: 12px; padding: 15px; margin: 15px 0;
         }
+        .city-preview .city-title { color: #1e8449; }
         .city-preview-items { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; font-size: 1.6em; }
-        .next-preview { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin: 15px 0; }
-        .next-preview h3 { color: #ffd700; margin-bottom: 8px; }
+        .next-preview { background: rgba(255,255,255,0.8); border-radius: 12px; padding: 20px; margin: 15px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .next-preview h3 { color: #d35400; margin-bottom: 8px; }
+        .next-preview p { color: #2c3e50; }
         .continue-btn {
             padding: 16px 40px; font-size: 1.1em;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            background: linear-gradient(135deg, #27ae60, #1e8449);
             border: none; border-radius: 12px; color: #fff;
             cursor: pointer; font-weight: bold; transition: all 0.3s ease; margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(39,174,96,0.3);
         }
         .continue-btn:hover { transform: scale(1.05); }
 
@@ -276,15 +314,15 @@
             background: rgba(231,76,60,0.1); border: 2px solid rgba(231,76,60,0.3);
             border-radius: 15px; padding: 20px; margin: 20px 0; text-align: left;
         }
-        .review-title { color: #e74c3c; font-size: 1.2em; margin-bottom: 15px; text-align: center; }
+        .review-title { color: #c0392b; font-size: 1.2em; margin-bottom: 15px; text-align: center; }
         .review-item {
-            background: rgba(255,255,255,0.05); border-radius: 10px;
+            background: rgba(255,255,255,0.7); border-radius: 10px;
             padding: 15px; margin-bottom: 12px; border-left: 4px solid #e74c3c;
         }
-        .review-question { color: #fff; font-size: 1em; margin-bottom: 8px; }
-        .review-answer { color: #2ecc71; font-size: 0.95em; }
-        .review-answer span { color: #ffd700; font-weight: bold; }
-        .no-wrong { color: #2ecc71; text-align: center; font-size: 1.1em; padding: 20px; }
+        .review-question { color: #2c3e50; font-size: 1em; margin-bottom: 8px; }
+        .review-answer { color: #1e8449; font-size: 0.95em; }
+        .review-answer span { color: #d35400; font-weight: bold; }
+        .no-wrong { color: #1e8449; text-align: center; font-size: 1.1em; padding: 20px; }
 
         /* Effects */
         .extreme-glow { animation: extreme-pulse 1.5s infinite; }
@@ -319,27 +357,28 @@
     <div class="container">
         <!-- World Select -->
         <div class="world-select" id="worldSelect">
+            <div style="font-size:60px;margin-bottom:15px;">🏛️⚡🌊</div>
             <h1 class="main-title">🏛️ Gods & Civilizations 🏛️</h1>
             <p class="main-subtitle">Choose Your Adventure!</p>
             <div class="worlds-container">
                 <div class="world-card w1" onclick="selectWorld(1)">
                     <div class="world-icon">⚡🏛️</div>
                     <h2 class="world-title">WORLD 1</h2>
-                    <h3 style="color:#fff;margin-bottom:8px;">Gods & Myths</h3>
+                    <h3 style="color:#2c3e50;margin-bottom:8px;">Gods & Myths</h3>
                     <p class="world-desc">Zeus, Poseidon, Athena, heroes & monsters!</p>
                     <span class="world-badge">🔄 ENDLESS</span>
                 </div>
                 <div class="world-card w2" onclick="selectWorld(2)">
                     <div class="world-icon">📜⏳</div>
                     <h2 class="world-title">WORLD 2</h2>
-                    <h3 style="color:#fff;margin-bottom:8px;">Timeline & History</h3>
+                    <h3 style="color:#2c3e50;margin-bottom:8px;">Timeline & History</h3>
                     <p class="world-desc">Battles, empires, inventions & daily life!</p>
                     <span class="world-badge">🔄 ENDLESS</span>
                 </div>
                 <div class="world-card w3" onclick="selectWorld(3)">
                     <div class="world-icon">🎯📝</div>
                     <h2 class="world-title">WORLD 3</h2>
-                    <h3 style="color:#fff;margin-bottom:8px;">Review Test!</h3>
+                    <h3 style="color:#2c3e50;margin-bottom:8px;">Review Test!</h3>
                     <p class="world-desc">Test yourself on W1 Gods & W2 History!</p>
                     <span class="world-badge">🔄 ENDLESS</span>
                 </div>
@@ -390,6 +429,7 @@
 
         <!-- Level Complete -->
         <div class="level-complete" id="levelComplete">
+            <div style="font-size:60px;margin-bottom:10px;">🎉🏆🎉</div>
             <h1 class="lc-title" id="lcTitle">🎉 Level Complete! 🎉</h1>
             <p class="lc-score">You got <span id="lcScore">0</span> out of <span id="lcTotal">0</span> correct!</p>
             <div class="lc-badge" id="lcBadge">⭐ Great Job!</div>
@@ -428,70 +468,70 @@
             cakewalk: {
                 name: "🍰 CAKEWALK", color: "#a8e6cf",
                 questions: [
-                    { type: "truefalse", question: "The Greek gods lived on Mount Olympus.", answer: true, funFact: "Mount Olympus is a real mountain in Greece!" },
-                    { type: "riddle", riddle: "I'm the king up in the sky,\nWith thunder clouds floating by.\nBolts of light are what I throw,\nWho am I? Do you know?", hint: "Boss of all gods!", answer: "ZEUS", funFact: "Zeus's symbol was the eagle!" },
-                    { type: "yesno", question: "Did ancient Greeks build temples?", answer: "yes", funFact: "Greek temples were painted in bright colors!" },
-                    { type: "truefalse", question: "Poseidon was the god of the sky.", answer: false, correctInfo: "Poseidon was god of the sea!", funFact: "Poseidon could create islands with his trident!" },
-                    { type: "riddle", riddle: "Deep below the waves I stay,\nWith dolphins and fish I play.\nA trident is my special stick,\nGuess my name, be quick!", hint: "Rules the ocean!", answer: "POSEIDON", funFact: "Sailors prayed to Poseidon before voyages!" },
-                    { type: "yesno", question: "Were the Olympics invented by Greeks?", answer: "yes", funFact: "Winners got olive wreaths, not gold medals!" },
-                    { type: "matching", question: "Match the god to their power:", pairs: [{ left: "Zeus", right: "⚡ Thunder" }, { left: "Poseidon", right: "🌊 Ocean" }], funFact: "Zeus and Poseidon were brothers!" },
-                    { type: "truefalse", question: "Greek gods could live forever.", answer: true, funFact: "Gods drank nectar to stay immortal!" }
+                    { type: "truefalse", question: "The Greek gods lived on Mount Olympus.", answer: true, funFact: "Mount Olympus is a real mountain in Greece!", image: "🏔️⛅🏛️" },
+                    { type: "riddle", riddle: "I'm the king up in the sky,\nWith thunder clouds floating by.\nBolts of light are what I throw,\nWho am I? Do you know?", hint: "Boss of all gods!", answer: "ZEUS", acceptableAnswers: ["ZEUS", "ΖΕΥΣ", "DIAS", "ΔΙΑΣ"], funFact: "Zeus's symbol was the eagle! (Greek: Ζεύς / Roman: Jupiter)", image: "⚡👑☁️" },
+                    { type: "yesno", question: "Did ancient Greeks build temples?", answer: "yes", funFact: "Greek temples were painted in bright colors!", image: "🏛️🏛️🏛️" },
+                    { type: "truefalse", question: "Poseidon was the god of the sky.", answer: false, correctInfo: "Poseidon was god of the sea!", funFact: "Poseidon could create islands with his trident! (Greek: Ποσειδών / Roman: Neptune)", image: "🌊🔱🐚" },
+                    { type: "riddle", riddle: "Deep below the waves I stay,\nWith dolphins and fish I play.\nA trident is my special stick,\nGuess my name, be quick!", hint: "Rules the ocean!", answer: "POSEIDON", acceptableAnswers: ["POSEIDON", "ΠΟΣΕΙΔΩΝ", "ΠΟΣΕΙΔΩΝΑΣ", "NEPTUNE"], funFact: "Sailors prayed to Poseidon before voyages! (Greek: Ποσειδών / Roman: Neptune)", image: "🌊🐬🔱" },
+                    { type: "yesno", question: "Were the Olympics invented by Greeks?", answer: "yes", funFact: "Winners got olive wreaths, not gold medals!", image: "🏃🏅🏟️" },
+                    { type: "matching", question: "Match the god to their power:", pairs: [{ left: "Zeus", right: "⚡ Thunder" }, { left: "Poseidon", right: "🌊 Ocean" }], funFact: "Zeus and Poseidon were brothers!", image: "⚡🤝🌊" },
+                    { type: "truefalse", question: "Greek gods could live forever.", answer: true, funFact: "Gods drank nectar to stay immortal!", image: "✨🍷♾️" }
                 ],
                 rewards: ["🏛️", "🌳", "⛲"]
             },
             easy: {
                 name: "😊 EASY", color: "#88d8ff",
                 questions: [
-                    { type: "riddle", riddle: "An owl sits upon my arm,\nWisdom keeps the world from harm.\nI help heroes win their fights,\nWith clever plans and insights.", hint: "Goddess of wisdom!", answer: "ATHENA", funFact: "Athena was born from Zeus's head!" },
-                    { type: "truefalse", question: "Hermes had wings on his sandals.", answer: true, funFact: "Hermes could fly faster than any bird!" },
-                    { type: "yesno", question: "Did Apollo drive the sun across the sky?", answer: "yes", funFact: "Apollo's chariot had fire-breathing horses!" },
-                    { type: "riddle", riddle: "I run and fly without a rest,\nAt being fast I am the best.\nMessages I bring all day,\nWith winged sandals on my way!", hint: "Messenger god!", answer: "HERMES", funFact: "Hermes guided souls to the underworld!" },
-                    { type: "multiplechoice", question: "What animal was sacred to Athena?", choices: ["Lion", "Owl", "Eagle", "Snake"], answer: "Owl", funFact: "Owls represented wisdom!" },
-                    { type: "truefalse", question: "Artemis was goddess of the hunt.", answer: true, funFact: "Artemis never missed with her bow!" },
-                    { type: "matching", question: "Match god to symbol:", pairs: [{ left: "Athena", right: "🦉 Owl" }, { left: "Apollo", right: "☀️ Sun" }, { left: "Artemis", right: "🏹 Bow" }], funFact: "Artemis and Apollo were twins!" },
-                    { type: "yesno", question: "Did Hades live on Mount Olympus?", answer: "no", funFact: "Hades lived in the Underworld!" }
+                    { type: "riddle", riddle: "An owl sits upon my arm,\nWisdom keeps the world from harm.\nI help heroes win their fights,\nWith clever plans and insights.", hint: "Goddess of wisdom!", answer: "ATHENA", acceptableAnswers: ["ATHENA", "ΑΘΗΝΑ", "MINERVA"], funFact: "Athena was born from Zeus's head! (Greek: Αθηνά / Roman: Minerva)", image: "🦉👩‍🦰🛡️" },
+                    { type: "truefalse", question: "Hermes had wings on his sandals.", answer: true, funFact: "Hermes could fly faster than any bird! (Greek: Ερμής / Roman: Mercury)", image: "👟🪶💨" },
+                    { type: "yesno", question: "Did Apollo drive the sun across the sky?", answer: "yes", funFact: "Apollo's chariot had fire-breathing horses! (Greek: Απόλλων / Roman: Apollo)", image: "☀️🐴🔥" },
+                    { type: "riddle", riddle: "I run and fly without a rest,\nAt being fast I am the best.\nMessages I bring all day,\nWith winged sandals on my way!", hint: "Messenger god!", answer: "HERMES", acceptableAnswers: ["HERMES", "ΕΡΜΗΣ", "MERCURY"], funFact: "Hermes guided souls to the underworld! (Greek: Ερμής / Roman: Mercury)", image: "💨📨🪶" },
+                    { type: "multiplechoice", question: "What animal was sacred to Athena?", choices: ["Lion", "Owl", "Eagle", "Snake"], answer: "Owl", funFact: "Owls represented wisdom!", image: "🦁🦉🦅🐍" },
+                    { type: "truefalse", question: "Artemis was goddess of the hunt.", answer: true, funFact: "Artemis never missed with her bow! (Greek: Άρτεμις / Roman: Diana)", image: "🏹🌙🦌" },
+                    { type: "matching", question: "Match god to symbol:", pairs: [{ left: "Athena", right: "🦉 Owl" }, { left: "Apollo", right: "☀️ Sun" }, { left: "Artemis", right: "🏹 Bow" }], funFact: "Artemis and Apollo were twins!", image: "🦉☀️🏹" },
+                    { type: "yesno", question: "Did Hades live on Mount Olympus?", answer: "no", funFact: "Hades lived in the Underworld! (Greek: Άδης / Roman: Pluto)", image: "💀🔥👑" }
                 ],
                 rewards: ["🏛️", "🗿", "🌺", "🏺"]
             },
             ok: {
                 name: "👍 OK", color: "#ffd93d",
                 questions: [
-                    { type: "riddle", riddle: "I'm the strongest man around,\nDoing tasks across the ground.\nTwelve hard labors were my test,\nI'm a hero, one of the best!", hint: "Did 12 impossible tasks!", answer: "HERCULES", funFact: "Hercules could wrestle lions!" },
-                    { type: "truefalse", question: "Romans called Zeus 'Jupiter'.", answer: true, funFact: "The planet Jupiter is named after him!" },
-                    { type: "yesno", question: "Did Cerberus have three heads?", answer: "yes", funFact: "Cerberus guarded the Underworld!" },
-                    { type: "riddle", riddle: "Three heads I have, teeth so sharp,\nI guard a place that's very dark.\nNo one escapes my watchful eyes,\nI'm Hades' pet of massive size!", hint: "Three-headed guard dog!", answer: "CERBERUS", funFact: "Orpheus put Cerberus to sleep with music!" },
-                    { type: "multiplechoice", question: "Neptune is Roman god of what?", choices: ["War", "The Sea", "Fire", "Love"], answer: "The Sea", funFact: "Neptune = Greek Poseidon!" },
-                    { type: "matching", question: "Match Greek to Roman names:", pairs: [{ left: "Zeus", right: "Jupiter" }, { left: "Ares", right: "Mars" }, { left: "Aphrodite", right: "Venus" }], funFact: "Romans borrowed Greek gods!" },
-                    { type: "truefalse", question: "Hephaestus made weapons for gods.", answer: true, funFact: "Hephaestus made Zeus's lightning bolts!" },
-                    { type: "riddle", riddle: "I am goddess of love so sweet,\nWith beauty none can beat.\nFrom sea foam I was born,\nRomans call me Venus morn!", hint: "Goddess of love!", answer: "APHRODITE", funFact: "Venus the planet is named after her!" }
+                    { type: "riddle", riddle: "I'm the strongest man around,\nDoing tasks across the ground.\nTwelve hard labors were my test,\nI'm a hero, one of the best!", hint: "Did 12 impossible tasks!", answer: "HERCULES", acceptableAnswers: ["HERCULES", "HERACLES", "ΗΡΑΚΛΗΣ", "HERAKLES"], funFact: "Hercules could wrestle lions! (Greek: Ηρακλής / Roman: Hercules)", image: "💪🦁⚔️" },
+                    { type: "truefalse", question: "Romans called Zeus 'Jupiter'.", answer: true, funFact: "The planet Jupiter is named after him! (Greek: Ζεύς / Roman: Jupiter)", image: "⚡🪐🇮🇹" },
+                    { type: "yesno", question: "Did Cerberus have three heads?", answer: "yes", funFact: "Cerberus guarded the Underworld! (Greek: Κέρβερος)", image: "🐕🐕🐕" },
+                    { type: "riddle", riddle: "Three heads I have, teeth so sharp,\nI guard a place that's very dark.\nNo one escapes my watchful eyes,\nI'm Hades' pet of massive size!", hint: "Three-headed guard dog!", answer: "CERBERUS", acceptableAnswers: ["CERBERUS", "ΚΕΡΒΕΡΟΣ", "KERBEROS"], funFact: "Orpheus put Cerberus to sleep with music! (Greek: Κέρβερος)", image: "🐶🐶🐶🔥" },
+                    { type: "multiplechoice", question: "Neptune is Roman god of what?", choices: ["War", "The Sea", "Fire", "Love"], answer: "The Sea", funFact: "Neptune = Greek Poseidon! (Greek: Ποσειδών / Roman: Neptune)", image: "🔱🌊🐚" },
+                    { type: "matching", question: "Match Greek to Roman names:", pairs: [{ left: "Zeus", right: "Jupiter" }, { left: "Ares", right: "Mars" }, { left: "Aphrodite", right: "Venus" }], funFact: "Romans borrowed Greek gods!", image: "🇬🇷➡️🇮🇹" },
+                    { type: "truefalse", question: "Hephaestus made weapons for gods.", answer: true, funFact: "Hephaestus made Zeus's lightning bolts! (Greek: Ήφαιστος / Roman: Vulcan)", image: "🔨🔥⚔️" },
+                    { type: "riddle", riddle: "I am goddess of love so sweet,\nWith beauty none can beat.\nFrom sea foam I was born,\nRomans call me Venus morn!", hint: "Goddess of love!", answer: "APHRODITE", acceptableAnswers: ["APHRODITE", "ΑΦΡΟΔΙΤΗ", "VENUS"], funFact: "Venus the planet is named after her! (Greek: Αφροδίτη / Roman: Venus)", image: "💕🌹👸" }
                 ],
                 rewards: ["🏛️", "⛲", "🗿", "🏺", "👑"]
             },
             hard: {
                 name: "🔥 HARD", color: "#ff6b6b",
                 questions: [
-                    { type: "riddle", riddle: "I sailed for years through stormy seas,\nFighting monsters, if you please.\nA Cyclops tried to eat my crew,\nThe Trojan Horse? My idea too!", hint: "10 years to get home!", answer: "ODYSSEUS", acceptableAnswers: ["ODYSSEUS", "ULYSSES"], funFact: "His journey is told in Homer's Odyssey!" },
-                    { type: "multiplechoice", question: "What happened when you cut a Hydra head?", choices: ["It died", "Two more grew", "It grew wings", "Nothing"], answer: "Two more grew", funFact: "Hercules burned necks to stop new heads!" },
-                    { type: "riddle", riddle: "I was cursed to never be believed,\nThough every prophecy I perceived.\nTroy would fall, I tried to warn,\nBut everyone just laughed in scorn.", hint: "Could see future, no one believed!", answer: "CASSANDRA", funFact: "Apollo cursed her for rejecting him!" },
-                    { type: "truefalse", question: "Cyclops Polyphemus was Poseidon's son.", answer: true, funFact: "Poseidon cursed Odysseus for blinding him!" },
-                    { type: "matching", question: "Match hero to weakness:", pairs: [{ left: "Achilles", right: "His heel" }, { left: "Orpheus", right: "Looking back" }, { left: "Icarus", right: "Flying too high" }], funFact: "Greek heroes had fatal flaws!" },
-                    { type: "riddle", riddle: "Born from blood of slain Medusa,\nA horse with wings, quite the sight!\nI carried heroes through the sky,\nA constellation now on high.", hint: "Flying horse!", answer: "PEGASUS", funFact: "Pegasus was born from Medusa's blood!" },
-                    { type: "multiplechoice", question: "What did Orpheus do wrong saving Eurydice?", choices: ["Wrong password", "Looked back", "Wrong song", "Too slow"], answer: "Looked back", funFact: "He was just steps from freedom!" },
-                    { type: "riddle", riddle: "I challenged Athena to weave,\nA contest I thought I'd achieve.\nTurned into something small,\nNow I weave webs on the wall.", hint: "Became a spider!", answer: "ARACHNE", funFact: "That's why spiders are 'arachnids'!" }
+                    { type: "riddle", riddle: "I sailed for years through stormy seas,\nFighting monsters, if you please.\nA Cyclops tried to eat my crew,\nThe Trojan Horse? My idea too!", hint: "10 years to get home!", answer: "ODYSSEUS", acceptableAnswers: ["ODYSSEUS", "ΟΔΥΣΣΕΑΣ", "ULYSSES", "ΟΔΥΣΣΕΥΣ"], funFact: "His journey is told in Homer's Odyssey! (Greek: Οδυσσέας / Roman: Ulysses)", image: "⛵🌊👁️" },
+                    { type: "multiplechoice", question: "What happened when you cut a Hydra head?", choices: ["It died", "Two more grew", "It grew wings", "Nothing"], answer: "Two more grew", funFact: "Hercules burned necks to stop new heads! (Greek: Ύδρα)", image: "🐍🐍🐍🔥" },
+                    { type: "riddle", riddle: "I was cursed to never be believed,\nThough every prophecy I perceived.\nTroy would fall, I tried to warn,\nBut everyone just laughed in scorn.", hint: "Could see future, no one believed!", answer: "CASSANDRA", acceptableAnswers: ["CASSANDRA", "ΚΑΣΣΑΝΔΡΑ"], funFact: "Apollo cursed her for rejecting him! (Greek: Κασσάνδρα)", image: "🔮👩😢" },
+                    { type: "truefalse", question: "Cyclops Polyphemus was Poseidon's son.", answer: true, funFact: "Poseidon cursed Odysseus for blinding him! (Greek: Πολύφημος)", image: "👁️🔱😡" },
+                    { type: "matching", question: "Match hero to weakness:", pairs: [{ left: "Achilles", right: "His heel" }, { left: "Orpheus", right: "Looking back" }, { left: "Icarus", right: "Flying too high" }], funFact: "Greek heroes had fatal flaws! (Αχιλλέας, Ορφέας, Ίκαρος)", image: "🦶👀🪶" },
+                    { type: "riddle", riddle: "Born from blood of slain Medusa,\nA horse with wings, quite the sight!\nI carried heroes through the sky,\nA constellation now on high.", hint: "Flying horse!", answer: "PEGASUS", acceptableAnswers: ["PEGASUS", "ΠΗΓΑΣΟΣ"], funFact: "Pegasus was born from Medusa's blood! (Greek: Πήγασος)", image: "🐴🪶✨" },
+                    { type: "multiplechoice", question: "What did Orpheus do wrong saving Eurydice?", choices: ["Wrong password", "Looked back", "Wrong song", "Too slow"], answer: "Looked back", funFact: "He was just steps from freedom! (Greek: Ορφέας & Ευρυδίκη)", image: "🎵👀💔" },
+                    { type: "riddle", riddle: "I challenged Athena to weave,\nA contest I thought I'd achieve.\nTurned into something small,\nNow I weave webs on the wall.", hint: "Became a spider!", answer: "ARACHNE", acceptableAnswers: ["ARACHNE", "ΑΡΑΧΝΗ"], funFact: "That's why spiders are 'arachnids'! (Greek: Αράχνη)", image: "🕷️🕸️👩" }
                 ],
                 rewards: ["⚔️", "🛡️", "👑", "🏛️", "💎"]
             },
             extreme: {
                 name: "💀 EXTREME", color: "#9b59b6",
                 questions: [
-                    { type: "riddle", riddle: "I stole fire from gods above,\nGave it to humans out of love.\nChained to rock for my crime,\nEagle ate my liver for all time.", hint: "Punished forever for helping humans!", answer: "PROMETHEUS", funFact: "His liver grew back each night!" },
-                    { type: "multiplechoice", question: "Which primordial deity existed FIRST?", choices: ["Zeus", "Gaia", "Chaos", "Uranus"], answer: "Chaos", funFact: "Chaos was the void before everything!" },
-                    { type: "riddle", riddle: "I ferry souls across river wide,\nFor a coin on lips of those who died.\nRiver Styx was my domain,\nNo coin, no passage—that's plain.", hint: "Ferryman of the dead!", answer: "CHARON", funFact: "Greeks buried dead with coins for Charon!" },
-                    { type: "truefalse", question: "Tantalus was punished with food and water just out of reach.", answer: true, funFact: "That's where 'tantalize' comes from!" },
-                    { type: "matching", question: "Match monster to power:", pairs: [{ left: "Sirens", right: "Deadly songs" }, { left: "Scylla", right: "Six heads" }, { left: "Charybdis", right: "Whirlpool" }], funFact: "Odysseus sailed between Scylla and Charybdis!" },
-                    { type: "multiplechoice", question: "What stayed INSIDE Pandora's Box?", choices: ["Love", "Only Hope", "Death", "Spirits"], answer: "Only Hope", funFact: "Hope remained so humans could survive!" },
-                    { type: "riddle", riddle: "Morning four, noon just two,\nEvening three will do.\nAnswer wrong, be my feast,\nPart woman, part lion beast.", hint: "Asked deadly riddles!", answer: "SPHINX", acceptableAnswers: ["SPHINX", "THE SPHINX"], funFact: "Answer is 'man' - crawls, walks, uses cane!" },
-                    { type: "truefalse", question: "Cronus ate his children but Zeus escaped via a rock in blankets.", answer: true, funFact: "Zeus made Cronus vomit up his siblings!" }
+                    { type: "riddle", riddle: "I stole fire from gods above,\nGave it to humans out of love.\nChained to rock for my crime,\nEagle ate my liver for all time.", hint: "Punished forever for helping humans!", answer: "PROMETHEUS", acceptableAnswers: ["PROMETHEUS", "ΠΡΟΜΗΘΕΑΣ", "ΠΡΟΜΗΘΕΥΣ"], funFact: "His liver grew back each night! (Greek: Προμηθέας)", image: "🔥⛓️🦅" },
+                    { type: "multiplechoice", question: "Which primordial deity existed FIRST?", choices: ["Zeus", "Gaia", "Chaos", "Uranus"], answer: "Chaos", funFact: "Chaos was the void before everything! (Greek: Χάος)", image: "🌑❓🌌" },
+                    { type: "riddle", riddle: "I ferry souls across river wide,\nFor a coin on lips of those who died.\nRiver Styx was my domain,\nNo coin, no passage—that's plain.", hint: "Ferryman of the dead!", answer: "CHARON", acceptableAnswers: ["CHARON", "ΧΑΡΩΝ", "ΧΑΡΟΝΤΑΣ", "CHAROS"], funFact: "Greeks buried dead with coins for Charon! (Greek: Χάρων)", image: "⛵💀🪙" },
+                    { type: "truefalse", question: "Tantalus was punished with food and water just out of reach.", answer: true, funFact: "That's where 'tantalize' comes from! (Greek: Τάνταλος)", image: "🍎💧😫" },
+                    { type: "matching", question: "Match monster to power:", pairs: [{ left: "Sirens", right: "Deadly songs" }, { left: "Scylla", right: "Six heads" }, { left: "Charybdis", right: "Whirlpool" }], funFact: "Odysseus sailed between Scylla and Charybdis! (Σειρήνες, Σκύλλα, Χάρυβδις)", image: "🎵👹🌀" },
+                    { type: "multiplechoice", question: "What stayed INSIDE Pandora's Box?", choices: ["Love", "Only Hope", "Death", "Spirits"], answer: "Only Hope", funFact: "Hope remained so humans could survive! (Greek: Πανδώρα)", image: "📦✨🙏" },
+                    { type: "riddle", riddle: "Morning four, noon just two,\nEvening three will do.\nAnswer wrong, be my feast,\nPart woman, part lion beast.", hint: "Asked deadly riddles!", answer: "SPHINX", acceptableAnswers: ["SPHINX", "THE SPHINX", "ΣΦΙΓΓΑ", "ΣΦΙΓΞ"], funFact: "Answer is 'man' - crawls, walks, uses cane! (Greek: Σφίγγα)", image: "🦁👩❓" },
+                    { type: "truefalse", question: "Cronus ate his children but Zeus escaped via a rock in blankets.", answer: true, funFact: "Zeus made Cronus vomit up his siblings! (Greek: Κρόνος)", image: "👶🪨😱" }
                 ],
                 rewards: ["👑", "⚔️", "🛡️", "💎", "🌟", "🔱", "💀"]
             }
@@ -502,70 +542,70 @@
             cakewalk: {
                 name: "🍰 CAKEWALK", color: "#a8e6cf",
                 questions: [
-                    { type: "truefalse", question: "Ancient Greece existed before Ancient Rome.", answer: true, funFact: "Greece started ~800 BC, Rome ~753 BC!" },
-                    { type: "riddle", riddle: "I'm a city on seven hills,\nWith soldiers, roads, building skills.\nI conquered lands both far and wide,\nAn empire known for strength and pride!", hint: "Famous ancient empire!", answer: "ROME", funFact: "Rome was called the 'Eternal City'!" },
-                    { type: "yesno", question: "Did ancient Greeks invent democracy?", answer: "yes", funFact: "Democracy means 'rule by the people'!" },
-                    { type: "truefalse", question: "The pyramids were built by Romans.", answer: false, correctInfo: "Pyramids were built by Egyptians!", funFact: "Pyramids were 2,000 years old when Rome was founded!" },
-                    { type: "riddle", riddle: "A contest held every four years,\nWith running, throwing, athletes' cheers.\nStarted in Greece long ago,\nNow the whole world puts on a show!", hint: "Famous sports event!", answer: "OLYMPICS", acceptableAnswers: ["OLYMPICS", "THE OLYMPICS", "OLYMPIC GAMES"], funFact: "First Olympics were in 776 BC!" },
-                    { type: "yesno", question: "Did Romans build long, straight roads?", answer: "yes", funFact: "Some Roman roads still exist today!" },
-                    { type: "matching", question: "Match invention to civilization:", pairs: [{ left: "Democracy", right: "Greeks" }, { left: "Aqueducts", right: "Romans" }], funFact: "Romans brought water into cities!" },
-                    { type: "truefalse", question: "Ancient Greeks wrote plays.", answer: true, funFact: "Greek theaters held 15,000 people!" }
+                    { type: "truefalse", question: "Ancient Greece existed before Ancient Rome.", answer: true, funFact: "Greece started ~800 BC, Rome ~753 BC!", image: "🇬🇷⏰🇮🇹" },
+                    { type: "riddle", riddle: "I'm a city on seven hills,\nWith soldiers, roads, building skills.\nI conquered lands both far and wide,\nAn empire known for strength and pride!", hint: "Famous ancient empire!", answer: "ROME", acceptableAnswers: ["ROME", "ROMA", "ΡΩΜΗ"], funFact: "Rome was called the 'Eternal City'! (Latin: Roma / Greek: Ρώμη)", image: "🏛️⛰️🦅" },
+                    { type: "yesno", question: "Did ancient Greeks invent democracy?", answer: "yes", funFact: "Democracy means 'rule by the people'! (Greek: Δημοκρατία)", image: "🗳️👥✋" },
+                    { type: "truefalse", question: "The pyramids were built by Romans.", answer: false, correctInfo: "Pyramids were built by Egyptians!", funFact: "Pyramids were 2,000 years old when Rome was founded!", image: "🔺🏜️🇪🇬" },
+                    { type: "riddle", riddle: "A contest held every four years,\nWith running, throwing, athletes' cheers.\nStarted in Greece long ago,\nNow the whole world puts on a show!", hint: "Famous sports event!", answer: "OLYMPICS", acceptableAnswers: ["OLYMPICS", "THE OLYMPICS", "OLYMPIC GAMES", "ΟΛΥΜΠΙΑΚΟΙ", "OLYMPIA", "ΟΛΥΜΠΙΑ"], funFact: "First Olympics were in 776 BC! (Greek: Ολυμπιακοί Αγώνες)", image: "🏃🏅🏟️" },
+                    { type: "yesno", question: "Did Romans build long, straight roads?", answer: "yes", funFact: "Some Roman roads still exist today!", image: "🛤️🚶➡️" },
+                    { type: "matching", question: "Match invention to civilization:", pairs: [{ left: "Democracy", right: "Greeks" }, { left: "Aqueducts", right: "Romans" }], funFact: "Romans brought water into cities!", image: "🗳️💧🏛️" },
+                    { type: "truefalse", question: "Ancient Greeks wrote plays.", answer: true, funFact: "Greek theaters held 15,000 people!", image: "🎭🎪👏" }
                 ],
                 rewards: ["📜", "🏛️", "⏳"]
             },
             easy: {
                 name: "😊 EASY", color: "#88d8ff",
                 questions: [
-                    { type: "riddle", riddle: "A soldier trained from young age,\nIn a Greek city known for rage.\nWe never surrender, never flee,\nCome back with shield or on it!", hint: "Famous Greek warriors!", answer: "SPARTAN", acceptableAnswers: ["SPARTAN", "SPARTANS", "SPARTA"], funFact: "Spartan training started at age 7!" },
-                    { type: "truefalse", question: "Gladiators fought in the Colosseum.", answer: true, funFact: "Colosseum held 50,000 spectators!" },
-                    { type: "yesno", question: "Did Greeks use an alphabet?", answer: "yes", funFact: "'Alphabet' comes from alpha and beta!" },
-                    { type: "riddle", riddle: "I'm a place where learning grew,\nPhilosophers taught what was true.\nSocrates and Plato here,\nIn ancient Greece, ideas clear!", hint: "Place of learning!", answer: "ATHENS", acceptableAnswers: ["ATHENS", "ACADEMY"], funFact: "Athens was center of philosophy!" },
-                    { type: "multiplechoice", question: "What did Romans bathe in?", choices: ["Rivers only", "Public bath houses", "Never bathed", "Private pools"], answer: "Public bath houses", funFact: "Roman baths had hot, warm, cold pools!" },
-                    { type: "truefalse", question: "Greek children played with toys.", answer: true, funFact: "Greek kids had dolls, balls, yo-yos!" },
-                    { type: "matching", question: "Match city to fame:", pairs: [{ left: "Athens", right: "Philosophy" }, { left: "Sparta", right: "Warriors" }, { left: "Rome", right: "Empire" }], funFact: "Athens and Sparta were rivals!" },
-                    { type: "yesno", question: "Did Romans have concrete?", answer: "yes", funFact: "Roman concrete is stronger than modern!" }
+                    { type: "riddle", riddle: "A soldier trained from young age,\nIn a Greek city known for rage.\nWe never surrender, never flee,\nCome back with shield or on it!", hint: "Famous Greek warriors!", answer: "SPARTAN", acceptableAnswers: ["SPARTAN", "SPARTANS", "SPARTA", "ΣΠΑΡΤΗ", "ΣΠΑΡΤΙΑΤΗΣ", "ΣΠΑΡΤΙΑΤΕΣ"], funFact: "Spartan training started at age 7! (Greek: Σπάρτη / Σπαρτιάτες)", image: "🛡️⚔️💪" },
+                    { type: "truefalse", question: "Gladiators fought in the Colosseum.", answer: true, funFact: "Colosseum held 50,000 spectators! (Latin: Colosseum)", image: "🏟️⚔️👊" },
+                    { type: "yesno", question: "Did Greeks use an alphabet?", answer: "yes", funFact: "'Alphabet' comes from alpha and beta! (Greek: Άλφα, Βήτα)", image: "🔤📝✍️" },
+                    { type: "riddle", riddle: "I'm a place where learning grew,\nPhilosophers taught what was true.\nSocrates and Plato here,\nIn ancient Greece, ideas clear!", hint: "Place of learning!", answer: "ATHENS", acceptableAnswers: ["ATHENS", "ACADEMY", "ΑΘΗΝΑ", "ATHINA"], funFact: "Athens was center of philosophy! (Greek: Αθήνα)", image: "🏛️📚🤔" },
+                    { type: "multiplechoice", question: "What did Romans bathe in?", choices: ["Rivers only", "Public bath houses", "Never bathed", "Private pools"], answer: "Public bath houses", funFact: "Roman baths had hot, warm, cold pools! (Latin: Thermae)", image: "🛁💦🏛️" },
+                    { type: "truefalse", question: "Greek children played with toys.", answer: true, funFact: "Greek kids had dolls, balls, yo-yos!", image: "🪀🎾🪆" },
+                    { type: "matching", question: "Match city to fame:", pairs: [{ left: "Athens", right: "Philosophy" }, { left: "Sparta", right: "Warriors" }, { left: "Rome", right: "Empire" }], funFact: "Athens and Sparta were rivals! (Αθήνα vs Σπάρτη)", image: "🏛️⚔️🦅" },
+                    { type: "yesno", question: "Did Romans have concrete?", answer: "yes", funFact: "Roman concrete is stronger than modern!", image: "🧱🏗️💪" }
                 ],
                 rewards: ["📜", "🗿", "⚔️", "🏺"]
             },
             ok: {
                 name: "👍 OK", color: "#ffd93d",
                 questions: [
-                    { type: "riddle", riddle: "I conquered from Greece to India,\nAt thirty-two I was no more.\nThey called me 'Great' through the land,\nMy empire vast and grand!", hint: "Famous young conqueror!", answer: "ALEXANDER", acceptableAnswers: ["ALEXANDER", "ALEXANDER THE GREAT"], funFact: "Alexander never lost a battle!" },
-                    { type: "truefalse", question: "Julius Caesar was a Roman emperor.", answer: false, correctInfo: "Caesar was dictator. Augustus was first emperor!", funFact: "July is named after Julius Caesar!" },
-                    { type: "yesno", question: "Did Greeks have coins?", answer: "yes", funFact: "Greek coins showed owls or gods!" },
-                    { type: "riddle", riddle: "Three hundred warriors held the pass,\nAgainst a Persian army vast.\nWe fought and died, earned great fame,\nThermopylae was our name!", hint: "Famous Spartan last stand!", answer: "SPARTANS", acceptableAnswers: ["SPARTANS", "300 SPARTANS", "THREE HUNDRED"], funFact: "King Leonidas led the 300!" },
-                    { type: "multiplechoice", question: "What was a Roman legion?", choices: ["Food", "Soldiers", "Temple", "Ship"], answer: "Soldiers", funFact: "A legion had about 5,000 soldiers!" },
-                    { type: "matching", question: "Match event to date:", pairs: [{ left: "First Olympics", right: "776 BC" }, { left: "Rome founded", right: "753 BC" }, { left: "Rome fell", right: "476 AD" }], funFact: "Roman Empire lasted 1,000+ years!" },
-                    { type: "truefalse", question: "Cleopatra was last pharaoh of Egypt.", answer: true, funFact: "Cleopatra lived closer to us than to pyramid builders!" },
-                    { type: "riddle", riddle: "Beware the Ides of March, said they,\nBut I ignored and paid the way.\nStabbed by friends in hall,\n'Et tu?' I cried as I did fall!", hint: "Famous Roman leader!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR"], funFact: "Caesar was stabbed 23 times!" }
+                    { type: "riddle", riddle: "I conquered from Greece to India,\nAt thirty-two I was no more.\nThey called me 'Great' through the land,\nMy empire vast and grand!", hint: "Famous young conqueror!", answer: "ALEXANDER", acceptableAnswers: ["ALEXANDER", "ALEXANDER THE GREAT", "ΑΛΕΞΑΝΔΡΟΣ", "ALEXANDROS", "MEGAS ALEXANDROS"], funFact: "Alexander never lost a battle! (Greek: Αλέξανδρος ο Μέγας)", image: "👑🗡️🌍" },
+                    { type: "truefalse", question: "Julius Caesar was a Roman emperor.", answer: false, correctInfo: "Caesar was dictator. Augustus was first emperor!", funFact: "July is named after Julius Caesar! (Latin: Iulius Caesar / Greek: Ιούλιος Καίσαρ)", image: "🏛️👤❌" },
+                    { type: "yesno", question: "Did Greeks have coins?", answer: "yes", funFact: "Greek coins showed owls or gods!", image: "🪙🦉💰" },
+                    { type: "riddle", riddle: "Three hundred warriors held the pass,\nAgainst a Persian army vast.\nWe fought and died, earned great fame,\nThermopylae was our name!", hint: "Famous Spartan last stand!", answer: "SPARTANS", acceptableAnswers: ["SPARTANS", "300 SPARTANS", "THREE HUNDRED", "ΣΠΑΡΤΙΑΤΕΣ", "300"], funFact: "King Leonidas led the 300! (Greek: Λεωνίδας & 300 Σπαρτιάτες)", image: "🛡️⚔️🔥" },
+                    { type: "multiplechoice", question: "What was a Roman legion?", choices: ["Food", "Soldiers", "Temple", "Ship"], answer: "Soldiers", funFact: "A legion had about 5,000 soldiers! (Latin: Legio)", image: "🪖🛡️⚔️" },
+                    { type: "matching", question: "Match event to date:", pairs: [{ left: "First Olympics", right: "776 BC" }, { left: "Rome founded", right: "753 BC" }, { left: "Rome fell", right: "476 AD" }], funFact: "Roman Empire lasted 1,000+ years!", image: "📅🏛️⏳" },
+                    { type: "truefalse", question: "Cleopatra was last pharaoh of Egypt.", answer: true, funFact: "Cleopatra lived closer to us than to pyramid builders! (Greek: Κλεοπάτρα)", image: "👸🇪🇬🐍" },
+                    { type: "riddle", riddle: "Beware the Ides of March, said they,\nBut I ignored and paid the way.\nStabbed by friends in hall,\n'Et tu?' I cried as I did fall!", hint: "Famous Roman leader!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR", "ΚΑΙΣΑΡΑΣ", "IULIUS"], funFact: "Caesar was stabbed 23 times! (Latin: Gaius Iulius Caesar / Greek: Καίσαρας)", image: "🗡️📅😵" }
                 ],
                 rewards: ["📜", "⛲", "🗿", "⚔️", "👑"]
             },
             hard: {
                 name: "🔥 HARD", color: "#ff6b6b",
                 questions: [
-                    { type: "riddle", riddle: "I crossed the Alps with elephants tall,\nTo make the mighty Romans fall.\nFrom Carthage came my deadly force,\nI won each battle on my course!", hint: "Almost conquered Rome!", answer: "HANNIBAL", funFact: "Hannibal crossed Alps with 37 elephants!" },
-                    { type: "multiplechoice", question: "How long was the Peloponnesian War?", choices: ["5 years", "10 years", "27 years", "50 years"], answer: "27 years", funFact: "The war weakened all of Greece!" },
-                    { type: "riddle", riddle: "I wrote about the Trojan War,\nBlind poet, tales of ancient lore.\nIliad and Odyssey,\nAre epic poems by me!", hint: "Famous Greek poet!", answer: "HOMER", funFact: "We don't know if Homer was one person!" },
-                    { type: "truefalse", question: "Library of Alexandria was largest in ancient world.", answer: true, funFact: "It may have held 400,000 scrolls!" },
-                    { type: "matching", question: "Match philosopher to idea:", pairs: [{ left: "Socrates", right: "Question everything" }, { left: "Plato", right: "World of forms" }, { left: "Aristotle", right: "Logic & science" }], funFact: "Each was teacher of the next!" },
-                    { type: "riddle", riddle: "I ran 26 miles with the news,\n'We won!' I cried, then paid my dues.\nFrom Marathon I ran so far,\nNow races bear my star!", hint: "Origin of marathon!", answer: "PHEIDIPPIDES", acceptableAnswers: ["PHEIDIPPIDES", "MARATHON", "MESSENGER"], funFact: "Marathons are 26.2 miles because of this!" },
-                    { type: "multiplechoice", question: "What did Archimedes discover in bathtub?", choices: ["Gravity", "Water displacement", "Electricity", "Magnetism"], answer: "Water displacement", funFact: "He shouted 'Eureka!' - 'I found it!'" },
-                    { type: "riddle", riddle: "A mountain that one day blew,\nBuried Pompeii and people too.\nIn 79 AD I woke,\nFrozen in ash, no joke!", hint: "Famous volcanic eruption!", answer: "VESUVIUS", acceptableAnswers: ["VESUVIUS", "MOUNT VESUVIUS"], funFact: "Pompeii preserved Roman daily life!" }
+                    { type: "riddle", riddle: "I crossed the Alps with elephants tall,\nTo make the mighty Romans fall.\nFrom Carthage came my deadly force,\nI won each battle on my course!", hint: "Almost conquered Rome!", answer: "HANNIBAL", acceptableAnswers: ["HANNIBAL", "ΑΝΝΙΒΑΣ", "HANNIBAL BARCA"], funFact: "Hannibal crossed Alps with 37 elephants! (Greek: Αννίβας)", image: "🐘🏔️⚔️" },
+                    { type: "multiplechoice", question: "How long was the Peloponnesian War?", choices: ["5 years", "10 years", "27 years", "50 years"], answer: "27 years", funFact: "The war weakened all of Greece! (Greek: Πελοποννησιακός Πόλεμος)", image: "⚔️📅😢" },
+                    { type: "riddle", riddle: "I wrote about the Trojan War,\nBlind poet, tales of ancient lore.\nIliad and Odyssey,\nAre epic poems by me!", hint: "Famous Greek poet!", answer: "HOMER", acceptableAnswers: ["HOMER", "ΟΜΗΡΟΣ", "HOMEROS"], funFact: "We don't know if Homer was one person! (Greek: Όμηρος)", image: "📜👴🎭" },
+                    { type: "truefalse", question: "Library of Alexandria was largest in ancient world.", answer: true, funFact: "It may have held 400,000 scrolls! (Greek: Βιβλιοθήκη της Αλεξάνδρειας)", image: "📚🏛️🔥" },
+                    { type: "matching", question: "Match philosopher to idea:", pairs: [{ left: "Socrates", right: "Question everything" }, { left: "Plato", right: "World of forms" }, { left: "Aristotle", right: "Logic & science" }], funFact: "Each was teacher of the next! (Σωκράτης, Πλάτων, Αριστοτέλης)", image: "🤔💭📚" },
+                    { type: "riddle", riddle: "I ran 26 miles with the news,\n'We won!' I cried, then paid my dues.\nFrom Marathon I ran so far,\nNow races bear my star!", hint: "Origin of marathon!", answer: "PHEIDIPPIDES", acceptableAnswers: ["PHEIDIPPIDES", "ΦΕΙΔΙΠΠΙΔΗΣ", "MARATHON", "ΜΑΡΑΘΩΝ", "PHILIPPIDES"], funFact: "Marathons are 26.2 miles because of this! (Greek: Φειδιππίδης)", image: "🏃💨📣" },
+                    { type: "multiplechoice", question: "What did Archimedes discover in bathtub?", choices: ["Gravity", "Water displacement", "Electricity", "Magnetism"], answer: "Water displacement", funFact: "He shouted 'Eureka!' - 'I found it!' (Greek: Εύρηκα!)", image: "🛁💡😲" },
+                    { type: "riddle", riddle: "A mountain that one day blew,\nBuried Pompeii and people too.\nIn 79 AD I woke,\nFrozen in ash, no joke!", hint: "Famous volcanic eruption!", answer: "VESUVIUS", acceptableAnswers: ["VESUVIUS", "MOUNT VESUVIUS", "ΒΕΖΟΥΒΙΟΣ", "VESUVIO"], funFact: "Pompeii preserved Roman daily life! (Latin: Vesuvius / Greek: Βεζούβιος)", image: "🌋🔥🏛️" }
                 ],
                 rewards: ["⚔️", "🛡️", "👑", "📜", "💎"]
             },
             extreme: {
                 name: "💀 EXTREME", color: "#9b59b6",
                 questions: [
-                    { type: "riddle", riddle: "Strangled by my own mom's plot,\nEmperor at sixteen, quite a lot!\nBlamed Christians for Rome's fire,\nMy cruelty made my name inspire!", hint: "Cruel Roman emperor!", answer: "NERO", funFact: "Legend says Nero played music while Rome burned!" },
-                    { type: "multiplechoice", question: "What was the Pax Romana?", choices: ["Roman bread", "200 years of peace", "A god", "Army formation"], answer: "200 years of peace", funFact: "Pax Romana lasted 27 BC to 180 AD!" },
-                    { type: "riddle", riddle: "I calculated pi, moved the world,\nWith levers my genius unfurled.\n'Give me lever long enough,' I said,\n'I'll move the Earth!' from my head!", hint: "Brilliant mathematician!", answer: "ARCHIMEDES", funFact: "Archimedes invented war machines!" },
-                    { type: "truefalse", question: "Twelve Tables were Rome's first written laws.", answer: true, funFact: "They were carved on bronze in 450 BC!" },
-                    { type: "matching", question: "Match battle to result:", pairs: [{ left: "Marathon", right: "Greeks beat Persia" }, { left: "Thermopylae", right: "300 Spartans" }, { left: "Actium", right: "Octavian wins" }], funFact: "Battle of Actium made Octavian emperor!" },
-                    { type: "riddle", riddle: "I crossed the Rubicon one day,\n'The die is cast!' I heard me say.\nThis act of war changed fate,\nRepublic died, Empire great!", hint: "Started civil war!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR"], funFact: "Crossing Rubicon meant no going back!" },
-                    { type: "multiplechoice", question: "What was Greek Fire?", choices: ["Cooking method", "Weapon burning on water", "Ceremony", "Pottery"], answer: "Weapon burning on water", funFact: "Greek Fire formula is lost to history!" },
-                    { type: "truefalse", question: "Romans had central heating called hypocausts.", answer: true, funFact: "Hot air flowed under floors and walls!" }
+                    { type: "riddle", riddle: "Strangled by my own mom's plot,\nEmperor at sixteen, quite a lot!\nBlamed Christians for Rome's fire,\nMy cruelty made my name inspire!", hint: "Cruel Roman emperor!", answer: "NERO", acceptableAnswers: ["NERO", "ΝΕΡΩΝ", "NERON"], funFact: "Legend says Nero played music while Rome burned! (Latin: Nero / Greek: Νέρων)", image: "🔥🎻👑" },
+                    { type: "multiplechoice", question: "What was the Pax Romana?", choices: ["Roman bread", "200 years of peace", "A god", "Army formation"], answer: "200 years of peace", funFact: "Pax Romana lasted 27 BC to 180 AD! (Latin: Roman Peace)", image: "☮️🏛️🕊️" },
+                    { type: "riddle", riddle: "I calculated pi, moved the world,\nWith levers my genius unfurled.\n'Give me lever long enough,' I said,\n'I'll move the Earth!' from my head!", hint: "Brilliant mathematician!", answer: "ARCHIMEDES", acceptableAnswers: ["ARCHIMEDES", "ΑΡΧΙΜΗΔΗΣ"], funFact: "Archimedes invented war machines! (Greek: Αρχιμήδης)", image: "📐🌍💡" },
+                    { type: "truefalse", question: "Twelve Tables were Rome's first written laws.", answer: true, funFact: "They were carved on bronze in 450 BC! (Latin: Leges Duodecim Tabularum)", image: "📜⚖️🏛️" },
+                    { type: "matching", question: "Match battle to result:", pairs: [{ left: "Marathon", right: "Greeks beat Persia" }, { left: "Thermopylae", right: "300 Spartans" }, { left: "Actium", right: "Octavian wins" }], funFact: "Battle of Actium made Octavian emperor! (Μαραθών, Θερμοπύλες, Άκτιο)", image: "⚔️🛡️🏆" },
+                    { type: "riddle", riddle: "I crossed the Rubicon one day,\n'The die is cast!' I heard me say.\nThis act of war changed fate,\nRepublic died, Empire great!", hint: "Started civil war!", answer: "CAESAR", acceptableAnswers: ["CAESAR", "JULIUS CAESAR", "ΚΑΙΣΑΡΑΣ", "IULIUS CAESAR"], funFact: "Crossing Rubicon meant no going back! (Latin: Alea iacta est / Greek: Καίσαρας)", image: "🎲🌊⚔️" },
+                    { type: "multiplechoice", question: "What was Greek Fire?", choices: ["Cooking method", "Weapon burning on water", "Ceremony", "Pottery"], answer: "Weapon burning on water", funFact: "Greek Fire formula is lost to history! (Greek: Υγρό Πυρ)", image: "🔥🌊💥" },
+                    { type: "truefalse", question: "Romans had central heating called hypocausts.", answer: true, funFact: "Hot air flowed under floors and walls! (Latin: Hypocaustum)", image: "🔥🏠♨️" }
                 ],
                 rewards: ["👑", "⚔️", "🛡️", "💎", "🌟", "📜", "💀"]
             }
@@ -579,18 +619,18 @@
                 name: "⚡ W1: Gods Review", 
                 color: "#ffd700",
                 questions: [
-                    { type: "multiplechoice", question: "Who was king of all the Greek gods?", choices: ["Poseidon", "Hades", "Zeus", "Apollo"], answer: "Zeus", funFact: "Zeus ruled from Mount Olympus!" },
-                    { type: "riddle", riddle: "I have three heads and guard the dead,\nIn the Underworld I make my bed.\nNo soul escapes my watchful eyes,\nI'm Hades' pet of fearsome size!", hint: "Three-headed dog!", answer: "CERBERUS", funFact: "Cerberus means 'spotted' in Greek!" },
-                    { type: "matching", question: "Match Greek gods to Roman names:", pairs: [{ left: "Zeus", right: "Jupiter" }, { left: "Poseidon", right: "Neptune" }, { left: "Ares", right: "Mars" }, { left: "Athena", right: "Minerva" }], funFact: "Romans adopted Greek gods but gave them new names!" },
-                    { type: "truefalse", question: "Athena was the goddess of wisdom and war.", answer: true, funFact: "Athena's symbol was the owl!" },
-                    { type: "multiplechoice", question: "What weapon did Poseidon carry?", choices: ["Lightning bolt", "Sword", "Trident", "Bow"], answer: "Trident", funFact: "Poseidon could cause earthquakes with his trident!" },
-                    { type: "riddle", riddle: "Twelve labors I had to do,\nFighting monsters through and through.\nThe strongest hero, that is me,\nSon of Zeus for all to see!", hint: "Strongest Greek hero!", answer: "HERCULES", acceptableAnswers: ["HERCULES", "HERACLES"], funFact: "Hercules became a god after completing his labors!" },
-                    { type: "yesno", question: "Did Hermes have wings on his sandals?", answer: "yes", funFact: "Hermes was the fastest of all the gods!" },
-                    { type: "multiplechoice", question: "Who flew too close to the sun?", choices: ["Perseus", "Theseus", "Icarus", "Orpheus"], answer: "Icarus", funFact: "The wax holding Icarus's wings melted!" },
-                    { type: "truefalse", question: "Medusa could turn people to stone by looking at them.", answer: true, funFact: "Perseus used a mirror shield to defeat her!" },
-                    { type: "riddle", riddle: "I stole fire for humankind,\nChained to a rock, my fate unkind.\nAn eagle ate my liver each day,\nBut it grew back, to my dismay!", hint: "Punished forever for helping humans!", answer: "PROMETHEUS", funFact: "Prometheus means 'forethought' in Greek!" },
-                    { type: "matching", question: "Match heroes to their famous deeds:", pairs: [{ left: "Perseus", right: "Killed Medusa" }, { left: "Theseus", right: "Defeated Minotaur" }, { left: "Odysseus", right: "Trojan Horse" }], funFact: "Greek heroes inspired stories for thousands of years!" },
-                    { type: "multiplechoice", question: "What stayed inside Pandora's Box?", choices: ["Love", "Hope", "Death", "Fear"], answer: "Hope", funFact: "Hope remained so humans could survive all the evils released!" }
+                    { type: "multiplechoice", question: "Who was king of all the Greek gods?", choices: ["Poseidon", "Hades", "Zeus", "Apollo"], answer: "Zeus", funFact: "Zeus ruled from Mount Olympus! (Greek: Ζεύς / Roman: Jupiter)", image: "⚡👑🏛️" },
+                    { type: "riddle", riddle: "I have three heads and guard the dead,\nIn the Underworld I make my bed.\nNo soul escapes my watchful eyes,\nI'm Hades' pet of fearsome size!", hint: "Three-headed dog!", answer: "CERBERUS", acceptableAnswers: ["CERBERUS", "ΚΕΡΒΕΡΟΣ", "KERBEROS"], funFact: "Cerberus means 'spotted' in Greek! (Greek: Κέρβερος)", image: "🐶🐶🐶🔥" },
+                    { type: "matching", question: "Match Greek gods to Roman names:", pairs: [{ left: "Zeus", right: "Jupiter" }, { left: "Poseidon", right: "Neptune" }, { left: "Ares", right: "Mars" }, { left: "Athena", right: "Minerva" }], funFact: "Romans adopted Greek gods but gave them new names!", image: "🇬🇷➡️🇮🇹" },
+                    { type: "truefalse", question: "Athena was the goddess of wisdom and war.", answer: true, funFact: "Athena's symbol was the owl! (Greek: Αθηνά / Roman: Minerva)", image: "🦉🛡️👩" },
+                    { type: "multiplechoice", question: "What weapon did Poseidon carry?", choices: ["Lightning bolt", "Sword", "Trident", "Bow"], answer: "Trident", funFact: "Poseidon could cause earthquakes with his trident! (Greek: Ποσειδών / Roman: Neptune)", image: "🔱🌊🐚" },
+                    { type: "riddle", riddle: "Twelve labors I had to do,\nFighting monsters through and through.\nThe strongest hero, that is me,\nSon of Zeus for all to see!", hint: "Strongest Greek hero!", answer: "HERCULES", acceptableAnswers: ["HERCULES", "HERACLES", "ΗΡΑΚΛΗΣ", "HERAKLES"], funFact: "Hercules became a god after completing his labors! (Greek: Ηρακλής / Roman: Hercules)", image: "💪🦁⚔️" },
+                    { type: "yesno", question: "Did Hermes have wings on his sandals?", answer: "yes", funFact: "Hermes was the fastest of all the gods! (Greek: Ερμής / Roman: Mercury)", image: "👟🪶💨" },
+                    { type: "multiplechoice", question: "Who flew too close to the sun?", choices: ["Perseus", "Theseus", "Icarus", "Orpheus"], answer: "Icarus", funFact: "The wax holding Icarus's wings melted! (Greek: Ίκαρος)", image: "☀️🪶😱" },
+                    { type: "truefalse", question: "Medusa could turn people to stone by looking at them.", answer: true, funFact: "Perseus used a mirror shield to defeat her! (Greek: Μέδουσα)", image: "🐍👀🪨" },
+                    { type: "riddle", riddle: "I stole fire for humankind,\nChained to a rock, my fate unkind.\nAn eagle ate my liver each day,\nBut it grew back, to my dismay!", hint: "Punished forever!", answer: "PROMETHEUS", acceptableAnswers: ["PROMETHEUS", "ΠΡΟΜΗΘΕΑΣ", "ΠΡΟΜΗΘΕΥΣ"], funFact: "Prometheus means 'forethought' in Greek! (Greek: Προμηθέας)", image: "🔥⛓️🦅" },
+                    { type: "matching", question: "Match heroes to their famous deeds:", pairs: [{ left: "Perseus", right: "Killed Medusa" }, { left: "Theseus", right: "Defeated Minotaur" }, { left: "Odysseus", right: "Trojan Horse" }], funFact: "Greek heroes inspired stories for thousands of years! (Περσέας, Θησέας, Οδυσσέας)", image: "🗡️🐂🐴" },
+                    { type: "multiplechoice", question: "What stayed inside Pandora's Box?", choices: ["Love", "Hope", "Death", "Fear"], answer: "Hope", funFact: "Hope remained so humans could survive all the evils released! (Greek: Πανδώρα - Ελπίδα)", image: "📦✨🙏" }
                 ],
                 rewards: ["⚡", "🏛️", "🦉", "🔱", "⭐", "👑"]
             },
@@ -598,18 +638,18 @@
                 name: "📜 W2: History Review", 
                 color: "#3498db",
                 questions: [
-                    { type: "multiplechoice", question: "Which civilization invented democracy?", choices: ["Romans", "Egyptians", "Greeks", "Persians"], answer: "Greeks", funFact: "Democracy means 'rule by the people'!" },
-                    { type: "riddle", riddle: "I crossed the Alps with elephants tall,\nTo make the mighty Romans fall.\nFrom Carthage I led my force,\nWinning battles on my course!", hint: "Almost conquered Rome!", answer: "HANNIBAL", funFact: "Hannibal crossed the Alps with 37 elephants!" },
-                    { type: "matching", question: "Match the event to its date:", pairs: [{ left: "First Olympics", right: "776 BC" }, { left: "Rome founded", right: "753 BC" }, { left: "Rome fell", right: "476 AD" }], funFact: "Ancient history spans thousands of years!" },
-                    { type: "truefalse", question: "Julius Caesar was the first Roman emperor.", answer: false, correctInfo: "Augustus was the first emperor. Caesar was a dictator!", funFact: "The month July is named after Julius Caesar!" },
-                    { type: "multiplechoice", question: "How many Spartans fought at Thermopylae?", choices: ["100", "300", "500", "1000"], answer: "300", funFact: "King Leonidas led the 300 Spartans!" },
-                    { type: "riddle", riddle: "I conquered from Greece to India's shore,\nAt thirty-two I was no more.\nThey called me 'Great' through the land,\nMy empire vast and grand!", hint: "Young conqueror who never lost!", answer: "ALEXANDER", acceptableAnswers: ["ALEXANDER", "ALEXANDER THE GREAT"], funFact: "Alexander created one of the largest empires in history!" },
-                    { type: "yesno", question: "Did Romans build aqueducts to carry water?", answer: "yes", funFact: "Some Roman aqueducts still stand today!" },
-                    { type: "multiplechoice", question: "What was the Colosseum used for?", choices: ["Theater plays", "Gladiator fights", "Senate meetings", "Markets"], answer: "Gladiator fights", funFact: "The Colosseum could hold 50,000 spectators!" },
-                    { type: "truefalse", question: "Cleopatra was the last pharaoh of Egypt.", answer: true, funFact: "Cleopatra lived closer to our time than to when the pyramids were built!" },
-                    { type: "riddle", riddle: "In 79 AD I woke from sleep,\nBuried a city in ash so deep.\nPompeii frozen in time that day,\nMy eruption took lives away!", hint: "Famous volcano near Rome!", answer: "VESUVIUS", acceptableAnswers: ["VESUVIUS", "MOUNT VESUVIUS"], funFact: "Pompeii was preserved so well we can see Roman daily life!" },
-                    { type: "matching", question: "Match philosophers to their ideas:", pairs: [{ left: "Socrates", right: "Question everything" }, { left: "Plato", right: "World of forms" }, { left: "Aristotle", right: "Logic & science" }], funFact: "Each philosopher taught the next one!" },
-                    { type: "multiplechoice", question: "What did Archimedes shout when he made his discovery?", choices: ["Wow!", "Eureka!", "Amazing!", "Victory!"], answer: "Eureka!", funFact: "Eureka means 'I found it!' in Greek!" }
+                    { type: "multiplechoice", question: "Which civilization invented democracy?", choices: ["Romans", "Egyptians", "Greeks", "Persians"], answer: "Greeks", funFact: "Democracy means 'rule by the people'! (Greek: Δημοκρατία)", image: "🗳️👥🇬🇷" },
+                    { type: "riddle", riddle: "I crossed the Alps with elephants tall,\nTo make the mighty Romans fall.\nFrom Carthage I led my force,\nWinning battles on my course!", hint: "Almost conquered Rome!", answer: "HANNIBAL", acceptableAnswers: ["HANNIBAL", "ΑΝΝΙΒΑΣ", "HANNIBAL BARCA"], funFact: "Hannibal crossed the Alps with 37 elephants! (Greek: Αννίβας)", image: "🐘🏔️⚔️" },
+                    { type: "matching", question: "Match the event to its date:", pairs: [{ left: "First Olympics", right: "776 BC" }, { left: "Rome founded", right: "753 BC" }, { left: "Rome fell", right: "476 AD" }], funFact: "Ancient history spans thousands of years!", image: "📅🏛️⏳" },
+                    { type: "truefalse", question: "Julius Caesar was the first Roman emperor.", answer: false, correctInfo: "Augustus was the first emperor. Caesar was a dictator!", funFact: "The month July is named after Julius Caesar! (Latin: Iulius / Greek: Καίσαρας)", image: "🏛️👤❌" },
+                    { type: "multiplechoice", question: "How many Spartans fought at Thermopylae?", choices: ["100", "300", "500", "1000"], answer: "300", funFact: "King Leonidas led the 300 Spartans! (Greek: Λεωνίδας & 300 Σπαρτιάτες)", image: "🛡️⚔️💪" },
+                    { type: "riddle", riddle: "I conquered from Greece to India's shore,\nAt thirty-two I was no more.\nThey called me 'Great' through the land,\nMy empire vast and grand!", hint: "Young conqueror!", answer: "ALEXANDER", acceptableAnswers: ["ALEXANDER", "ALEXANDER THE GREAT", "ΑΛΕΞΑΝΔΡΟΣ", "ALEXANDROS"], funFact: "Alexander created one of the largest empires in history! (Greek: Αλέξανδρος ο Μέγας)", image: "👑🗡️🌍" },
+                    { type: "yesno", question: "Did Romans build aqueducts to carry water?", answer: "yes", funFact: "Some Roman aqueducts still stand today! (Latin: Aquaeductus)", image: "💧🏛️🌉" },
+                    { type: "multiplechoice", question: "What was the Colosseum used for?", choices: ["Theater plays", "Gladiator fights", "Senate meetings", "Markets"], answer: "Gladiator fights", funFact: "The Colosseum could hold 50,000 spectators! (Latin: Colosseum)", image: "🏟️⚔️👊" },
+                    { type: "truefalse", question: "Cleopatra was the last pharaoh of Egypt.", answer: true, funFact: "Cleopatra lived closer to our time than to when the pyramids were built! (Greek: Κλεοπάτρα)", image: "👸🇪🇬🐍" },
+                    { type: "riddle", riddle: "In 79 AD I woke from sleep,\nBuried a city in ash so deep.\nPompeii frozen in time that day,\nMy eruption took lives away!", hint: "Famous volcano!", answer: "VESUVIUS", acceptableAnswers: ["VESUVIUS", "MOUNT VESUVIUS", "ΒΕΖΟΥΒΙΟΣ", "VESUVIO"], funFact: "Pompeii was preserved so well we can see Roman daily life! (Latin: Vesuvius / Greek: Βεζούβιος)", image: "🌋🔥🏛️" },
+                    { type: "matching", question: "Match philosophers to their ideas:", pairs: [{ left: "Socrates", right: "Question everything" }, { left: "Plato", right: "World of forms" }, { left: "Aristotle", right: "Logic & science" }], funFact: "Each philosopher taught the next one! (Σωκράτης, Πλάτων, Αριστοτέλης)", image: "🤔💭📚" },
+                    { type: "multiplechoice", question: "What did Archimedes shout when he made his discovery?", choices: ["Wow!", "Eureka!", "Amazing!", "Victory!"], answer: "Eureka!", funFact: "Eureka means 'I found it!' in Greek! (Greek: Εύρηκα!)", image: "🛁💡😲" }
                 ],
                 rewards: ["📜", "⏳", "🏺", "⚔️", "🛡️", "🏆"]
             }
@@ -768,19 +808,22 @@
             const qc = document.getElementById('qCard');
             const q = currentQ;
             
+            // Create image display
+            const imageHtml = q.image ? `<div class="question-image">${q.image}</div>` : '';
+            
             switch(q.type) {
                 case 'truefalse':
-                    qc.innerHTML = `<span class="q-type">True or False</span><p class="q-text">${q.question}</p>
+                    qc.innerHTML = `${imageHtml}<span class="q-type">True or False</span><p class="q-text">${q.question}</p>
                         <div class="answers"><button class="ans-btn" onclick="checkTF(true)">✓ TRUE</button>
                         <button class="ans-btn" onclick="checkTF(false)">✗ FALSE</button></div>`;
                     break;
                 case 'yesno':
-                    qc.innerHTML = `<span class="q-type">Yes or No</span><p class="q-text">${q.question}</p>
+                    qc.innerHTML = `${imageHtml}<span class="q-type">Yes or No</span><p class="q-text">${q.question}</p>
                         <div class="answers"><button class="ans-btn" onclick="checkYN('yes')">👍 YES</button>
                         <button class="ans-btn" onclick="checkYN('no')">👎 NO</button></div>`;
                     break;
                 case 'riddle':
-                    qc.innerHTML = `<span class="q-type">🧩 Riddle!</span>
+                    qc.innerHTML = `${imageHtml}<span class="q-type">🧩 Riddle!</span>
                         <div class="riddle-box"><div class="riddle-icon">🤔</div>
                         <p class="riddle-text">${q.riddle.replace(/\n/g, '<br>')}</p></div>
                         <input type="text" class="riddle-input" id="riddleIn" placeholder="Your answer..." maxlength="30">
@@ -790,26 +833,27 @@
                     break;
                 case 'multiplechoice':
                     const choicesHtml = q.choices.map(c => `<button class="choice-btn" onclick="checkMC('${c.replace(/'/g, "\\'")}')">${c}</button>`).join('');
-                    qc.innerHTML = `<span class="q-type">Multiple Choice</span><p class="q-text">${q.question}</p>
+                    qc.innerHTML = `${imageHtml}<span class="q-type">Multiple Choice</span><p class="q-text">${q.question}</p>
                         <div class="choices-grid">${choicesHtml}</div>`;
                     break;
                 case 'matching':
                     const left = q.pairs.map((p, i) => `<div class="match-item" onclick="selectMatch('left',${i},this)">${p.left}</div>`).join('');
                     const right = [...q.pairs].sort(() => Math.random() - 0.5).map(p => `<div class="match-item" onclick="selectMatch('right','${p.right.replace(/'/g, "\\'")}',this)">${p.right}</div>`).join('');
-                    qc.innerHTML = `<span class="q-type">Matching</span><p class="q-text">${q.question}</p>
+                    qc.innerHTML = `${imageHtml}<span class="q-type">Matching</span><p class="q-text">${q.question}</p>
                         <div class="match-container"><div class="match-col"><h4>Match From</h4>${left}</div>
                         <div class="match-col"><h4>Match To</h4>${right}</div></div>`;
                     break;
                 case 'write':
-                    qc.innerHTML = `<span class="q-type">Write Answer</span><p class="q-text">${q.question}</p>
-                        <textarea class="write-input" id="writeIn" placeholder="Your answer..."></textarea>
+                    qc.innerHTML = `${imageHtml}<span class="q-type">Write Answer</span><p class="q-text">${q.question}</p>
+                        <textarea class="write-input" id="writeIn" placeholder="Write a full sentence... (Capital letter + period!)"></textarea>
+                        <p style="color:#7d3c98;font-size:0.85em;margin-top:8px;">💡 Remember: Start with a capital letter, end with a period!</p>
                         <button class="submit-btn" onclick="checkWrite()">Submit</button>`;
                     break;
                 case 'order':
                     const shuffled = [...q.items].sort(() => Math.random() - 0.5);
                     const orderHtml = shuffled.map((item, i) => `<div class="order-item" draggable="true" data-order="${item.order}">
                         <span class="order-num">${i + 1}</span><span>${item.text}</span></div>`).join('');
-                    qc.innerHTML = `<span class="q-type">Put In Order</span><p class="q-text">${q.question}</p>
+                    qc.innerHTML = `${imageHtml}<span class="q-type">Put In Order</span><p class="q-text">${q.question}</p>
                         <div class="order-list" id="orderList">${orderHtml}</div>
                         <button class="submit-btn" onclick="checkOrder()">Check Order</button>`;
                     setupDragDrop();
@@ -893,11 +937,34 @@
 
         function checkWrite() {
             const ans = document.getElementById('writeIn').value.trim();
-            if (ans.length > 0) {
-                showFeedback('neutral', currentQ, "Great answer!");
-                document.getElementById('writeIn').disabled = true;
-                document.querySelector('.submit-btn').disabled = true;
+            
+            // Check for full sentence: starts with capital, ends with punctuation, has at least 3 words
+            const startsWithCapital = /^[A-Z]/.test(ans);
+            const endsWithPunctuation = /[.!?]$/.test(ans);
+            const wordCount = ans.split(/\s+/).filter(w => w.length > 0).length;
+            const isFullSentence = startsWithCapital && endsWithPunctuation && wordCount >= 3;
+            
+            if (ans.length === 0) {
+                return; // Don't submit empty
             }
+            
+            if (!isFullSentence) {
+                // Show error message
+                const fb = document.getElementById('feedback');
+                fb.className = 'feedback incorrect';
+                let hint = '✏️ Please write a full sentence! ';
+                if (!startsWithCapital) hint += 'Start with a capital letter. ';
+                if (!endsWithPunctuation) hint += 'End with a period (.), question mark (?), or exclamation mark (!). ';
+                if (wordCount < 3) hint += 'Use at least 3 words. ';
+                fb.innerHTML = hint;
+                fb.style.display = 'block';
+                return;
+            }
+            
+            // Valid full sentence
+            showFeedback('neutral', currentQ, "Great answer! Nice full sentence!");
+            document.getElementById('writeIn').disabled = true;
+            document.querySelector('.submit-btn').disabled = true;
         }
 
         function setupDragDrop() {
